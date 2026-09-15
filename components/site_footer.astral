@@ -5,5 +5,5 @@
     <a href="/elsewhere/">Elsewhere</a>
     <a href="/colophon/">Colophon</a>
   </nav>
-  <p class="mt-4 text-dim"><small>© 2012–<span data-current-year>2026</span> Danila Poyarkov</small></p>
+  <p class="mt-4 text-dim"><small>© 2012–{Date.utc_today().year} Danila Poyarkov · Built with <a href="https://github.com/elixir-volt/astral">Astral</a></small></p>
 </footer>

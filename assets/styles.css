@@ -156,9 +156,7 @@
     scroll-margin-block-start: 2rem;
   }
 
-  .prose-swiss pre,
-  .prose-swiss figure,
-  .prose-swiss img {
+  .prose-swiss :where(pre, figure, img):not(:where(.not-prose, .not-prose *)) {
     border-radius: 0;
   }
 
