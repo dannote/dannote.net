@@ -28,6 +28,9 @@ blog-*.tar
 /assets/.astral/
 /priv/static/assets/
 
+# Icon set downloads are a cache; the small application manifest is versioned.
+/priv/iconify/sets/
+
 # Local environment and editor/OS files.
 .env
 .env.*

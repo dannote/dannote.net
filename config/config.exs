@@ -1,5 +1,8 @@
 import Config
 
+# PhoenixIconify 0.3 does not scan Markdown files for literal icon names.
+config :phoenix_iconify, extra_icons: ["simple-icons:github", "simple-icons:x"]
+
 config :volt,
   format: [
     print_width: 100,

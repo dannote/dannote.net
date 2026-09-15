@@ -35,4 +35,11 @@ mix ci
 - Add browser assets under `assets/`; Volt builds and serves them.
 - Put files copied verbatim into the output under `public/`.
 
+## Icons
+
+The small `priv/iconify/manifest.json` is committed so builds can render the
+selected icons without fetching them again. Downloaded sets under
+`priv/iconify/sets/` are an ignored cache. Until PhoenixIconify discovers icons
+inside Markdown, their names are listed in `config/config.exs`.
+
 Astral documentation: <https://hexdocs.pm/astral>
