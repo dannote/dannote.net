@@ -11,6 +11,16 @@ plugin Astral.Plugin.Feed,
 
 plugin Astral.Plugin.Sitemap, site_url: "https://dannote.net"
 
+plugin Astral.Plugin.LLMs,
+  site_url: "https://dannote.net",
+  title: "Danila Poyarkov",
+  description: "Open-source projects, technical writing, and personal links.",
+  sections: [
+    {"About", ["/about/", "/projects/"]},
+    {"Writing", ["/writing/", {:collection, :articles}]},
+    {"Optional", ["/elsewhere/", "/colophon/"]}
+  ]
+
 layouts do
   default "site.astral"
 end
