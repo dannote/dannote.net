@@ -48,6 +48,7 @@ defmodule Blog.MixProject do
         "compile --warnings-as-errors",
         "format --check-formatted",
         "volt.js.check --type-aware --type-check",
+        "astral.build",
         "test",
         "credo --strict",
         "dialyzer",
