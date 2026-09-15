@@ -7,5 +7,5 @@
     "noEmit": true,
     "lib": ["ES2022", "DOM", "DOM.Iterable"]
   },
-  "include": ["assets/**/*.ts"]
+  "include": ["assets/**/*.ts", "deps/volt/priv/types/client/**/*.d.ts"]
 }
