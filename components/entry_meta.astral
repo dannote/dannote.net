@@ -1,0 +1,20 @@
+---
+entry = assigns[:entry]
+kind = assigns[:kind] || "Essay"
+lang = entry.data.language || "en"
+read_language = if lang == "ru", do: "Russian", else: "English"
+
+assigns =
+  assigns
+  |> assign(:entry, entry)
+  |> assign(:kind, kind)
+  |> assign(:lang, lang)
+  |> assign(:read_language, read_language)
+---
+
+<div class="mt-rhythm-3 flex flex-wrap gap-x-5 gap-y-1 border-t border-copy/55 pt-rhythm-1 font-mono text-micro text-dim" aria-label="Publication details">
+  <span>{@kind}</span>
+  <span><.formatted_date value={@entry.data.date} lang={@lang} /></span>
+  <span>{@read_language}</span>
+  <span :if={Map.get(@entry.data, :updated)}>Revised <.formatted_date value={@entry.data.updated} lang={@lang} /></span>
+</div>

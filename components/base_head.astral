@@ -1,0 +1,36 @@
+---
+title = assigns[:title] || "Danila Poyarkov"
+description = assigns[:description] || "Open-source tools for coding agents, design automation, and the Elixir ecosystem."
+site_url = assigns[:site_url] || "https://dannote.net"
+route = assigns[:route] || "/"
+canonical = "#{String.trim_trailing(site_url, "/")}#{route}"
+locale = assigns[:locale] || "en"
+type = assigns[:type] || "website"
+
+assigns =
+  assigns
+  |> assign(:canonical, canonical)
+  |> assign(:description, description)
+  |> assign(:locale, locale)
+  |> assign(:title, title)
+  |> assign(:type, type)
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="color-scheme" content="light dark" />
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f4f1e9" />
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#171714" />
+<link rel="canonical" href={@canonical} />
+<link rel="alternate" type="application/atom+xml" title="Danila Poyarkov — Writing" href="/feed.xml" />
+<title>{@title}</title>
+<meta name="description" content={@description} />
+<meta property="og:type" content={@type} />
+<meta property="og:url" content={@canonical} />
+<meta property="og:title" content={@title} />
+<meta property="og:description" content={@description} />
+<meta property="og:locale" content={@locale} />
+<meta property="og:site_name" content="dannote.net" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={@title} />
+<meta name="twitter:description" content={@description} />

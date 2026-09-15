@@ -1,0 +1,219 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@source inline("prose prose-swiss prose-lg max-w-none");
+
+@theme {
+  --font-sans: "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+  --font-mono: "SFMono-Regular", "Cascadia Mono", "Roboto Mono", Consolas, monospace;
+
+  --color-paper: oklch(96.2% 0.012 88);
+  --color-paper-raised: oklch(98.5% 0.008 88);
+  --color-ink: oklch(18% 0.012 265);
+  --color-muted: oklch(48% 0.015 265);
+  --color-link: oklch(46% 0.23 264);
+  --color-visited: oklch(43% 0.2 315);
+  --color-signal: oklch(56% 0.22 28);
+
+  --text-micro: clamp(0.76rem, 0.73rem + 0.12vw, 0.84rem);
+  --text-copy: clamp(1rem, 0.96rem + 0.18vw, 1.125rem);
+  --text-deck: clamp(1.0625rem, 1rem + 0.2vw, 1.2rem);
+  --text-section: clamp(1.35rem, 1.2rem + 0.4vw, 1.65rem);
+  --text-display: clamp(1.8rem, 1.5rem + 1vw, 2.35rem);
+  --text-poster: var(--text-display);
+
+  --spacing-gutter: clamp(1rem, 3.2vw, 3.5rem);
+  --spacing-rhythm-1: clamp(0.5rem, 0.4rem + 0.5vw, 0.85rem);
+  --spacing-rhythm-2: clamp(0.85rem, 0.66rem + 0.9vw, 1.45rem);
+  --spacing-rhythm-3: clamp(1.4rem, 1.05rem + 1.7vw, 2.55rem);
+  --spacing-rhythm-4: clamp(2.4rem, 1.6rem + 4vw, 5.1rem);
+  --spacing-rhythm-5: clamp(4rem, 2.5rem + 7.5vw, 9rem);
+
+  --breakpoint-xs: 30rem;
+  --breakpoint-3xl: 112rem;
+}
+
+@theme inline {
+  --color-page: light-dark(var(--color-paper), oklch(19% 0.012 88));
+  --color-surface: light-dark(var(--color-paper-raised), oklch(23% 0.012 88));
+  --color-copy: light-dark(var(--color-ink), oklch(92% 0.01 88));
+  --color-dim: light-dark(var(--color-muted), oklch(68% 0.012 88));
+  --color-hyperlink: light-dark(var(--color-link), oklch(72% 0.16 250));
+  --color-followed: light-dark(var(--color-visited), oklch(72% 0.16 320));
+  --color-accent: light-dark(var(--color-signal), oklch(66% 0.2 28));
+}
+
+@utility prose-swiss {
+  --tw-prose-body: var(--color-copy);
+  --tw-prose-headings: var(--color-copy);
+  --tw-prose-lead: var(--color-copy);
+  --tw-prose-links: var(--color-hyperlink);
+  --tw-prose-bold: var(--color-copy);
+  --tw-prose-counters: var(--color-accent);
+  --tw-prose-bullets: var(--color-accent);
+  --tw-prose-hr: color-mix(in oklch, var(--color-copy) 30%, transparent);
+  --tw-prose-quotes: var(--color-copy);
+  --tw-prose-quote-borders: var(--color-accent);
+  --tw-prose-captions: var(--color-dim);
+  --tw-prose-code: var(--color-copy);
+  --tw-prose-pre-code: var(--color-page);
+  --tw-prose-pre-bg: var(--color-copy);
+  --tw-prose-th-borders: color-mix(in oklch, var(--color-copy) 48%, transparent);
+  --tw-prose-td-borders: color-mix(in oklch, var(--color-copy) 22%, transparent);
+}
+
+@layer base {
+  html {
+    color-scheme: light dark;
+    background: var(--color-page);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    min-width: 20rem;
+    background: var(--color-page);
+    color: var(--color-copy);
+    font-family: var(--font-sans);
+    font-size: var(--text-copy);
+    font-synthesis: none;
+    font-optical-sizing: auto;
+    line-height: 1.55;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: color-mix(in oklch, var(--color-accent) 72%, transparent);
+    color: var(--color-copy);
+  }
+
+  :focus-visible {
+    outline: 0.18rem solid var(--color-accent);
+    outline-offset: 0.2rem;
+  }
+
+  :target {
+    scroll-margin-block-start: 2rem;
+  }
+
+  a {
+    color: var(--color-hyperlink);
+    text-decoration-line: underline;
+    text-decoration-thickness: 0.07em;
+    text-underline-offset: 0.14em;
+  }
+
+  a:visited {
+    color: var(--color-followed);
+  }
+
+  a:hover {
+    text-decoration-thickness: 0.14em;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+
+  code,
+  kbd,
+  samp,
+  pre {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums slashed-zero;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    @view-transition {
+      navigation: auto;
+    }
+
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+      animation-duration: 180ms;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      scroll-behavior: auto !important;
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .prose-swiss :where(h2, h3, h4) {
+    scroll-margin-block-start: 2rem;
+  }
+
+  .prose-swiss pre,
+  .prose-swiss figure,
+  .prose-swiss img {
+    border-radius: 0;
+  }
+
+  .prose-swiss :not(pre) > code {
+    background: color-mix(in oklch, var(--color-copy) 8%, transparent);
+    padding-inline: 0.22em;
+  }
+
+  .prose-swiss :not(pre) > code::before,
+  .prose-swiss :not(pre) > code::after {
+    content: none;
+  }
+
+}
+
+@media print {
+  @page {
+    margin: 18mm 20mm;
+  }
+
+  :root {
+    color-scheme: light;
+  }
+
+  body {
+    background: white;
+    color: black;
+    font-size: 10.5pt;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  .site-header,
+  .site-footer,
+  .article-toc,
+  .skip-link,
+  [data-reading-progress] {
+    display: none !important;
+  }
+
+  .prose a[href^="http"]::after {
+    content: " <" attr(href) ">";
+    font-family: var(--font-mono);
+    font-size: 0.75em;
+    overflow-wrap: anywhere;
+  }
+
+  h1,
+  h2,
+  h3,
+  figure,
+  pre,
+  blockquote {
+    break-inside: avoid;
+  }
+}

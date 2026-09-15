@@ -1,0 +1,9 @@
+<footer class="site-footer mt-14 border-t border-copy/20 pt-5 pb-8 text-sm">
+  <nav class="flex flex-wrap gap-x-5 gap-y-2" aria-label="Further links">
+    <a href="https://github.com/dannote" rel="me">GitHub</a>
+    <a href="/feed.xml">Atom feed</a>
+    <a href="/elsewhere/">Elsewhere</a>
+    <a href="/colophon/">Colophon</a>
+  </nav>
+  <p class="mt-4 text-dim"><small>© 2012–<span data-current-year>2026</span> Danila Poyarkov</small></p>
+</footer>

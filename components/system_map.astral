@@ -1,0 +1,16 @@
+---
+svg = "content/diagrams/system-map.mmd" |> File.read!() |> Mermex.render!()
+assigns = assign(assigns, :svg, svg)
+---
+<figure class="not-prose my-rhythm-2" aria-labelledby="system-map-caption">
+  <figcaption id="system-map-caption" class="mb-2 font-mono text-micro">
+    From product hypothesis to evidence-backed next step. Design, build, deploy,
+    and observe, supported by shared tools and services.
+  </figcaption>
+  <.vue component="islands/SystemMap.vue" client={:visible} props={%{target: "system-map-drawing"}} />
+  <div class="max-h-[75vh] overflow-auto border border-copy/55 bg-white p-rhythm-1" tabindex="0" role="region" aria-label="Platform diagram; scroll to explore">
+    <div id="system-map-drawing" class="origin-top-left [zoom:var(--map-zoom,1)]" role="img" aria-labelledby="system-map-caption">
+      {raw(@svg)}
+    </div>
+  </div>
+</figure>
