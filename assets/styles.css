@@ -165,15 +165,15 @@
 
 @utility destination-links {
   & a:is([href^="https://github.com/"], [href^="https://x.com/"], [href^="https://twitter.com/"]):not(:has(svg, img)) {
-    @apply after:ms-1 after:inline-block after:size-3 after:bg-current after:content-[''] after:mask-center after:mask-no-repeat after:mask-contain;
+    @apply before:me-1 before:inline-block before:size-3 before:bg-current before:content-[''] before:mask-center before:mask-no-repeat before:mask-contain;
   }
 
   & a[href^="https://github.com/"] {
-    @apply after:mask-[url('/icons/github.svg')];
+    @apply before:mask-[url('/icons/github.svg')];
   }
 
   & a:is([href^="https://x.com/"], [href^="https://twitter.com/"]) {
-    @apply after:mask-[url('/icons/x.svg')];
+    @apply before:mask-[url('/icons/x.svg')];
   }
 }
 
