@@ -29,10 +29,9 @@ defmodule Blog.SocialImages do
   @inset 64
   @content_width @width - 2 * @inset
   @marker %{y: @inset, width: 56, height: 6}
-  @label %{baseline: 110, size: 24}
-  @title %{top: 150, height: 250, size: 62, line_height: 76, max_lines: 3}
-  @description %{top: 404, height: 82, size: 27, line_height: 38, max_lines: 2}
-  @footer %{rule_y: 532, rule_height: 1, baseline: 580, domain_x: 928, size: 24}
+  @title %{top: 108, height: 280, size: 76, line_height: 90, max_lines: 3}
+  @description %{top: 404, height: 90, size: 34, line_height: 44, max_lines: 2}
+  @footer %{rule_y: 532, rule_height: 1, baseline: 580, domain_x: 874, size: 30}
   @ellipsis "…"
 
   @doc "Identify this site-local plugin."
@@ -56,9 +55,7 @@ defmodule Blog.SocialImages do
       |> Enum.map(fn entry ->
         card_route(site, path(entry.route_path), %{
           title: entry.data.title,
-          description: entry.data.description,
-          label:
-            "#{Map.get(entry.data, :kind, "Essay")} · #{Calendar.strftime(entry.data.date, "%d %B %Y")}"
+          description: entry.data.description
         })
       end)
 
@@ -68,7 +65,7 @@ defmodule Blog.SocialImages do
   @doc "Render generated PNG routes identically in development and static builds."
   @impl true
   def render_route(%Astral.Route{kind: :social_image, assigns: data}, _site, _opts) do
-    with {:ok, png} <- render(data.title, data.description, data.label) do
+    with {:ok, png} <- render(data.title, data.description) do
       {:ok, png, "image/png"}
     end
   end
@@ -76,7 +73,7 @@ defmodule Blog.SocialImages do
   def render_route(_route, _site, _opts), do: nil
 
   @doc "Draw a 1200 × 630 card, bounding long text with paragraph layout and ellipsis."
-  def render(title, description, label) do
+  def render(title, description) do
     with {:ok, regular} <- typeface("Regular"),
          {:ok, bold} <- typeface("Bold") do
       canvas(@width, @height)
@@ -87,13 +84,6 @@ defmodule Blog.SocialImages do
         width: @marker.width,
         height: @marker.height,
         fill: @palette.accent
-      )
-      |> text(label,
-        x: @inset,
-        y: @label.baseline,
-        font: Font.new(regular),
-        size: @label.size,
-        fill: @palette.muted
       )
       |> paragraph(title, bold, @title, @palette.ink)
       |> paragraph(description, regular, @description, @palette.muted)

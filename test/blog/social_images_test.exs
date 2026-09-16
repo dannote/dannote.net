@@ -22,7 +22,7 @@ defmodule Blog.SocialImagesTest do
     title = String.duplicate("Инструменты для разработчиков и агентов. ", 8)
 
     assert {:ok, png} =
-             SocialImages.render(title, "Описание проекта — без внешних сервисов.", "Заметка")
+             SocialImages.render(title, "Описание проекта — без внешних сервисов.")
 
     assert <<137, 80, 78, 71, 13, 10, 26, 10, 13::32, "IHDR", 1200::32, 630::32, _::binary>> = png
   end
