@@ -11,7 +11,7 @@
     <script type="module" src={Astral.asset_path(@site, "app.ts")}>
     </script>
   </head>
-  <body class="destination-links" data-route={@route}>
+  <body data-route={@route}>
     <.site_shell route={@route}>
       <main id="content">
         <.prose>{@content}</.prose>

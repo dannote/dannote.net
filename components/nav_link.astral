@@ -1,0 +1,11 @@
+<.icon_link
+  href={@href}
+  icon={assigns[:icon]}
+  aria-current={assigns[:active] && "page"}
+  class={[
+    "text-hyperlink visited:text-hyperlink",
+    assigns[:active] && "font-semibold text-copy! visited:text-copy!",
+    assigns[:class]
+  ]}
+  {assigns_to_attributes(assigns, [:href, :icon, :active, :class, :inner_block])}
+>{render_slot(@inner_block)}</.icon_link>

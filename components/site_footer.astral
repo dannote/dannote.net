@@ -1,8 +1,8 @@
 <footer class="site-footer mt-8 border-t border-copy/20 pt-4 pb-6 text-base">
   <nav class="flex flex-wrap gap-x-5 gap-y-2" aria-label="Further links">
-    <a href="https://github.com/dannote" rel="me">GitHub</a>
-    <a href="/feed.xml">Atom feed</a>
-    <a href="/elsewhere/">Elsewhere</a>
+    <.profile_links />
+    <.nav_link href="/feed.xml" icon="lucide:rss">Atom feed</.nav_link>
+    <.nav_link href="/elsewhere/">Elsewhere</.nav_link>
   </nav>
   <p class="mt-3 text-dim">
     © 2012–{Date.utc_today().year} Danila Poyarkov · Built with

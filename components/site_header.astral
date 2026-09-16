@@ -12,15 +12,15 @@ section =
 assigns = assign(assigns, :section, section)
 ---
 <header class="site-header mb-8 flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3 border-b border-copy/20 py-6">
-  <a href="/" aria-label="Danila Poyarkov, home">dannote.net</a>
+  <.nav_link href="/" aria-label="Danila Poyarkov, home">dannote.net</.nav_link>
 
   <nav
-    class="flex flex-wrap gap-x-5 gap-y-2 [&_[aria-current=page]]:font-semibold [&_[aria-current=page]]:text-copy"
+    class="flex flex-wrap gap-x-5 gap-y-2"
     aria-label="Primary navigation"
   >
-    <a href="/writing/" aria-current={@section == :writing && "page"}>Writing</a>
-    <a href="/projects/" aria-current={@section == :projects && "page"}>Projects</a>
-    <a href="/about/" aria-current={@section == :about && "page"}>About</a>
+    <.nav_link href="/writing/" active={@section == :writing}>Writing</.nav_link>
+    <.nav_link href="/projects/" active={@section == :projects}>Projects</.nav_link>
+    <.nav_link href="/about/" active={@section == :about}>About</.nav_link>
     <button
       hidden
       data-theme-toggle

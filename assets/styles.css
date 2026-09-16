@@ -163,20 +163,6 @@
   grid-template-columns: var(--spacing-toc) minmax(0, 1fr);
 }
 
-@utility destination-links {
-  & a:is([href^="https://github.com/"], [href^="https://x.com/"], [href^="https://twitter.com/"]):not(:has(svg, img)) {
-    @apply before:me-1 before:inline-block before:size-3 before:bg-current before:content-[''] before:mask-center before:mask-no-repeat before:mask-contain;
-  }
-
-  & a[href^="https://github.com/"] {
-    @apply before:mask-[url('/icons/github.svg')];
-  }
-
-  & a:is([href^="https://x.com/"], [href^="https://twitter.com/"]) {
-    @apply before:mask-[url('/icons/x.svg')];
-  }
-}
-
 @layer components {
   .prose-swiss :where(h2, h3, h4) {
     scroll-margin-block-start: 2rem;

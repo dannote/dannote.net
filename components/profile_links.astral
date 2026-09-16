@@ -1,0 +1,26 @@
+---
+profiles = [
+  %{
+    href: "https://github.com/dannote",
+    icon: "simple-icons:github",
+    label: "GitHub",
+    handle: "@dannote"
+  },
+  %{href: "https://x.com/dan_note", icon: "simple-icons:x", label: "Twitter", handle: "@dan_note"}
+]
+
+assigns = assign(assigns, :profiles, profiles)
+---
+<ul class={[
+  "not-prose m-0 flex list-none gap-x-5 gap-y-2 p-0",
+  if(assigns[:handles], do: "flex-col", else: "flex-wrap")
+]}>
+  <li :for={profile <- @profiles}>
+    <.nav_link
+      href={profile.href}
+      icon={profile.icon}
+      rel="me"
+      aria-label={"#{profile.label} — #{profile.handle}"}
+    >{if assigns[:handles], do: profile.handle, else: profile.label}</.nav_link>
+  </li>
+</ul>

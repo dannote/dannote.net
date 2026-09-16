@@ -29,7 +29,4 @@ I take photographs, write, and make absurdist YouTube clips with friends. There 
 
 ## Links
 
-<ul>
-  <li><a href="https://github.com/dannote" rel="me"><.icon name="simple-icons:github" class="mr-1 inline-block align-[-0.125em]" width="16" height="16" aria-hidden="true" /> GitHub — @dannote</a></li>
-  <li><a href="https://x.com/dan_note" rel="me"><.icon name="simple-icons:x" class="mr-1 inline-block align-[-0.125em]" width="16" height="16" aria-hidden="true" /> X / Twitter — @dan_note</a></li>
-</ul>
+<.profile_links handles={true} />

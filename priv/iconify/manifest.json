@@ -15,6 +15,18 @@
     },
     {
       "hidden": false,
+      "name": "lucide:rss",
+      "left": 0,
+      "width": 24,
+      "body": "<g fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"><path d=\"M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16\"/><circle cx=\"5\" cy=\"19\" r=\"1\"/></g>",
+      "height": 24,
+      "top": 0,
+      "rotate": 0,
+      "h_flip": false,
+      "v_flip": false
+    },
+    {
+      "hidden": false,
       "name": "lucide:sun",
       "left": 0,
       "width": 24,

@@ -21,15 +21,18 @@ assigns =
     <script type="module" src={Astral.asset_path(@site, "app.ts")}>
     </script>
   </head>
-  <body class="destination-links" data-route={@route} data-entry-kind="article">
+  <body data-route={@route} data-entry-kind="article">
     <.site_shell route={@route} skip_target="article-content" skip_label="Skip to article">
       <main id="article-content">
         <article class="pb-6 wide:-ml-toc-offset wide:grid wide:grid-cols-article wide:gap-x-10">
           <header class="mb-6 wide:col-start-2">
             <p class="text-sm"><a href="/writing/">Writing</a></p>
             <h1 class="mt-3 text-display">{@entry.data.title}</h1>
-            <p class="mt-rhythm-2 max-w-3xl text-deck leading-snug tracking-tight pretty">
-              {@description}
+            <p
+              :if={@entry.data[:subtitle]}
+              class="mt-rhythm-2 max-w-3xl text-deck leading-snug tracking-tight pretty"
+            >
+              {@entry.data.subtitle}
             </p>
             <.entry_meta entry={@entry} kind={Map.get(@entry.data, :kind, "Essay")} />
           </header>

@@ -9,7 +9,7 @@ draft: false
 
 *Originally posted on [X](https://x.com/dan_note/status/2063414257308614713).*
 
-I’m increasingly convinced that [@duckdb](https://x.com/duckdb) is becoming one of the best storage choices for hobby to medium-sized projects.
+I’m increasingly convinced that <.icon_link href="https://x.com/duckdb" icon="simple-icons:x">@duckdb</.icon_link> is becoming one of the best storage choices for hobby to medium-sized projects.
 
 Postgres is still the obvious default for highly concurrent OLTP systems, but many small and medium products are read-heavy, append-heavy, analytical, or operated by a small team. For those workloads, DuckDB’s columnar execution model, vectorized engine, rich SQL surface, and embedded/local-first deployment model can be a much better fit.
 

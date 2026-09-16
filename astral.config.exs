@@ -55,6 +55,7 @@ collection :articles, "content/articles" do
   schema do
     field(:title, :string, required: true)
     field(:description, :string, required: true)
+    field(:subtitle, :string)
     field(:date, :date, required: true)
     field(:updated, :date)
     field(:draft, :boolean, default: false)

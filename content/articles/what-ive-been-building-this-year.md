@@ -1,6 +1,7 @@
 ---
 title: What I’ve Been Building This Year
 description: An end-to-end open-source platform for startup factories, assembled one missing building block at a time.
+subtitle: "Or: my roadmap for turning Figma into a penny stock."
 date: 2026-09-16
 updated: 2026-09-16
 language: en
@@ -12,8 +13,6 @@ tags:
   - design tools
 ---
 
-
-*Or: my roadmap for turning Figma into a penny stock.*
 
 Since the beginning of this year, I have released dozens of open-source projects.
 
@@ -65,9 +64,9 @@ Good design is iterative too. A designer normally begins by collecting reference
 
 Most AI design tools ignore this process. They try to generate a finished screen in one shot. Even when the screenshot looks impressive, the structure underneath is often useless: unnamed nested frames, no components, no tokens, and no coherent system that another designer can continue working with.
 
-With `figma-use`, an agent could work on the actual structure. It could create and modify nodes, use components and variants, render JSX, inspect the resulting tree, and continue from there. I added visual diffing so it could see what changed. I added design linting so it could catch structural and accessibility problems. I also wanted design files to participate in automated pipelines: linted in CI, compared between revisions, analyzed for inconsistencies, and exported without somebody manually opening Figma.
+With [`figma-use`](https://github.com/dannote/figma-use), an agent could work on the actual structure. It could create and modify nodes, use components and variants, render JSX, inspect the resulting tree, and continue from there. I added visual diffing so it could see what changed. I added design linting so it could catch structural and accessibility problems. I also wanted design files to participate in automated pipelines: linted in CI, compared between revisions, analyzed for inconsistencies, and exported without somebody manually opening Figma.
 
-Then Figma released an update that blocked the debugging interface `figma-use` relied on.
+Then Figma released an update that blocked the debugging interface [`figma-use`](https://github.com/dannote/figma-use) relied on.
 
 I found workarounds and kept the tool working, but the larger lesson was obvious. I could not build this kind of infrastructure on access that a vendor could remove at any moment. If agents were going to treat design as a real programmable medium, the editor itself had to be open.
 
@@ -75,7 +74,7 @@ That is how [OpenPencil](https://github.com/open-pencil/open-pencil) began.
 
 ## OpenPencil became a toolkit
 
-OpenPencil initially gave me an independent environment for the work I had started with `figma-use`. It could open and write `.fig` files, render them without Figma, and let agents modify the actual document structure.
+OpenPencil initially gave me an independent environment for the work I had started with [`figma-use`](https://github.com/dannote/figma-use). It could open and write `.fig` files, render them without Figma, and let agents modify the actual document structure.
 
 While refactoring the project, I realized that the editor itself should not be the only useful result. I split the monolith into reusable parts: the `.fig` and Kiwi parsers, scene graph, editor core, CLI, MCP server, and headless Vue SDK. The OpenPencil application is now one consumer of these packages.
 

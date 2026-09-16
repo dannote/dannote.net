@@ -7,7 +7,7 @@
     <summary id="toc-title" class="cursor-pointer font-semibold">Contents</summary>
     <ol class="mt-2 space-y-1">
       <li :for={heading <- @headings} class={heading.level > 2 && "pl-3"}>
-        <a href={"##{heading.id}"}>{heading.text}</a>
+        <a class="visited:text-hyperlink" href={"##{heading.id}"}>{heading.text}</a>
       </li>
     </ol>
   </details>

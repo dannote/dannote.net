@@ -1,0 +1,10 @@
+<a
+  href={@href}
+  class={assigns[:class]}
+  {assigns_to_attributes(assigns, [:href, :icon, :class, :inner_block])}
+><.icon
+  :if={assigns[:icon]}
+  name={@icon}
+  class="mr-1 inline-block size-4 align-middle"
+  aria-hidden="true"
+/>{render_slot(@inner_block)}</a>

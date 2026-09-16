@@ -1,0 +1,8 @@
+<div>
+  <h3 class="mt-0 mb-1 text-lg"><a href={@entry.route_path}>{@entry.data.title}</a></h3>
+  <small class="block text-dim"><.formatted_date
+    value={@entry.data.date}
+    lang={@entry.data.language}
+  /></small>
+  <p class="mb-0">{@entry.data.description}</p>
+</div>

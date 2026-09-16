@@ -42,7 +42,7 @@ selected icons without fetching them again. Downloaded sets under
 `priv/iconify/sets/` are an ignored cache. Until PhoenixIconify discovers icons
 inside Markdown, their names are listed in `config/config.exs`.
 
-The GitHub and X masks in `public/icons/` come from [Simple Icons](https://github.com/simple-icons/simple-icons) (CC0). The `destination-links` Tailwind utility adds them to matching destinations without changing Markdown source or duplicating explicit icons.
+Icons are explicit PhoenixIconify components, not inferred from URLs. Shared `icon_link`, `nav_link`, and `profile_links` components keep leading icons, navigation state, and profile destinations consistent. Prose links and source attributions stay plain; the footer feed and profile links have icons.
 
 ## Formatting and highlighting
 
