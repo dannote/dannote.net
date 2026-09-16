@@ -16,7 +16,7 @@ Before changing site structure, routing, layouts, content collections, Markdown 
    - Assets and browser code: <https://hexdocs.pm/astral/assets.html> and <https://hexdocs.pm/astral/ui-and-browser-code.html>
 3. Prefer the installed dependency's documentation and source when behavior depends on the exact locked version. Inspect `mix.lock`, use Elixir dependency/docs introspection when available, or read `deps/astral/`; do not assume Astro conventions apply.
 
-Astral is currently pinned through `{:astral, "~> 0.3.0"}`. Keep changes compatible with the version resolved in `mix.lock`.
+Astral uses `{:astral, "~> 0.3.2"}`. Keep changes compatible with the version resolved in `mix.lock`.
 
 ## Project structure
 
@@ -28,7 +28,7 @@ Astral is currently pinned through `{:astral, "~> 0.3.0"}`. Keep changes compati
 - `lib/` — project-specific Elixir modules.
 - `dist/` — generated static output; never edit or commit it.
 
-Use HEEx semantics in `.astral` templates and local components. Content collections use Markdown with YAML frontmatter and schemas declared in `astral.config.exs`. Prefer Astral's built-in APIs and components over hand-rolled routing, asset, image, feed, or sitemap behavior.
+Use HEEx semantics in `.astral` templates and local components. Extract repeated template styling into shared components and prefer Tailwind utilities and named theme tokens over repeated arbitrary values. `Astral.Formatter` integrates `.astral` templates with `mix format`; Markdown and CSS are not covered by that plugin. Content collections use Markdown with YAML frontmatter and schemas declared in `astral.config.exs`. Prefer Astral's built-in APIs and components over hand-rolled routing, asset, image, feed, or sitemap behavior.
 
 ## Development
 

@@ -8,16 +8,14 @@
       locale={@metadata["language"] || "en"}
     />
     <link rel="stylesheet" href={Astral.asset_path(@site, "styles.css")} />
-    <script type="module" src={Astral.asset_path(@site, "app.ts")}></script>
+    <script type="module" src={Astral.asset_path(@site, "app.ts")}>
+    </script>
   </head>
-  <body data-route={@route}>
-    <a class="fixed top-3 left-3 z-100 -translate-y-[200%] bg-copy px-3 py-2 text-page focus:translate-y-0" href="#content">Skip to content</a>
-    <div class="mx-auto w-[calc(100%-2.5rem)] max-w-3xl">
-      <.site_header route={@route} />
-      <main id="content" class="prose prose-swiss max-w-none text-copy prose-headings:font-semibold prose-h1:text-display prose-h2:text-section prose-h3:text-lg">
-        {@content}
+  <body class="destination-links" data-route={@route}>
+    <.site_shell route={@route}>
+      <main id="content">
+        <.prose>{@content}</.prose>
       </main>
-      <.site_footer />
-    </div>
+    </.site_shell>
   </body>
 </html>

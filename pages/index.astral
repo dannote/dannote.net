@@ -7,9 +7,14 @@ articles =
 
 assigns = assign(assigns, :articles, articles)
 ---
-
 <header class="flow-root">
-  <img src="/images/danila-poyarkov.jpg" width="460" height="460" alt="Danila Poyarkov" class="not-prose float-right mb-3 ml-6 size-20 rounded-full object-cover sm:size-24" />
+  <img
+    src="/images/danila-poyarkov.jpg"
+    width="460"
+    height="460"
+    alt="Danila Poyarkov"
+    class="not-prose float-right mb-3 ml-6 size-20 rounded-full object-cover sm:size-24"
+  />
   <h1 class="text-display">Danila Poyarkov</h1>
   <p>I build open-source tools for coding agents, design automation, and the Elixir ecosystem.</p>
   <p>
@@ -22,13 +27,30 @@ assigns = assign(assigns, :articles, articles)
 <section aria-labelledby="projects-title">
   <h2 id="projects-title">Selected projects</h2>
   <ul>
-    <li><a href="https://openpencil.dev">OpenPencil</a> — an open-source design editor and Figma alternative, with structured documents that people and agents can inspect and edit.</li>
-    <li><a href="https://github.com/dannote/figma-use">figma-use</a> — a CLI for structural queries, editing, diffs, and exports in Figma.</li>
-    <li><a href="https://github.com/elixir-vibe/reach">Reach</a> — code and data flow, effect analysis, and architecture checks for BEAM projects.</li>
-    <li><a href="https://github.com/elixir-volt/volt">Volt</a> — frontend builds and a development server for Phoenix, including HMR and Tailwind.</li>
-    <li><a href="https://github.com/elixir-volt/quickbeam">QuickBEAM</a> — a JavaScript runtime for the BEAM, with browser-like APIs backed by OTP.</li>
+    <li>
+      <a href="https://openpencil.dev">OpenPencil</a>
+      — an open-source design editor and Figma alternative, with structured documents that people and agents can inspect and edit.
+    </li>
+    <li>
+      <a href="https://github.com/dannote/figma-use">figma-use</a>
+      — a CLI for structural queries, editing, diffs, and exports in Figma.
+    </li>
+    <li>
+      <a href="https://github.com/elixir-vibe/reach">Reach</a>
+      — code and data flow, effect analysis, and architecture checks for BEAM projects.
+    </li>
+    <li>
+      <a href="https://github.com/elixir-volt/volt">Volt</a>
+      — frontend builds and a development server for Phoenix, including HMR and Tailwind.
+    </li>
+    <li>
+      <a href="https://github.com/elixir-volt/quickbeam">QuickBEAM</a>
+      — a JavaScript runtime for the BEAM, with browser-like APIs backed by OTP.
+    </li>
   </ul>
-  <p><a href="/projects/">More projects</a></p>
+  <p>
+    <a class="font-semibold text-accent! visited:text-accent!" href="/projects/">More projects →</a>
+  </p>
 </section>
 
 <section :if={@articles != []} aria-labelledby="writing-title">
@@ -36,7 +58,10 @@ assigns = assign(assigns, :articles, articles)
   <ul>
     <li :for={article <- @articles}>
       <a href={article.route_path}>{article.data.title}</a>
-      <small class="mt-1 block text-dim"><.formatted_date value={article.data.date} lang={article.data.language} /></small>
+      <small class="mt-1 block text-dim"><.formatted_date
+        value={article.data.date}
+        lang={article.data.language}
+      /></small>
       <p>{article.data.description}</p>
     </li>
   </ul>

@@ -42,4 +42,24 @@ selected icons without fetching them again. Downloaded sets under
 `priv/iconify/sets/` are an ignored cache. Until PhoenixIconify discovers icons
 inside Markdown, their names are listed in `config/config.exs`.
 
+The GitHub and X masks in `public/icons/` come from [Simple Icons](https://github.com/simple-icons/simple-icons) (CC0). The `destination-links` Tailwind utility adds them to matching destinations without changing Markdown source or duplicating explicit icons.
+
+## Formatting and highlighting
+
+`mix format` covers Elixir, `.astral` templates, and JavaScript/TypeScript. Template formatting delegates to Elixir, Phoenix HEEx, and Volt. Markdown and CSS are not currently source-formatted by this pipeline.
+
+Lumis renders language-tagged code blocks at build time with light/dark themes, using the Markdown options provided by Astral 0.3.2.
+
+## Social cards
+
+`Blog.SocialImages` is a site-local Astral plugin using Skia. It generates a default
+1200 × 630 PNG and one card per published article under `/social/`. The shared
+head component emits absolute Open Graph/X image URLs and alt text.
+
+The renderer owns named copy, palette, typography, and layout constants. Noto Sans
+Regular and Bold are bundled under `priv/fonts/` for reproducible Latin/Cyrillic
+text; their SIL Open Font License is included there. Cards render locally during
+builds and through the same route callback in development—no browser or remote
+image service is required.
+
 Astral documentation: <https://hexdocs.pm/astral>

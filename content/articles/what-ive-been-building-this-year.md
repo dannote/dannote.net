@@ -1,8 +1,8 @@
 ---
 title: What I’ve Been Building This Year
 description: An end-to-end open-source platform for startup factories, assembled one missing building block at a time.
-date: 2026-09-03
-updated: 2026-09-03
+date: 2026-09-16
+updated: 2026-09-16
 language: en
 draft: false
 tags:
@@ -127,6 +127,28 @@ I started turning the checks I was performing during reviews into tools.
 
 [ExAST](https://github.com/elixir-vibe/ex_ast) provides structural search and replacement for Elixir. Instead of grepping source text or inventing a regular expression, an agent can search for an actual Elixir syntax pattern and modify the matching AST.
 
+For example, suppose an agent wants to combine a map-and-join pipeline into one operation:
+
+```elixir
+# Before: build an intermediate list, then join it.
+Enum.map(names, &String.trim/1) |> Enum.join(", ")
+
+# After: produce the joined string directly.
+Enum.map_join(names, ", ", &String.trim/1)
+```
+
+ExAST can describe that change as a structural pattern and preview the replacements before anything is applied:
+
+```elixir
+plan = ExAST.rewrite_plan(
+  source,
+  "Enum.map(items, mapper) |> Enum.join(separator)",
+  "Enum.map_join(items, separator, mapper)"
+)
+```
+
+`items`, `mapper`, and `separator` capture expressions, not pieces of text. The same pattern works across line breaks and different variable names; a string containing the example is not a match. The plan exposes the original code, replacement, source range, and any conflicts for review. With the pure `String.trim/1` mapper, both versions return the same string; the replacement avoids the intermediate list. That does not make every matching rewrite safe: changing evaluation order still needs semantic review.
+
 [ExDNA](https://github.com/elixir-vibe/ex_dna) detects duplicated code structurally. It can find exact and near-duplicate implementations even when variable names, literals, or surrounding syntax differ, and identify candidates for extraction into shared code. I use it with a zero-duplication budget in most of my projects.
 
 [ExSlop](https://github.com/elixir-vibe/ex_slop) catches other recurring generated-code patterns that are not duplicates but often indicate that an agent ignored the language or the project’s existing abstractions.
@@ -149,13 +171,11 @@ By then, I had a much better environment for agents working on the Elixir parts 
 
 ## How the projects fit together
 
-Before going further, this is how I currently see the platform from the perspective of a founder. The main path follows a product from a hypothesis to the next decision. The surrounding subsystems provide the agents, checks, frontend tooling, storage, services, deployment, and operational evidence used along the way.
+There are three useful layers to distinguish: the tools used to make a product, the environment that guides the work, and the infrastructure that runs it.
 
-This is not a package dependency graph, and not everything shown here is finished.
+<.platform_layers />
 
-<.system_map />
-
-I have left many lower-level packages out of the diagram. They matter, but showing every codec, compiler binding, and systemd helper would obscure the founder’s workflow.
+The smaller examples below show individual connections. There is no need to understand every package before following the argument.
 
 ## Frontend tooling in Elixir
 
@@ -178,6 +198,15 @@ The next missing part was package management. [`npm_ex`](https://github.com/elix
 I also created Elixir bindings for the Rust tools that already do much of the real work in modern frontend toolchains: OXC for JavaScript and TypeScript, Vize for Vue, and Tailwind’s Oxide scanner. These projects did not need to be rewritten; they needed APIs the BEAM could call directly.
 
 [Volt](https://github.com/elixir-volt/volt) assembles these pieces into one frontend toolchain. It provides a development server, HMR, compilation, Tailwind, linting, testing, and production builds for JavaScript, TypeScript, Vue, React, Svelte, and Solid. The toolchain starts with the application and can be configured, observed, and extended from Elixir.
+
+<figure class="not-prose my-10 border-y border-copy/25 py-6">
+  <figcaption class="mb-4 text-sm text-dim">The frontend path, with Volt owning the toolchain.</figcaption>
+  <ol class="grid gap-4 sm:grid-cols-3">
+    <li><strong class="block">1. Author</strong><span>TypeScript, Vue components, and CSS.</span></li>
+    <li><strong class="block">2. Build</strong><span>OXC, Vize, and Tailwind, coordinated from Elixir.</span></li>
+    <li><strong class="block">3. Run</strong><span>Browser assets, with HMR during development.</span></li>
+  </ol>
+</figure>
 
 This removes one boundary, but frontend and backend code can still describe two halves of the same behavior and quietly disagree.
 
@@ -283,7 +312,15 @@ This is useful not only for the founder. An agent can query the same data and co
 
 The important part is that these should be motivated suggestions, not unexplained autonomous decisions. An agent may propose changing a bid, pausing a campaign, investigating a slow request, or modifying a signup step. The founder can inspect the reasoning and approve the action.
 
-That closes the loop back to the next hypothesis: observe what happened, understand why, make a change, and measure it again.
+<figure class="not-prose my-10 border-y border-copy/25 py-6">
+  <figcaption class="mb-5 text-sm text-dim">The intended feedback loop — evidence first, approval before action.</figcaption>
+  <ol class="grid gap-5 sm:grid-cols-2">
+    <li><strong class="block">1. Observe</strong>Conversions, session recordings, errors, and costs.</li>
+    <li><strong class="block">2. Investigate</strong>Connect the user’s experience to runtime state and code.</li>
+    <li><strong class="block">3. Decide</strong>Review the evidence and approve a proposed change.</li>
+    <li><strong class="block">4. Measure again</strong>Check whether the change helped; return to observation.</li>
+  </ol>
+</figure>
 
 ## How this differs from Lovable and Replit
 
@@ -295,11 +332,11 @@ People tend to build for the conditions they know. Lovable and Replit grew out o
 
 ## What exists today
 
-The diagram describes the system I am building, not a finished product that can already be installed with one command.
+These examples describe the system I am building, not a finished product that can already be installed with one command.
 
 Most of the building blocks are public and useful independently. OpenPencil already ships as a desktop and web editor, CLI, MCP server, and Vue SDK. The analysis and frontend packages are published and used in real projects. The agent, storage, service, deployment, replay, and admin layers exist at different levels of maturity.
 
-VuePencil remains a prototype. Tilde and Egress are early. The DuckDB-backed analytics work is not finished, and Incant does not yet connect every source shown in the diagram.
+VuePencil remains a prototype. Tilde and Egress are early. The DuckDB-backed analytics work is not finished, and Incant does not yet connect all of these sources.
 
 The main missing piece is integration. These projects already use one another—Volt uses QuickBEAM, Exograph uses QuackDB and ExAST, HostKit consumes ReleaseKit artifacts, and my projects run the quality tools on themselves—but they do not yet form one coherent founder-facing product.
 

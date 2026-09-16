@@ -11,10 +11,13 @@ assigns =
   |> assign(:lang, lang)
   |> assign(:read_language, read_language)
 ---
-
-<div class="mt-rhythm-3 flex flex-wrap gap-x-5 gap-y-1 border-t border-copy/55 pt-rhythm-1 font-mono text-micro text-dim" aria-label="Publication details">
+<div
+  class="mt-6 flex flex-wrap items-baseline gap-x-3 gap-y-1 border-t border-copy/20 pt-3 text-sm text-dim"
+  aria-label="Publication details"
+>
   <span>{@kind}</span>
+  <span aria-hidden="true">·</span>
   <span><.formatted_date value={@entry.data.date} lang={@lang} /></span>
+  <span aria-hidden="true">·</span>
   <span>{@read_language}</span>
-  <span :if={Map.get(@entry.data, :updated)}>Revised <.formatted_date value={@entry.data.updated} lang={@lang} /></span>
 </div>

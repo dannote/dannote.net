@@ -1,0 +1,14 @@
+<aside
+  :if={@headings != []}
+  class="article-toc my-6 border-y border-copy/20 py-3 text-sm leading-relaxed wide:sticky wide:top-6 wide:col-start-1 wide:row-start-1 wide:row-span-2 wide:my-0 wide:max-h-toc-height wide:self-start wide:overflow-y-auto wide:overscroll-contain wide:border-0"
+  aria-labelledby="toc-title"
+>
+  <details>
+    <summary id="toc-title" class="cursor-pointer font-semibold">Contents</summary>
+    <ol class="mt-2 space-y-1">
+      <li :for={heading <- @headings} class={heading.level > 2 && "pl-3"}>
+        <a href={"##{heading.id}"}>{heading.text}</a>
+      </li>
+    </ol>
+  </details>
+</aside>

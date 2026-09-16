@@ -1,0 +1,15 @@
+---
+assigns =
+  assigns
+  |> assign_new(:skip_target, fn -> "content" end)
+  |> assign_new(:skip_label, fn -> "Skip to content" end)
+---
+<a
+  class="skip-link fixed -top-20 left-3 z-100 bg-copy px-3 py-2 text-page focus:top-3"
+  href={"##{@skip_target}"}
+>{@skip_label}</a>
+<div class="mx-auto box-content max-w-3xl px-5">
+  <.site_header route={@route} />
+  {render_slot(@inner_block)}
+  <.site_footer />
+</div>

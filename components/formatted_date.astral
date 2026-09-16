@@ -1,7 +1,7 @@
 ---
 lang = assigns[:lang] || "en"
 value = assigns[:value]
-format = if lang == "ru", do: "%d.%m.%Y", else: "%B %d, %Y"
+format = if lang == "ru", do: "%d.%m.%Y", else: "%-d %B %Y"
 
 formatted =
   cond do
@@ -14,5 +14,4 @@ iso = if match?(%Date{}, value), do: Date.to_iso8601(value), else: formatted
 
 assigns = assigns |> assign(:formatted, formatted) |> assign(:iso, iso)
 ---
-
 <time datetime={@iso}>{@formatted}</time>

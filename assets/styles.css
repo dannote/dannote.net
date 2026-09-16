@@ -29,8 +29,16 @@
   --spacing-rhythm-4: clamp(2.4rem, 1.6rem + 4vw, 5.1rem);
   --spacing-rhythm-5: clamp(4rem, 2.5rem + 7.5vw, 9rem);
 
+  --spacing-toc: 13rem;
+  --spacing-toc-offset: calc(var(--spacing-toc) + var(--spacing) * 10);
+  --spacing-toc-height: calc(100dvh - var(--spacing) * 12);
+
   --breakpoint-xs: 30rem;
   --breakpoint-3xl: 112rem;
+}
+
+@theme static {
+  --breakpoint-wide: 90rem;
 }
 
 @theme inline {
@@ -151,6 +159,24 @@
   }
 }
 
+@utility grid-cols-article {
+  grid-template-columns: var(--spacing-toc) minmax(0, 1fr);
+}
+
+@utility destination-links {
+  & a:is([href^="https://github.com/"], [href^="https://x.com/"], [href^="https://twitter.com/"]):not(:has(svg, img)) {
+    @apply after:ms-1 after:inline-block after:size-3 after:bg-current after:content-[''] after:mask-center after:mask-no-repeat after:mask-contain;
+  }
+
+  & a[href^="https://github.com/"] {
+    @apply after:mask-[url('/icons/github.svg')];
+  }
+
+  & a:is([href^="https://x.com/"], [href^="https://twitter.com/"]) {
+    @apply after:mask-[url('/icons/x.svg')];
+  }
+}
+
 @layer components {
   .prose-swiss :where(h2, h3, h4) {
     scroll-margin-block-start: 2rem;
@@ -201,6 +227,11 @@
 
   .prose a[href^="http"]::after {
     content: " <" attr(href) ">";
+    display: inline;
+    width: auto;
+    height: auto;
+    background: none;
+    mask: none;
     font-family: var(--font-mono);
     font-size: 0.75em;
     overflow-wrap: anywhere;

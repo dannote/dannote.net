@@ -11,13 +11,37 @@ section =
 
 assigns = assign(assigns, :section, section)
 ---
-
 <header class="site-header mb-8 flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3 border-b border-copy/20 py-6">
   <a href="/" aria-label="Danila Poyarkov, home">dannote.net</a>
 
-  <nav class="flex flex-wrap gap-x-5 gap-y-2 [&_[aria-current=page]]:font-semibold [&_[aria-current=page]]:text-copy" aria-label="Primary navigation">
+  <nav
+    class="flex flex-wrap gap-x-5 gap-y-2 [&_[aria-current=page]]:font-semibold [&_[aria-current=page]]:text-copy"
+    aria-label="Primary navigation"
+  >
     <a href="/writing/" aria-current={@section == :writing && "page"}>Writing</a>
     <a href="/projects/" aria-current={@section == :projects && "page"}>Projects</a>
     <a href="/about/" aria-current={@section == :about && "page"}>About</a>
+    <button
+      hidden
+      data-theme-toggle
+      type="button"
+      aria-label="Switch theme"
+      class="-m-2 cursor-pointer p-2 text-copy hover:text-hyperlink"
+    >
+      <span data-theme-icon="light"><.icon
+        name="lucide:sun"
+        width="20"
+        height="20"
+        class="inline-block align-middle"
+        aria-hidden="true"
+      /></span>
+      <span data-theme-icon="dark" hidden><.icon
+        name="lucide:moon"
+        width="20"
+        height="20"
+        class="inline-block align-middle"
+        aria-hidden="true"
+      /></span>
+    </button>
   </nav>
 </header>

@@ -7,9 +7,23 @@ assigns = assign(assigns, :svg, svg)
     From product hypothesis to evidence-backed next step. Design, build, deploy,
     and observe, supported by shared tools and services.
   </figcaption>
-  <.vue component="islands/SystemMap.vue" client={:visible} props={%{target: "system-map-drawing"}} />
-  <div class="max-h-[75vh] overflow-auto border border-copy/55 bg-white p-rhythm-1" tabindex="0" role="region" aria-label="Platform diagram; scroll to explore">
-    <div id="system-map-drawing" class="origin-top-left [zoom:var(--map-zoom,1)]" role="img" aria-labelledby="system-map-caption">
+  <.vue
+    component="islands/SystemMap.vue"
+    client={:visible}
+    props={%{target: "system-map-drawing"}}
+  />
+  <div
+    class="max-h-[75vh] overflow-auto border border-copy/55 bg-white p-rhythm-1"
+    tabindex="0"
+    role="region"
+    aria-label="Platform diagram; scroll to explore"
+  >
+    <div
+      id="system-map-drawing"
+      class="origin-top-left [zoom:var(--map-zoom,1)]"
+      role="img"
+      aria-labelledby="system-map-caption"
+    >
       {raw(@svg)}
     </div>
   </div>
