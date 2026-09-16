@@ -5,7 +5,7 @@ assigns =
   assigns
   |> assign(:lang, lang)
   |> assign(:description, @entry.data.description)
-  |> assign(:title, "#{@entry.data.title} — Danila Poyarkov")
+  |> assign(:title, "#{@entry.data.title} — #{Blog.Site.author()}")
 ---
 <!doctype html>
 <html lang={@lang}>

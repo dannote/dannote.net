@@ -1,9 +1,15 @@
+---
+assigns =
+  assigns
+  |> assign_new(:icon, fn -> nil end)
+  |> assign_new(:class, fn -> nil end)
+---
 <a
   href={@href}
-  class={assigns[:class]}
+  class={@class}
   {assigns_to_attributes(assigns, [:href, :icon, :class, :inner_block])}
 ><.icon
-  :if={assigns[:icon]}
+  :if={@icon}
   name={@icon}
   class="mr-1 inline-block size-4 align-middle"
   aria-hidden="true"

@@ -12,7 +12,7 @@ section =
 assigns = assign(assigns, :section, section)
 ---
 <header class="site-header mb-8 flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3 border-b border-copy/20 py-6">
-  <.nav_link href="/" aria-label="Danila Poyarkov, home">dannote.net</.nav_link>
+  <.nav_link href="/" class="hidden sm:inline" aria-label={"#{Blog.Site.author()}, home"}>{Blog.Site.domain()}</.nav_link>
 
   <nav
     class="flex flex-wrap gap-x-5 gap-y-2"

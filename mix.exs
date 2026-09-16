@@ -35,7 +35,6 @@ defmodule Blog.MixProject do
       {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false},
       {:credo, "~> 1.0", only: [:dev, :test], runtime: false},
       {:vibe_kit, "~> 0.1"},
-      {:mermex, "~> 0.1.1"},
       {:astral, "~> 0.3.2"},
       {:lumis, "~> 0.8"},
       {:skia, "~> 0.3.8"}

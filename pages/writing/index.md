@@ -11,7 +11,6 @@ I write about building tools that let people and agents understand what they are
   <h2 id="essays-title">Essays</h2>
   <div :for={article <- @site |> Astral.Collection.entries(:articles) |> Astral.Collection.published() |> Astral.Collection.sort_by_date(:desc)} :if={Map.get(article.data, :kind, "Essay") == "Essay"} class="border-t border-copy/20 py-5">
     <.writing_entry entry={article} />
-    <p>From a tool for editing Figma to an Elixir-based environment for building, inspecting, and running products. The connections between the projects, what works today, and what is still missing.</p>
     <.more_link href={article.route_path}>Read the essay</.more_link>
   </div>
 </section>

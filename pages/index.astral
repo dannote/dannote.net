@@ -12,10 +12,10 @@ assigns = assign(assigns, :articles, articles)
     src="/images/danila-poyarkov.jpg"
     width="460"
     height="460"
-    alt="Danila Poyarkov"
+    alt={Blog.Site.author()}
     class="not-prose float-right mb-3 ml-6 size-20 rounded-full object-cover sm:size-24"
   />
-  <h1 class="text-display">Danila Poyarkov</h1>
+  <h1 class="text-display">{Blog.Site.author()}</h1>
   <p>I build open-source tools for coding agents, design automation, and the Elixir ecosystem.</p>
   <p>
     I’m interested in what comes after generation: how an agent inspects its changes,

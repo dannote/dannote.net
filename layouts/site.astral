@@ -2,7 +2,9 @@
 <html lang={@metadata["language"] || "en"}>
   <head>
     <.base_head
-      title={if @page.title, do: "#{@page.title} — Danila Poyarkov", else: "Danila Poyarkov"}
+      title={
+        if @page.title, do: "#{@page.title} — #{Blog.Site.author()}", else: Blog.Site.author()
+      }
       description={@metadata["description"]}
       route={@route}
       locale={@metadata["language"] || "en"}

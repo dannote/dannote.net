@@ -5,7 +5,7 @@
     <.nav_link href="/elsewhere/">Elsewhere</.nav_link>
   </nav>
   <p class="mt-3 text-dim">
-    © 2012–{Date.utc_today().year} Danila Poyarkov · Built with
+    © 2012–{Date.utc_today().year} {Blog.Site.author()} · Built with
     <a href="https://github.com/elixir-volt/astral">Astral</a>
   </p>
 </footer>

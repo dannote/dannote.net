@@ -1,18 +1,15 @@
 ---
-title = assigns[:title] || "Danila Poyarkov"
+title = assigns[:title] || Blog.Site.author()
 
-description =
-  assigns[:description] ||
-    "Open-source tools for coding agents, design automation, and the Elixir ecosystem."
+description = assigns[:description] || Blog.Site.description()
 
-site_url = assigns[:site_url] || "https://dannote.net"
 route = assigns[:route] || "/"
-canonical = "#{String.trim_trailing(site_url, "/")}#{route}"
+canonical = Blog.Site.absolute_url(route)
 locale = assigns[:locale] || "en"
 type = assigns[:type] || "website"
 image_path = Blog.SocialImages.path(if type == "article", do: route)
-image_url = "#{String.trim_trailing(site_url, "/")}#{image_path}"
-image_alt = if type == "article", do: title, else: "Danila Poyarkov — dannote.net"
+image_url = Blog.Site.absolute_url(image_path)
+image_alt = if type == "article", do: title, else: "#{Blog.Site.author()} — #{Blog.Site.domain()}"
 
 assigns =
   assigns
@@ -41,7 +38,7 @@ assigns =
 <link
   rel="alternate"
   type="application/atom+xml"
-  title="Danila Poyarkov — Writing"
+  title={Blog.Site.feed_title()}
   href="/feed.xml"
 />
 <title>{@title}</title>
@@ -51,7 +48,7 @@ assigns =
 <meta property="og:title" content={@title} />
 <meta property="og:description" content={@description} />
 <meta property="og:locale" content={@locale} />
-<meta property="og:site_name" content="dannote.net" />
+<meta property="og:site_name" content={Blog.Site.domain()} />
 <meta property="og:image" content={@image_url} />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />

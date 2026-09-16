@@ -1,11 +1,22 @@
+---
+assigns =
+  assigns
+  |> assign_new(:active, fn -> false end)
+  |> assign_new(:icon, fn -> nil end)
+  |> assign_new(:class, fn -> nil end)
+
+colors =
+  case assigns.active do
+    true -> "font-semibold text-copy visited:text-copy"
+    false -> "text-hyperlink visited:text-hyperlink"
+  end
+
+assigns = assign(assigns, :colors, colors)
+---
 <.icon_link
   href={@href}
-  icon={assigns[:icon]}
-  aria-current={assigns[:active] && "page"}
-  class={[
-    "text-hyperlink visited:text-hyperlink",
-    assigns[:active] && "font-semibold text-copy! visited:text-copy!",
-    assigns[:class]
-  ]}
-  {assigns_to_attributes(assigns, [:href, :icon, :active, :class, :inner_block])}
+  icon={@icon}
+  aria-current={@active && "page"}
+  class={[@colors, @class]}
+  {assigns_to_attributes(assigns, [:href, :icon, :active, :class, :colors, :inner_block])}
 >{render_slot(@inner_block)}</.icon_link>

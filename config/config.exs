@@ -23,7 +23,7 @@ config :volt,
       "typescript/no-explicit-any" => :warn
     }
   ],
-  sources: ["**/*.{js,ts,jsx,tsx,vue}"],
+  sources: ["**/*.{js,ts,jsx,tsx}"],
   tailwind: [
     css: "assets/styles.css",
     sources: [
@@ -31,6 +31,6 @@ config :volt,
       %{base: "layouts/", pattern: "**/*.{astral,html}"},
       %{base: "components/", pattern: "**/*.astral"},
       %{base: "content/", pattern: "**/*.md"},
-      %{base: "assets/", pattern: "**/*.{vue,ts,tsx,js,jsx}"}
+      %{base: "assets/", pattern: "**/*.{ts,tsx,js,jsx}"}
     ]
   ]

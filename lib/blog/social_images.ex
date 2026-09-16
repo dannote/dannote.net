@@ -9,13 +9,13 @@ defmodule Blog.SocialImages do
   @behaviour Astral.Plugin
 
   import Skia, only: [canvas: 2, clear: 2, rect: 2, text: 3, to_png: 1]
+  alias Blog.Site
   alias Skia.{Font, Typeface}
 
   @site_card %{
-    title: "Danila Poyarkov",
-    description:
-      "Open-source tools for coding agents, design automation, and the Elixir ecosystem.",
-    label: "dannote.net"
+    title: Site.author(),
+    description: Site.description(),
+    domain: Site.domain()
   }
   @palette %{
     paper: "#f4f1e9",
@@ -36,15 +36,18 @@ defmodule Blog.SocialImages do
 
   @doc "Identify this site-local plugin."
   @impl true
+  @spec name() :: String.t()
   def name, do: "blog:social-images"
 
   @doc "Return the generated image path for an article, or the default site card."
+  @spec path(String.t() | nil) :: String.t()
   def path(route \\ nil)
   def path(nil), do: "/social/site.png"
   def path(route), do: "/social" <> String.trim_trailing(route, "/") <> ".png"
 
   @doc "Register the default card and cards for published articles."
   @impl true
+  @spec routes(Astral.Site.t(), keyword()) :: [Astral.Route.t()]
   def routes(site, _opts) do
     default = card_route(site, path(), @site_card)
 
@@ -64,6 +67,8 @@ defmodule Blog.SocialImages do
 
   @doc "Render generated PNG routes identically in development and static builds."
   @impl true
+  @spec render_route(Astral.Route.t(), Astral.Site.t(), keyword()) ::
+          {:ok, binary(), String.t()} | {:error, term()} | nil
   def render_route(%Astral.Route{kind: :social_image, assigns: data}, _site, _opts) do
     with {:ok, png} <- render(data.title, data.description) do
       {:ok, png, "image/png"}
@@ -73,6 +78,7 @@ defmodule Blog.SocialImages do
   def render_route(_route, _site, _opts), do: nil
 
   @doc "Draw a 1200 × 630 card, bounding long text with paragraph layout and ellipsis."
+  @spec render(String.t(), String.t()) :: {:ok, binary()} | {:error, term()}
   def render(title, description) do
     with {:ok, regular} <- typeface("Regular"),
          {:ok, bold} <- typeface("Bold") do
@@ -101,7 +107,7 @@ defmodule Blog.SocialImages do
         size: @footer.size,
         fill: @palette.ink
       )
-      |> text(@site_card.label,
+      |> text(@site_card.domain,
         x: @footer.domain_x,
         y: @footer.baseline,
         font: Font.new(bold),

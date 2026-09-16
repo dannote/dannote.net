@@ -15,18 +15,18 @@ markdown(
 )
 
 plugin(Astral.Plugin.Feed,
-  site_url: "https://dannote.net",
-  title: "Danila Poyarkov — Writing",
-  author: "Danila Poyarkov",
+  site_url: Blog.Site.url(),
+  title: Blog.Site.feed_title(),
+  author: Blog.Site.author(),
   collection: :articles
 )
 
-plugin(Astral.Plugin.Sitemap, site_url: "https://dannote.net")
+plugin(Astral.Plugin.Sitemap, site_url: Blog.Site.url())
 plugin(Blog.SocialImages)
 
 plugin(Astral.Plugin.LLMs,
-  site_url: "https://dannote.net",
-  title: "Danila Poyarkov",
+  site_url: Blog.Site.url(),
+  title: Blog.Site.author(),
   description: "Open-source projects, technical writing, and personal links.",
   sections: [
     {"About", ["/about/", "/projects/"]},
@@ -42,10 +42,6 @@ end
 assets do
   entry("app.ts")
   url_prefix("/assets")
-end
-
-islands do
-  adapter(:vue)
 end
 
 collection :articles, "content/articles" do
