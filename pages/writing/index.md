@@ -16,7 +16,6 @@ I write about building tools that let people and agents understand what they are
 
 <section aria-labelledby="notes-title">
   <h2 id="notes-title">Notes</h2>
-  <p>Selected longer posts, first published on X. Original dates and source links are preserved.</p>
   <ul class="list-none pl-0">
     <li :for={article <- @site |> Astral.Collection.entries(:articles) |> Astral.Collection.published() |> Astral.Collection.sort_by_date(:desc)} :if={Map.get(article.data, :kind, "Essay") == "Note"} class="border-t border-copy/20 py-4 pl-0">
       <.writing_entry entry={article} />
