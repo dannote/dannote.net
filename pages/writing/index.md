@@ -5,13 +5,12 @@ description: Essays and notes on coding agents, design tools, and the systems un
 
 # Writing
 
-I write about building tools that let people and agents understand what they are working on—not just generate more code. [Subscribe via Atom](/feed.xml).
+I write about building tools that let people and agents understand what they are working on—not just generate more code.
 
 <section aria-labelledby="essays-title">
   <h2 id="essays-title">Essays</h2>
   <div :for={article <- @site |> Astral.Collection.entries(:articles) |> Astral.Collection.published() |> Astral.Collection.sort_by_date(:desc)} :if={Map.get(article.data, :kind, "Essay") == "Essay"} class="border-t border-copy/20 py-5">
     <.writing_entry entry={article} />
-    <.more_link href={article.route_path}>Read the essay</.more_link>
   </div>
 </section>
 

@@ -29,7 +29,7 @@
   --spacing-rhythm-4: clamp(2.4rem, 1.6rem + 4vw, 5.1rem);
   --spacing-rhythm-5: clamp(4rem, 2.5rem + 7.5vw, 9rem);
 
-  --spacing-toc: 13rem;
+  --spacing-toc: 11rem;
   --spacing-toc-offset: calc(var(--spacing-toc) + var(--spacing) * 10);
   --spacing-toc-height: calc(100dvh - var(--spacing) * 12);
 
@@ -38,7 +38,7 @@
 }
 
 @theme static {
-  --breakpoint-wide: 90rem;
+  --breakpoint-wide: 80rem;
 }
 
 @theme inline {
