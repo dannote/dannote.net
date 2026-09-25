@@ -26,17 +26,14 @@ assigns =
       <main id="article-content">
         <article class="pb-6 wide:-ml-toc-offset wide:grid wide:grid-cols-article wide:gap-x-10">
           <header class="mb-6 wide:col-start-2">
-            <p class="text-sm">
-              <a href="/writing/" class="text-dim no-underline hover:text-copy">Writing</a>
-            </p>
-            <h1 class="mt-3 text-display">{@entry.data.title}</h1>
+            <h1 class="text-display">{@entry.data.title}</h1>
             <p
               :if={@entry.data[:subtitle]}
               class="mt-rhythm-2 max-w-3xl text-deck leading-snug tracking-tight pretty"
             >
               {@entry.data.subtitle}
             </p>
-            <.entry_meta entry={@entry} kind={Map.get(@entry.data, :kind, "Essay")} />
+            <.entry_meta entry={@entry} />
           </header>
 
           <.article_contents headings={@entry.content.headings} />

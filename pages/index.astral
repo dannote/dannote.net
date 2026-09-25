@@ -22,7 +22,7 @@ assigns = assign(assigns, :articles, articles)
     I’m interested in what comes after generation: how an agent inspects its changes,
     understands a running system, and checks that the result is actually correct.
   </p>
-  <.profile_links />
+  <p><.more_link href="/about/">More about me</.more_link></p>
 </header>
 
 <section aria-labelledby="projects-title">

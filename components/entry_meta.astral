@@ -1,23 +1,18 @@
 ---
-entry = assigns[:entry]
-kind = assigns[:kind] || "Essay"
-lang = entry.data.language || "en"
-read_language = if lang == "ru", do: "Russian", else: "English"
+languages = %{"ru" => "Russian"}
 
 assigns =
   assigns
-  |> assign(:entry, entry)
-  |> assign(:kind, kind)
-  |> assign(:lang, lang)
-  |> assign(:read_language, read_language)
+  |> assign(:lang, assigns.entry.data.language)
+  |> assign(:language_name, languages[assigns.entry.data.language])
 ---
 <div
   class="mt-6 flex flex-wrap items-baseline gap-x-3 gap-y-1 border-t border-copy/20 pt-3 text-sm text-dim"
   aria-label="Publication details"
 >
-  <span>{@kind}</span>
+  <span>{@entry.data.kind}</span>
   <span aria-hidden="true">·</span>
   <span><.formatted_date value={@entry.data.date} lang={@lang} /></span>
-  <span aria-hidden="true">·</span>
-  <span>{@read_language}</span>
+  <span :if={@language_name} aria-hidden="true">·</span>
+  <span :if={@language_name}>{@language_name}</span>
 </div>

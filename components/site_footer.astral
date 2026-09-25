@@ -1,6 +1,7 @@
 <footer class="site-footer mt-12 border-t border-copy/20 pt-6 pb-10 text-base">
-  <nav class="flex flex-wrap gap-x-7 gap-y-3" aria-label="Further links">
-    <.profile_links />
+  <nav class="flex flex-wrap gap-x-5 gap-y-3" aria-label="Further links">
+    <.nav_link href="https://github.com/dannote" icon="simple-icons:github" rel="me">GitHub</.nav_link>
+    <.nav_link href="https://x.com/dan_note" icon="simple-icons:x" rel="me">Twitter</.nav_link>
     <.nav_link href="/feed.xml" icon="lucide:rss">Atom feed</.nav_link>
     <.nav_link href="/elsewhere/">Elsewhere</.nav_link>
   </nav>

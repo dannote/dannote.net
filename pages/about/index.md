@@ -7,13 +7,9 @@ description: Danila Poyarkov — developer working on coding agents, design auto
 
 <img src="/images/danila-poyarkov.jpg" width="460" height="460" alt="Danila Poyarkov" class="not-prose mx-auto mb-6 block size-48 rounded-full object-cover sm:float-right sm:ml-8 sm:mr-0 sm:size-56" />
 
-I’m Danila Poyarkov, an independent developer. My current work is mostly open-source tooling for coding agents, design automation, and Elixir.
+I’m Danila Poyarkov, an independent developer. My current work spans design editors, code intelligence, JavaScript runtimes, frontend build systems, and recording and replay.
 
-I’m interested in the part of AI-assisted development that comes after generation. An agent needs to inspect what it changed, understand the system it is working in, find the cause of a failure, and verify the result. Generating more code is not enough.
-
-That takes me across several kinds of tools: design editors, code intelligence, JavaScript runtimes, frontend build systems, and recording and replay. I want design documents to be accessible as structured data, code to be understood through its relationships, and running applications to be inspectable—not just visible in a screenshot.
-
-The [projects page](/projects/) describes the individual tools. [What I’ve Been Building This Year](/writing/what-ive-been-building-this-year/) is the longer explanation of how they fit together.
+The common thread: design documents should be accessible as structured data, code should be understood through its relationships, and running applications should be inspectable—not just visible in a screenshot.
 
 ## Background
 
@@ -26,7 +22,3 @@ I’ve also reported security issues through [Google Bug Hunters](https://bughun
 ## Outside software
 
 I take photographs, write, and make absurdist YouTube clips with friends. There are links to those [elsewhere](/elsewhere/).
-
-## Links
-
-<.profile_links handles={true} />
