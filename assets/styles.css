@@ -173,6 +173,14 @@
     text-decoration-color: var(--color-accent);
   }
 
+  .prose-swiss :where(ul, ol):not(:where(.not-prose, .not-prose *)) {
+    padding-inline-start: 1.1em;
+  }
+
+  .prose-swiss :where(li):not(:where(.not-prose, .not-prose *)) {
+    padding-inline-start: 0.2em;
+  }
+
   .prose-swiss :where(pre, figure, img):not(:where(.not-prose, .not-prose *)) {
     border-radius: 0;
   }
