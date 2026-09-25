@@ -58,5 +58,6 @@ collection :articles, "content/articles" do
     field(:language, :string, default: "en")
     field(:kind, :string, default: "Essay")
     field(:tags, {:array, :string}, default: [])
+    field(:sources, {:array, :string}, default: [])
   end
 end

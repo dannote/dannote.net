@@ -1,10 +1,22 @@
 ---
 languages = %{"ru" => "Russian"}
+sources = assigns.entry.data.sources
+
+{source_prefix, source_links} =
+  case sources do
+    [url] ->
+      {"Originally on", [{"X", url}]}
+
+    urls ->
+      {"Originally on X in parts", Enum.with_index(urls, fn url, i -> {"#{i + 1}", url} end)}
+  end
 
 assigns =
   assigns
   |> assign(:lang, assigns.entry.data.language)
   |> assign(:language_name, languages[assigns.entry.data.language])
+  |> assign(:source_prefix, source_prefix)
+  |> assign(:source_links, source_links)
 ---
 <div
   class="mt-6 flex flex-wrap items-baseline gap-x-3 gap-y-1 border-t border-rule pt-3 text-sm text-dim"
@@ -15,4 +27,12 @@ assigns =
   <span><.formatted_date value={@entry.data.date} lang={@lang} /></span>
   <span :if={@language_name} aria-hidden="true">·</span>
   <span :if={@language_name}>{@language_name}</span>
+  <span :if={@source_links != []} aria-hidden="true">·</span>
+  <span :if={@source_links != []}>
+    {@source_prefix}
+    <span :for={{{label, url}, i} <- Enum.with_index(@source_links)}><a
+      href={url}
+      class="text-dim"
+    >{label}</a>{if i < length(@source_links) - 1, do: ", "}</span>
+  </span>
 </div>
