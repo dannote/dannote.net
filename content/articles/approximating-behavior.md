@@ -4,10 +4,10 @@ description: "Why constrained environments and high-quality action feedback matt
 date: 2026-05-01
 language: en
 kind: Note
-draft: false
+draft: true
+sources:
+  - https://x.com/dan_note/status/2050313886084075545
 ---
-
-*Originally posted on [X](https://x.com/dan_note/status/2050313886084075545).*
 
 One more thought on this. LLMs have recently been drifting from just approximating the next token to approximating behavior.
 

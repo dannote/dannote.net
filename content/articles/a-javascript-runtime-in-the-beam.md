@@ -5,9 +5,9 @@ date: 2026-03-12
 language: en
 kind: Note
 draft: false
+sources:
+  - https://x.com/dan_note/status/2032139121850728939
 ---
-
-*Originally posted on [X](https://x.com/dan_note/status/2032139121850728939).*
 
 I've built a new JavaScript runtime that runs inside the BEAM.
 

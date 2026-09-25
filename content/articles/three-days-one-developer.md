@@ -5,9 +5,9 @@ date: 2026-03-01
 language: en
 kind: Note
 draft: false
+sources:
+  - https://x.com/dan_note/status/2028201388074013048
 ---
-
-*Originally posted on [X](https://x.com/dan_note/status/2028201388074013048).*
 
 Figma shipped a silent patch specifically to kill [`figma-use`](https://github.com/dannote/figma-use) — my open-source tool that did what they wouldn't: an MCP server that creates and modifies designs, JSX export, design linting. Then they scrambled to catch up with their own MCP server.
 

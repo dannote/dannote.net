@@ -4,10 +4,10 @@ description: "You pay hundreds of dollars and still cannot plan costs or capacit
 date: 2026-09-11
 language: en
 kind: Note
-draft: false
+draft: true
+sources:
+  - https://x.com/dan_note/status/2098468701402026334
 ---
-
-*Originally posted on [X](https://x.com/dan_note/status/2098468701402026334).*
 
 I’m tired of this shit. Be it OpenAI, be it Anthropic. You pay hundreds of dollars and get fictional limits that aren’t even measured in natural numbers. You can’t plan anything. You can’t predict your costs.
 

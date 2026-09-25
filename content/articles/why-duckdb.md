@@ -5,11 +5,11 @@ date: 2026-06-07
 language: en
 kind: Note
 draft: false
+sources:
+  - https://x.com/dan_note/status/2063414257308614713
 ---
 
-*Originally posted on [X](https://x.com/dan_note/status/2063414257308614713).*
-
-I’m increasingly convinced that <.icon_link href="https://x.com/duckdb" icon="simple-icons:x">@duckdb</.icon_link> is becoming one of the best storage choices for hobby to medium-sized projects.
+I’m increasingly convinced that [DuckDB](https://duckdb.org) is becoming one of the best storage choices for hobby to medium-sized projects.
 
 Postgres is still the obvious default for highly concurrent OLTP systems, but many small and medium products are read-heavy, append-heavy, analytical, or operated by a small team. For those workloads, DuckDB’s columnar execution model, vectorized engine, rich SQL surface, and embedded/local-first deployment model can be a much better fit.
 
@@ -29,3 +29,9 @@ I intend to use DuckDB as the primary storage layer for the platform I’m build
 QuackDB also continues to cover the broader integration surface: supervised DuckDB, DBConnection/Ecto, native append, Explorer dataframes, Table.Reader results, Geo/WKB, telemetry, managed DuckDB binaries, and DuckDB-specific SQL helpers.
 
 [QuackDB 0.5 release notes](https://github.com/elixir-vibe/quackdb/releases/tag/v0.5.0).
+
+## Update, August 2026
+
+DuckLabs [is joining AWS](https://x.com/duckdb/status/2092598676439044577), with DuckDB and the rest of the Duck Stack staying MIT-licensed under the DuckDB Foundation. I’m now pretty confident that DuckDB is the right bet as the primary storage engine for the platform I’m building.
+
+QuackDB, the Ecto adapter for DuckDB’s Quack protocol, is in good shape. I’ve spent a lot of effort polishing the DSL and internals for scenarios like bulk inserts, and I’m already using it in production across several projects.
