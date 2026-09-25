@@ -1,2 +1,2 @@
-<a href={@href} class="font-semibold text-accent! visited:text-accent!">{render_slot(@inner_block)}
+<a href={@href} class="text-dim no-underline hover:text-copy">{render_slot(@inner_block)}
 <span aria-hidden="true">→</span></a>

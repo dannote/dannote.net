@@ -1,8 +1,14 @@
-<div>
-  <h3 class="mt-0 mb-1 text-lg"><a href={@entry.route_path}>{@entry.data.title}</a></h3>
-  <small class="block text-dim"><.formatted_date
-    value={@entry.data.date}
-    lang={@entry.data.language}
-  /></small>
-  <p class="mb-0">{@entry.data.description}</p>
+<div class="not-prose">
+  <div class="flex items-baseline gap-3">
+    <h3 class="m-0 min-w-0 text-base font-medium tracking-normal">
+      <a href={@entry.route_path} class="no-underline hover:underline">{@entry.data.title}</a>
+    </h3>
+    <span aria-hidden="true" class="min-w-6 flex-1 border-b border-dotted border-copy/25"></span>
+    <small class="shrink-0 text-sm text-dim tabular-nums"><.formatted_date
+      value={@entry.data.date}
+      lang={@entry.data.language}
+      short
+    /></small>
+  </div>
+  <p class="mt-1 mb-0 text-dim">{@entry.data.description}</p>
 </div>

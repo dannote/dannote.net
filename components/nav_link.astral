@@ -7,8 +7,8 @@ assigns =
 
 colors =
   case assigns.active do
-    true -> "font-semibold text-copy visited:text-copy"
-    false -> "text-hyperlink visited:text-hyperlink"
+    true -> "text-copy no-underline"
+    false -> "text-dim no-underline hover:text-copy"
   end
 
 assigns = assign(assigns, :colors, colors)

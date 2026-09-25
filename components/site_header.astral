@@ -26,7 +26,7 @@ assigns = assign(assigns, :section, section)
       data-theme-toggle
       type="button"
       aria-label="Switch theme"
-      class="-m-2 cursor-pointer p-2 text-copy hover:text-hyperlink"
+      class="-m-2 cursor-pointer p-2 text-dim hover:text-copy"
     >
       <span data-theme-icon="light"><.icon
         name="lucide:sun"

@@ -1,7 +1,14 @@
 ---
 lang = assigns[:lang] || "en"
 value = assigns[:value]
-format = if lang == "ru", do: "%d.%m.%Y", else: "%-d %B %Y"
+
+format =
+  case {lang, assigns[:short]} do
+    {"ru", true} -> "%m.%Y"
+    {"ru", _} -> "%d.%m.%Y"
+    {_, true} -> "%b %Y"
+    _ -> "%-d %B %Y"
+  end
 
 formatted =
   cond do
