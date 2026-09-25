@@ -6,11 +6,11 @@ assigns =
 ---
 <a
   href={@href}
-  class={@class}
+  class={[@icon && "inline-flex items-center gap-1.5", @class]}
   {assigns_to_attributes(assigns, [:href, :icon, :class, :inner_block])}
 ><.icon
   :if={@icon}
   name={@icon}
-  class="mr-1 inline-block size-4 align-middle"
+  class="size-4 shrink-0"
   aria-hidden="true"
 />{render_slot(@inner_block)}</a>
