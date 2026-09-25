@@ -7,7 +7,7 @@ assigns =
 
 colors =
   case assigns.active do
-    true -> "text-copy no-underline"
+    true -> "text-copy underline decoration-accent decoration-2 underline-offset-8"
     false -> "text-dim no-underline hover:text-copy"
   end
 

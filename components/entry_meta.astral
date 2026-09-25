@@ -7,7 +7,7 @@ assigns =
   |> assign(:language_name, languages[assigns.entry.data.language])
 ---
 <div
-  class="mt-6 flex flex-wrap items-baseline gap-x-3 gap-y-1 border-t border-copy/20 pt-3 text-sm text-dim"
+  class="mt-6 flex flex-wrap items-baseline gap-x-3 gap-y-1 border-t border-rule pt-3 text-sm text-dim"
   aria-label="Publication details"
 >
   <span>{@entry.data.kind}</span>
