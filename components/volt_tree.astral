@@ -1,0 +1,27 @@
+---
+# The frontend toolchain as children of the application supervisor.
+nodes = [
+  {"MyApp.Supervisor", nil,
+   [
+     {"MyApp.Repo", "Ecto, on DuckDB through QuackDB", []},
+     {"MyAppWeb.Endpoint", nil, []},
+     {"Volt.Supervisor", "the frontend toolchain",
+      [
+        {"Volt.Watcher", "file changes", []},
+        {"Volt.DevServer", "HMR and asset serving", []},
+        {"Volt.Tailwind", "Oxide scanner", []},
+        {"QuickBEAM.ContextPool", "JavaScript tooling",
+         [
+           {"QuickBEAM.Context", "one per plugin, restarted on crash", []},
+           {"QuickBEAM.Context", nil, []}
+         ]}
+      ]}
+   ]}
+]
+
+assigns = assign(assigns, :nodes, nodes)
+---
+<.tree
+  caption="A Phoenix application supervising its own frontend toolchain. Simplified: the real tree has more children."
+  nodes={@nodes}
+/>

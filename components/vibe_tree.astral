@@ -1,0 +1,21 @@
+---
+# One Vibe session with its supervised children.
+nodes = [
+  {"Vibe.Session", "one conversation",
+   [
+     {"Model request", "streaming, cancellable", []},
+     {"Vibe.Command", "mix test, with persisted output", []},
+     {"Subagent session", "its own lifecycle",
+      [
+        {"Model request", nil, []},
+        {"Vibe.Command", "grep", []}
+      ]}
+   ]}
+]
+
+assigns = assign(assigns, :nodes, nodes)
+---
+<.tree
+  caption="A Vibe session as a supervision tree. The terminal and the browser attach as observers; closing one changes nothing below."
+  nodes={@nodes}
+/>
