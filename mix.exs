@@ -38,6 +38,8 @@ defmodule Blog.MixProject do
       {:astral, "~> 0.5.0"},
       {:lumis, "~> 0.10"},
       {:req, "~> 0.7"},
+      {:json_codec, "~> 0.3"},
+      {:jason, "~> 1.4"},
       {:floki, "~> 0.38"},
       {:lumis_wasm_elixir, "~> 0.26"},
       {:lumis_wasm_html, "~> 0.26"},
