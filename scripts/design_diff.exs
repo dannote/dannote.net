@@ -20,27 +20,36 @@ ink = "#15161A"
 muted = "#6B6F76"
 rule = "#E4E1DA"
 
+# Text without a width is anchored at its baseline. Labels are centered on a point
+# by measuring their advance and placing the baseline half a cap height below it.
+cap = 0.72
+
+centered = fn doc, label, cx, cy, size, font, fill ->
+  {:ok, %{width: w}} = Skia.measure_text(label, font: font, size: size)
+  text(doc, label, x: cx - w / 2, y: round(cy + size * cap / 2), size: size, fill: fill, font: font)
+end
+
 draw = fn %{surface: surface, title: title, button: button, radius: radius} ->
   canvas(960, 600)
   |> clear("#ECEAE4")
   # card
   |> rect(x: 80, y: 64, width: 800, height: 472, radius: 24, fill: surface, stroke: rule, stroke_width: 2)
-  # avatar with a monogram
-  |> circle(x: 164, y: 148, radius: 36, fill: "#DCD7CB")
-  |> text("DP", x: 128, y: 134, width: 72, size: 24, fill: "#7A7262", font: bold, weight: 700, align: :center)
-  # header
-  |> text(title, x: 224, y: 112, size: 40, fill: ink, font: bold, weight: 700)
-  |> text("Updated 2 min ago", x: 224, y: 164, size: 26, fill: muted, font: regular)
+  # avatar, centered on y = 152, with its monogram
+  |> circle(x: 164, y: 152, radius: 36, fill: "#DCD7CB")
+  |> centered.("DP", 164, 152, 24, bold, "#7A7262")
+  # header: title and subtitle as one block centered on the avatar
+  |> text(title, x: 224, y: 144, size: 40, fill: ink, font: bold)
+  |> text("Updated 2 min ago", x: 224, y: 184, size: 26, fill: muted, font: regular)
   # body
   |> text("A silent patch broke the debugging port. The team is looking into it and will post an update here.",
     x: 128, y: 236, width: 704, size: 28, fill: ink, font: regular, line_height: 42)
   # divider
   |> rect(x: 128, y: 372, width: 704, height: 2, fill: rule)
-  # actions
+  # actions, labels centered in their buttons
   |> rect(x: 128, y: 420, width: 232, height: 80, radius: radius, fill: button)
-  |> text("Reply", x: 128, y: 441, width: 232, size: 28, fill: "#FFFFFF", font: bold, weight: 700, align: :center)
+  |> centered.("Reply", 244, 460, 28, bold, "#FFFFFF")
   |> rect(x: 384, y: 420, width: 232, height: 80, radius: 16, stroke: "#C9C4B8", stroke_width: 2)
-  |> text("Remind me", x: 384, y: 441, width: 232, size: 28, fill: ink, font: regular, align: :center)
+  |> centered.("Remind me", 500, 460, 28, regular, ink)
   |> to_png()
 end
 
