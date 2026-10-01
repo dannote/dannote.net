@@ -224,8 +224,10 @@
   }
 
   .prose-swiss :not(pre) > code {
-    background: color-mix(in oklch, var(--color-copy) 8%, transparent);
-    padding-inline: 0.22em;
+    background: color-mix(in oklch, var(--color-copy) 6%, transparent);
+    padding-inline: 0.3em;
+    font-size: 0.9em;
+    font-weight: 400;
   }
 
   .prose-swiss :not(pre) > code::before,

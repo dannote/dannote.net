@@ -18,7 +18,7 @@ Since the beginning of this year, I have released dozens of open-source projects
 
 There is a Figma-compatible design editor, a JavaScript runtime for the [BEAM](https://en.wikipedia.org/wiki/BEAM_%28Erlang_virtual_machine%29), a frontend build tool, an npm client, several static analyzers, coding-agent tools, a [DuckDB](https://duckdb.org) adapter, session replay, deployment tooling, and many smaller libraries in between.
 
-Judging by my timeline, it probably looks like I wake up every few days with an unrelated idea, build it, publish it, and move on to the next one.
+Judging by my feed, it probably looks like I wake up every few days with an unrelated idea, build it, publish it, and move on to the next one.
 
 That is partly my fault. I have explained each project when I released it, but I have never properly explained how they fit together.
 
@@ -26,9 +26,9 @@ They are all parts of the same system.
 
 ## TL;DR
 
-I am building an end-to-end open-source platform for startup factories: environments that follow a product through its whole lifecycle, from references and design drafts through prototypes, code, deployment, and acquisition, to the evidence that decides what to build next.
+I am building an end-to-end open-source platform for startup factories. By a startup factory I mean a venture studio: a small team, often one technical founder working with agents, that launches many products, keeps the ones that work, and kills the rest. The platform follows each product through its whole lifecycle, from references and design drafts through prototypes, code, deployment, and acquisition, to the evidence that decides what to build next.
 
-The process starts in [OpenPencil](https://github.com/open-pencil/open-pencil), where a founder compares several design directions instead of generating a final screen in one shot. Selected designs become working [Vue](https://vuejs.org) components. The product then moves into an [Elixir](https://elixir-lang.org) environment that connects coding, deployment, and operation, so an agent can see the whole product rather than one repository or one error log. If a customer gets stuck, the system can trace where they came from, replay what they experienced in the browser and on the backend, inspect the code path, and propose a next step with evidence.
+The process starts in [OpenPencil](https://github.com/open-pencil/open-pencil), a design editor where the founder compares several design directions instead of generating a final screen in one shot. Selected designs become working [Vue](https://vuejs.org) components. The product then moves into an [Elixir](https://elixir-lang.org) environment that connects coding, deployment, and operation, so a coding agent can see the whole product rather than one repository or one error log. If a customer gets stuck, the system can trace where they came from, replay what they experienced in the browser and on the backend, inspect the code path, and propose a next step with evidence.
 
 My ambition is an open-source vibe-coding platform that can eventually compete with [Figma](https://www.figma.com), [Lovable](https://lovable.dev), and [Replit](https://replit.com), designed around technical founders like me.
 
@@ -40,7 +40,7 @@ The rest of this post walks through the map in the order I built it.
 
 I am a programmer, but I have never stayed in one narrow part of the stack. I have done systems programming, contributed to open source in the [Xfce](https://gitlab.xfce.org/xfce/garcon/-/commit/aec77533132eb324180ef771e15226a752573eae) and [nginx](https://github.com/dannote/socks-nginx-module) ecosystems, done white-hat security research through [Google Bug Hunters](https://bughunters.google.com/profile/62602ae8-cf92-4fb0-810c-c9e284f3427e) and [Bugcrowd](https://bugcrowd.com/h/dannote), built web applications, and occasionally worked as a designer. I tend to move to whichever layer contains the problem.
 
-I have also spent a long time in startup-factory environments, and I have founded and run small companies with my own money.
+I have also spent a long time working in venture studios, and I have founded and run small companies with my own money.
 
 That made the economics impossible for me to separate from product development. A percentage point of conversion can determine whether a campaign is profitable. Customer acquisition cost, margins, infrastructure, API usage, and the time required to operate a product all affect what to build next and when to stop.
 
@@ -54,7 +54,7 @@ I created [`figma-use`](https://github.com/dannote/figma-use) to automate repeti
 
 Figma had already released an [MCP](https://modelcontextprotocol.io) server, but it was not capable of even basic editing. It could expose the canvas to an agent as something close to a node-tree dump, but the agent could not meaningfully work with it.
 
-Coding agents did not become useful only because the underlying models became smarter. They became useful because the harnesses around them enabled an iterative process. An agent can inspect a repository, make a change, run the application, read an error, look at the result, compare it with what was expected, and try again.
+Coding agents did not become useful only because the underlying models became smarter. They became useful because the harnesses around them, the tools that wrap a model in a loop, enabled an iterative process. An agent can inspect a repository, make a change, run the application, read an error, look at the result, compare it with what was expected, and try again.
 
 I wanted to give design agents the same kind of loop.
 
@@ -62,7 +62,7 @@ Good design is iterative too. A designer normally begins by collecting reference
 
 Most AI design tools ignore this process. They try to generate a finished screen in one shot. Even when the screenshot looks impressive, the structure underneath is often useless: unnamed nested frames, no components, no tokens, and no coherent system that another designer can continue working with.
 
-With [`figma-use`](https://github.com/dannote/figma-use), an agent could work on the actual structure. It could create and modify nodes, use components and variants, render JSX, inspect the resulting tree, and continue from there. I added visual diffing so it could see what changed, and design linting so it could catch structural and accessibility problems. I also wanted design files in automated pipelines: linted in CI, compared between revisions, and exported without anybody opening Figma.
+With [`figma-use`](https://github.com/dannote/figma-use), an agent could work on the actual structure. It could create and modify nodes, use components and variants, describe a screen in JSX and render it as Figma layers, inspect the resulting tree, and continue from there. I added visual diffing so it could see what changed, and design linting so it could catch structural and accessibility problems. I also wanted design files in automated pipelines: linted in CI, compared between revisions, and exported without anybody opening Figma.
 
 Then Figma released an update that blocked the debugging interface [`figma-use`](https://github.com/dannote/figma-use) relied on.
 
@@ -84,7 +84,7 @@ That is how [OpenPencil](https://github.com/open-pencil/open-pencil) began.
 
 [OpenPencil](https://github.com/open-pencil/open-pencil) initially gave me an independent environment for the work I had started with [`figma-use`](https://github.com/dannote/figma-use). It could open and write `.fig` files, render them without Figma, and let agents modify the actual document structure.
 
-While refactoring the project, I realized that the editor itself should not be the only useful result. I split the monolith into reusable parts: the `.fig` and [Kiwi](https://github.com/evanw/kiwi) parsers, scene graph, editor core, CLI, MCP server, and headless Vue SDK. The [OpenPencil](https://github.com/open-pencil/open-pencil) application is now one consumer of these packages.
+While refactoring the project, I realized that the editor itself should not be the only useful result. I split the monolith into reusable parts: the `.fig` parser, the [Kiwi](https://github.com/evanw/kiwi) parser for the binary format inside those files, the scene graph, editor core, CLI, MCP server, and headless Vue SDK. The [OpenPencil](https://github.com/open-pencil/open-pencil) application is now one consumer of these packages.
 
 The Vue SDK lets developers construct a different editor shell around the same engine. They can embed an editing surface into their product, expose a restricted editor for a particular workflow, or add design tools to an IDE without forking the [OpenPencil](https://github.com/open-pencil/open-pencil) interface.
 
@@ -100,9 +100,15 @@ The next direction I started exploring is [VuePencil](https://github.com/dannote
 
 Many visual HTML builders have an abstraction problem. The editor is already an HTML application, and then it tries to build another HTML application inside itself. The layers gradually leak into each other. The tool either supports only a restricted subset of HTML and becomes brittle, or exposes more and more browser internals until it turns into a complicated version of developer tools.
 
-Vue already has a suitable abstraction for this: the VNode tree. In [VuePencil](https://github.com/dannote/vue-pencil), that tree is the source of truth. Editor operations change the model, Vue renders it, and the editor reads the resulting geometry to position selections and handles. It does not directly rewrite the rendered DOM.
+Vue already has a suitable abstraction for this: the VNode tree, its in-memory description of what it renders. In [VuePencil](https://github.com/dannote/vue-pencil), that tree is the source of truth. Editor operations change the model, Vue renders it, and the editor reads the resulting geometry to position selections and handles. It does not directly rewrite the rendered DOM.
 
-This also means that the things placed on the canvas can be real components. The current prototype supports [Reka UI](https://reka-ui.com) primitives, component parts, named slots, props, bindings, and [VueUse](https://vueuse.org) composables. A switch stays a `SwitchRoot` with a `SwitchThumb` and works in preview mode.
+This also means that the things placed on the canvas can be real components. The current prototype supports [Reka UI](https://reka-ui.com) primitives, component parts, named slots, props, bindings, and [VueUse](https://vueuse.org) composables. A switch on the canvas is the real component, and it works in preview mode:
+
+```vue
+<SwitchRoot v-model="enabled">
+  <SwitchThumb />
+</SwitchRoot>
+```
 
 The result can be serialized as a normal Vue [SFC](https://vuejs.org/guide/scaling-up/sfc.html). Frames and canvas positions remain editor metadata rather than leaking into component CSS. Slots become Vue slots, capabilities become composable calls, and bindings become ordinary Vue expressions.
 
@@ -112,11 +118,11 @@ This makes prototypes much more useful than links between static screens. A foun
 
 Once the prototype becomes a real application, design is only one part of the problem. You need a backend, storage, background jobs, external APIs, deployment, analytics, and a way for agents to work with all of them.
 
-For mathematics there is [Lean](https://lean-lang.org). Every definition, theorem, and proof is written in one language and checked by one kernel. A model trained on Lean does not spend capacity learning five notations for the same idea, and every step it takes gets a verdict. My bet is that this is why such models reason so densely.
+For mathematics there is [Lean](https://lean-lang.org). Every definition, theorem, and proof is written in one language and checked by one small, trusted kernel. A model trained on Lean does not spend capacity learning five notations for the same idea, and every step it takes gets a verdict. My bet is that this is why such models reason so densely.
 
 I want the same for the web stack. Not one language that replaces JavaScript, Rust, and SQL. One language in which bundling, the JavaScript runtime, storage, the backend, deployment, and operations have the same kind of API, run in the same runtime, and are checked by the same tools. Elixir is the closest thing I found, and the rest of this post is what it took to make that true. I first wrote about this intuition in [“A language for humans and models”](/writing/a-language-for-humans-and-models/).
 
-I was initially skeptical when José Valim published [“Why Elixir is the best language for AI”](https://dashbit.co/blog/why-elixir-best-language-for-ai). He referred to [AutoCodeBench](https://autocodebench.github.io/), where Elixir had the highest completion rate across 20 languages. The benchmark was interesting, but his explanation mattered more: immutability makes local reasoning easier, documentation examples are often verified by tests, and the ecosystem has remained stable enough that models encounter fewer generations of conflicting APIs.
+I was initially skeptical when José Valim, the creator of Elixir, published [“Why Elixir is the best language for AI”](https://dashbit.co/blog/why-elixir-best-language-for-ai). He referred to [AutoCodeBench](https://autocodebench.github.io/), where Elixir had the highest completion rate across 20 languages. The benchmark was interesting, but his explanation mattered more: immutability makes local reasoning easier, documentation examples are often verified by tests, and the ecosystem has remained stable enough that models encounter fewer generations of conflicting APIs.
 
 After using agents to build more and more Elixir code, I started to agree.
 
@@ -124,7 +130,7 @@ Elixir is dynamic too, so this is not a simple comparison between typed and unty
 
 This contrasts with what I often see when agents work in JavaScript and Python projects. Strict types sit on top of those languages as optional layers, while their ecosystems contain many competing generations of tools and conventions. Agents mix ESM with CommonJS, use an old framework pattern beside a new one, hand-roll something the project already has, or create another implementation because they did not find the first one. Skills and prompts can reduce this, but they do not change the underlying substrate.
 
-Then there is [OTP](https://www.erlang.org/doc/system/design_principles.html). User sessions, background jobs, external API calls, and agent runs can all be represented as isolated processes with explicit ownership and supervision. One process can fail without taking the rest of the application with it. The running system is also directly inspectable: an agent can look at supervision trees, process state, message queues, application configuration, and database queries instead of trying to reconstruct everything from source code and logs.
+Then there is [OTP](https://www.erlang.org/doc/system/design_principles.html), the framework of processes and supervisors that Elixir inherits from Erlang. User sessions, background jobs, external API calls, and agent runs can all be represented as isolated processes with explicit ownership and supervision. One process can fail without taking the rest of the application with it. The running system is also directly inspectable: an agent can look at supervision trees, process state, message queues, application configuration, and database queries instead of trying to reconstruct everything from source code and logs.
 
 José later described the same general direction in [“The future of coding agents is vertical integration”](https://tidewave.ai/blog/the-future-of-coding-agents-is-vertical-integration): an agent works much better when it can connect source code to the browser, logs, database, and running application instead of asking the developer to translate between them.
 
@@ -190,15 +196,15 @@ That led to [QuickBEAM](https://github.com/elixir-volt/quickbeam).
 
 In [QuickBEAM](https://github.com/elixir-volt/quickbeam), JavaScript runtimes and contexts behave like part of an OTP application. They have process ownership, participate in supervision trees, exchange messages with BEAM processes, and can be monitored, stopped, restarted, and inspected. JavaScript values map directly to BEAM terms rather than crossing a JSON boundary.
 
-Execution can also be constrained by memory and reduction-style instruction budgets, so runaway JavaScript does not have unlimited control of the host application. Large numbers of lightweight contexts can share a small pool of runtime threads. Browser APIs such as workers, timers, storage, and networking can be backed by OTP primitives.
+Execution can also be constrained by memory and instruction budgets, counted in reductions like any BEAM process, so runaway JavaScript does not have unlimited control of the host application. Large numbers of lightweight contexts can share a small pool of runtime threads. Browser APIs such as workers, timers, storage, and networking can be backed by OTP primitives.
 
 JavaScript remains available where the ecosystem requires it, but it no longer disappears into an opaque Node sidecar.
 
 Package management came next. [`npm_ex`](https://github.com/elixir-volt/npm_ex) can resolve, fetch, cache, and install npm packages from Elixir. It started as a small library for inspecting `package.json` and dependency trees, then grew into most of a package manager.
 
-I also created Elixir bindings for the Rust tools that already do much of the real work in modern frontend toolchains: [OXC](https://oxc.rs) for JavaScript and TypeScript, [Vize](https://github.com/ubugeeei/vize) for Vue, and [Tailwind](https://tailwindcss.com)’s Oxide scanner. These projects did not need to be rewritten; they needed APIs the BEAM could call directly.
+I also created Elixir bindings for the Rust tools that already do much of the real work in modern frontend toolchains: [OXC](https://oxc.rs) for JavaScript and TypeScript, [Vize](https://github.com/ubugeeei/vize) for Vue, and [Tailwind](https://tailwindcss.com)’s Oxide scanner, which finds class names in source files. These projects did not need to be rewritten; they needed APIs the BEAM could call directly.
 
-[Volt](https://github.com/elixir-volt/volt) assembles these pieces into one frontend toolchain: a development server with HMR, Tailwind, linting, tests, and production builds for TypeScript, Vue, React, Svelte, and Solid. The toolchain starts with the application and can be configured, observed, and extended from Elixir.
+[Volt](https://github.com/elixir-volt/volt) assembles these pieces into one frontend toolchain: a development server with hot module replacement, Tailwind, linting, tests, and production builds for TypeScript, Vue, React, Svelte, and Solid. The toolchain starts with the application and can be configured, observed, and extended from Elixir.
 
 <.volt_tree />
 
@@ -206,11 +212,11 @@ This removes one boundary, but frontend and backend code can still describe two 
 
 [PhoenixVapor](https://github.com/elixir-volt/phoenix_vapor) explores a more direct bridge. It compiles Vue template syntax into native [Phoenix LiveView](https://hexdocs.pm/phoenix_live_view) rendering structures. It supports several modes: Vue syntax with no client JavaScript, server-side reactivity through [QuickBEAM](https://github.com/elixir-volt/quickbeam), or a hybrid where the server owns application data while the browser owns local interface state.
 
-This connects back to [VuePencil](https://github.com/dannote/vue-pencil). A component created there can remain a real Vue component. It can become an ordinary client-side Vue application built by [Volt](https://github.com/elixir-volt/volt), a Vue island inside a [Phoenix](https://www.phoenixframework.org) application, or a template compiled into LiveView rather than being reconstructed from a separate mockup.
+This connects back to [VuePencil](https://github.com/dannote/vue-pencil). A component created there can remain a real Vue component. It can become an ordinary client-side Vue application built by [Volt](https://github.com/elixir-volt/volt), a Vue island embedded in a server-rendered [Phoenix](https://www.phoenixframework.org) page, or a template compiled into LiveView rather than being reconstructed from a separate mockup.
 
 ## The coding environment
 
-I am a big fan of [Pi](https://github.com/badlogic/pi-mono) for its simplicity, minimalism, and extensibility. Its core is deliberately small, while extensions, skills, and prompt files let me adapt it to my workflow. That is why I initially built [pi-elixir](https://github.com/elixir-vibe/pi-elixir) as a [Pi](https://github.com/badlogic/pi-mono) extension instead of starting another coding agent.
+I am a big fan of [Pi](https://github.com/badlogic/pi-mono), the coding agent Figma turned away earlier in this post, for its simplicity, minimalism, and extensibility. Its core is deliberately small, while extensions, skills, and prompt files let me adapt it to my workflow. That is why I initially built [pi-elixir](https://github.com/elixir-vibe/pi-elixir) as a [Pi](https://github.com/badlogic/pi-mono) extension instead of starting another coding agent.
 
 [pi-elixir](https://github.com/elixir-vibe/pi-elixir) connects [Pi](https://github.com/badlogic/pi-mono) to the BEAM. It lets the agent evaluate Elixir inside the project or a running application, inspect OTP and [Ecto](https://hexdocs.pm/ecto) state, use [ExAST](https://github.com/elixir-vibe/ex_ast) for structural code work, and keep values between calls like an IEx or [Livebook](https://livebook.dev) session.
 
@@ -274,7 +280,7 @@ Elixir already has a good deployment unit: an OTP release containing the applica
 
 [ReleaseKit](https://github.com/elixir-vibe/release_kit) turns a Mix release into a repeatable, deployment-neutral artifact. It produces an ordinary tarball and a small manifest describing how to run it, which environment it expects, and how to check its health. It deliberately knows nothing about servers, users, systemd, or reverse proxies.
 
-[HostKit](https://github.com/elixir-vibe/host_kit) handles the other half. It describes a Linux host in Elixir: packages, users, services, secrets, firewall rules, and [Caddy](https://caddyserver.com) routes. It reads the current state, produces a plan, and applies the reviewed plan locally or over SSH. A host is ordinary Elixir:
+[HostKit](https://github.com/elixir-vibe/host_kit) handles the other half. It describes a Linux host in Elixir: packages, users, services, secrets, firewall rules, and [Caddy](https://caddyserver.com) reverse-proxy routes. It reads the current state, produces a plan, and applies the reviewed plan locally or over SSH. A host is ordinary Elixir:
 
 ```elixir
 use HostKit.DSL, providers: [HostKit.Providers.Caddy]
@@ -350,9 +356,9 @@ Lovable and Replit grew out of venture-capital culture, where rapid user growth 
 
 ## What exists today
 
-These examples describe the system I am building, not a finished product that can already be installed with one command.
+This post describes the system I am building, not a finished product that can be installed with one command.
 
-Most of the building blocks are public and useful independently. The map after the summary marks which are published, which are beta, and which are early or still prototypes.
+Most of the building blocks are public and useful independently. The map under the summary marks which are published and which are still alpha or beta.
 
 The main missing piece is integration. These projects already use one another—[Volt](https://github.com/elixir-volt/volt) uses [QuickBEAM](https://github.com/elixir-volt/quickbeam), [Exograph](https://github.com/elixir-vibe/exograph) uses [QuackDB](https://github.com/elixir-vibe/quackdb) and [ExAST](https://github.com/elixir-vibe/ex_ast), [HostKit](https://github.com/elixir-vibe/host_kit) consumes [ReleaseKit](https://github.com/elixir-vibe/release_kit) artifacts, and my projects run the quality tools on themselves—but they do not yet form one coherent founder-facing product.
 
@@ -364,7 +370,7 @@ I have spent most of this year building and extracting the missing parts. The ne
 
 The most immediate product is OpenPencil Cloud: optional workspaces, synchronization, sharing, comments, collaboration, and team component libraries. Local files will remain first-class, and the backend will also be self-hostable.
 
-I also want to turn reference collection, alternative drafts, comparison, and iterative work with virtual designers into one coherent [OpenPencil](https://github.com/open-pencil/open-pencil) workflow. A related service may provide common access to language and vision models, image generation, vectorization, SVG generation, and other design APIs—something like [OpenRouter](https://openrouter.ai) focused on design—while continuing to support users’ own credentials.
+I also want to turn reference collection, alternative drafts, comparison, and iterative work with agents acting as designers into one coherent [OpenPencil](https://github.com/open-pencil/open-pencil) workflow. A related service may provide common access to language and vision models, image generation, vectorization, SVG generation, and other design APIs—something like [OpenRouter](https://openrouter.ai) focused on design—while continuing to support users’ own credentials.
 
 The path through [VuePencil](https://github.com/dannote/vue-pencil), the coding environment, and the rest of the platform then needs to become a product rather than a diagram. That includes filling conventional gaps such as authentication and file storage, and connecting [Incant](https://github.com/elixir-vibe/incant) to the operational sources that already exist.
 
