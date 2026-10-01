@@ -3,11 +3,13 @@
 # list of lines, each a list of plain strings and `{token, text}` segments, rendered
 # by Blog.Highlight. `lang` sets the code element's language class and `class` adds
 # sizing or spacing to the pre.
+alias Blog.Highlight
+
 assigns =
   assigns
   |> assign_new(:class, fn -> nil end)
-  |> assign(:code, Blog.Highlight.render(assigns.lines))
-  |> assign(:pane_class, Blog.Highlight.pane_class())
-  |> assign(:pane_style, Blog.Highlight.pane_style())
+  |> assign(:code, Highlight.render(assigns.lines))
+  |> assign(:pane_class, Highlight.pane_class())
+  |> assign(:pane_style, Highlight.pane_style())
 ---
 <pre class={[@pane_class, @class]} style={@pane_style}><code class={"language-#{@lang}"} translate="no" tabindex="0">{@code}</code></pre>

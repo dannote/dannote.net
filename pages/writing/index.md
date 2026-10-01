@@ -9,18 +9,10 @@ I write about building tools that let people and agents understand what they are
 
 <section aria-labelledby="essays-title">
   <h2 id="essays-title">Essays</h2>
-  <ul class="not-prose my-4 list-none space-y-4 p-0">
-    <li :for={article <- @site |> Astral.Collection.entries(:articles) |> Astral.Collection.published() |> Astral.Collection.sort_by_date(:desc)} :if={article.data.kind == "Essay"}>
-      <.writing_entry entry={article} />
-    </li>
-  </ul>
+  <.writing_list site={@site} kind="Essay" />
 </section>
 
 <section aria-labelledby="notes-title">
   <h2 id="notes-title">Notes</h2>
-  <ul class="not-prose my-4 list-none space-y-4 p-0">
-    <li :for={article <- @site |> Astral.Collection.entries(:articles) |> Astral.Collection.published() |> Astral.Collection.sort_by_date(:desc)} :if={article.data.kind == "Note"}>
-      <.writing_entry entry={article} />
-    </li>
-  </ul>
+  <.writing_list site={@site} kind="Note" />
 </section>
