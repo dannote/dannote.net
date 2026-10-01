@@ -44,16 +44,21 @@ async function embed(post: HTMLElement, theme: Theme): Promise<void> {
   const id = link?.pathname.match(/\/status\/(\d+)/)?.[1];
   if (!id) return;
 
-  const twttr = await loadWidgets();
+  post.classList.add("is-loading");
+  let rendered: HTMLElement | undefined;
   const target = document.createElement("div");
   target.className = "x-post-loading";
-  post.append(target);
-
-  const rendered = await twttr.widgets.createTweet(id, target, {
-    theme,
-    dnt: true,
-    conversation: "none",
-  });
+  try {
+    const twttr = await loadWidgets();
+    post.append(target);
+    rendered = await twttr.widgets.createTweet(id, target, {
+      theme,
+      dnt: true,
+      conversation: "none",
+    });
+  } finally {
+    post.classList.remove("is-loading");
+  }
 
   // A newer theme may have started another embed meanwhile; keep only the latest.
   if (!rendered || $theme.get() !== theme) {

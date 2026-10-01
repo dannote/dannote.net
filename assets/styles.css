@@ -262,6 +262,24 @@
     padding: 0;
   }
 
+  /* While X's embed loads, the quote's rule pulses in the accent so the reader knows
+     something is on its way. The quote itself stays still. */
+  .x-post.is-loading {
+    animation: x-post-pulse 1.4s ease-in-out infinite;
+  }
+
+  @keyframes x-post-pulse {
+    50% {
+      border-inline-start-color: var(--color-accent);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .x-post.is-loading {
+      animation: none;
+    }
+  }
+
   /* An embed renders out of flow and invisible, so nothing shifts until it's ready. */
   .x-post > .x-post-loading {
     position: absolute;
