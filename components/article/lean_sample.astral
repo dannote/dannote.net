@@ -1,0 +1,23 @@
+---
+# Three lines of Lean, marked up by hand with the same spans and colors Lumis emits,
+# because no Lean grammar is published for it. Keep in sync with the github themes.
+kw = "color: light-dark(#cf222e, #ff7b72);"
+fun = "color: light-dark(#6639ba, #d2a8ff);"
+type = "color: light-dark(#953800, #ffa657);"
+op = "color: light-dark(#0550ae, #79c0ff);"
+comment = "color: light-dark(#57606a, #8b949e);"
+
+assigns =
+  assigns
+  |> assign(:kw, kw)
+  |> assign(:fun, fun)
+  |> assign(:type, type)
+  |> assign(:op, op)
+  |> assign(:comment, comment)
+---
+<pre
+  class="lumis lumis-themes dark light"
+  style="color: light-dark(#1f2328, #e6edf3); background-color: light-dark(#ffffff, #0d1117);"
+><code class="language-lean" translate="no" tabindex="0"><span class="l-line" data-line="1"><span style={@kw}>def</span> <span style={@fun}>double</span> (n <span style={@op}>:</span> <span style={@type}>Nat</span>) <span style={@op}>:</span> <span style={@type}>Nat</span> <span style={@op}>:=</span> <span style={@op}>2</span> <span style={@op}>*</span> n              <span style={@comment}>-- a definition</span></span>
+<span class="l-line" data-line="2"><span style={@kw}>theorem</span> <span style={@fun}>double_even</span> (n <span style={@op}>:</span> <span style={@type}>Nat</span>) <span style={@op}>:</span> <span style={@op}>2</span> <span style={@op}>∣</span> <span style={@fun}>double</span> n <span style={@op}>:=</span>  <span style={@comment}>-- a claim about it</span></span>
+<span class="l-line" data-line="3">  ⟨n, <span style={@fun}>rfl</span>⟩                                       <span style={@comment}>-- its proof, checked by the kernel</span></span></code></pre>

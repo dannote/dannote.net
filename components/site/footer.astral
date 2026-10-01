@@ -9,5 +9,6 @@
   <p class="mt-6 text-dim">
     © 2012–{Date.utc_today().year} {Blog.Site.author()} · Built with
     <a href="https://github.com/elixir-volt/astral">Astral</a>
+    · <a href="https://github.com/dannote/dannote.net">Source</a>
   </p>
 </footer>

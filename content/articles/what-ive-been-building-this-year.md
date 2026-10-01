@@ -63,6 +63,8 @@ Most AI design tools ignore this process. They try to generate a finished screen
 
 With [`figma-use`](https://github.com/dannote/figma-use), an agent could work on the actual structure. It could create and modify nodes, use components and variants, describe a screen in JSX and render it as Figma layers, inspect the resulting tree, and continue from there. I added visual diffing so it could see what changed, and design linting so it could catch structural and accessibility problems. I also wanted design files in automated pipelines: linted in CI, compared between revisions, and exported without anybody opening Figma.
 
+<.article_design_diff />
+
 Then Figma [released an update](https://github.com/dannote/figma-use/issues/6#issuecomment-3925136616) that blocked the debugging interface [`figma-use`](https://github.com/dannote/figma-use) relied on.
 
 I found workarounds and kept the tool working, but the larger lesson was obvious. I could not build this kind of infrastructure on access that a vendor could remove at any moment. If agents were going to treat design as a real programmable medium, the editor itself had to be open.
@@ -135,7 +137,41 @@ Once the prototype becomes a real application, design is only one part of the pr
 
 For mathematics there is [Lean](https://lean-lang.org). Every definition, theorem, and proof is written in one language and checked by one small, trusted kernel. A model trained on Lean does not spend capacity learning five notations for the same idea, and every step it takes gets a verdict. My bet is that this is why such models reason so densely.
 
+<.article_lean_sample />
+
 I want the same for the web stack: one language in which bundling, the JavaScript runtime, storage, the backend, deployment, and operations share the same kind of API, the same runtime, and the same checks, while JavaScript, Rust, and SQL keep doing their jobs underneath. Elixir is the closest thing I found, and the rest of this post is what it took to make that true. I first wrote about this intuition in [“A language for humans and models”](/writing/a-language-for-humans-and-models/).
+
+All of it in one session, the same one an agent works in:
+
+```elixir
+# Build the frontend.
+{:ok, build} = Volt.build()
+
+# Run JavaScript inside the application, as a supervised process.
+{:ok, html} = QuickBEAM.call(:renderer, "render", [%{page: "home"}])
+
+# Search the code by structure.
+ExAST.search("lib/", "Repo.transaction(_)", inside: "def _ do ... end")
+
+# Build the dependence graph of a file.
+graph = Reach.file_to_graph("lib/payments.ex")
+
+# Call a model through one path, with quotas and accounting.
+{:ok, reply} = LLMProxy.chat("Summarize this incident", model: "fast")
+
+# Query the analytics store.
+MyApp.AnalyticsRepo.all(MyApp.Analytics.category_latency())
+
+# Fetch what one user saw.
+recording = PhoenixReplay.Recordings.fetch!(id)
+
+# Plan and apply the host.
+{:ok, plan} = HostKit.plan(project, target: :prod)
+HostKit.apply(plan, confirm: true)
+
+# Ask the runtime itself.
+Supervisor.which_children(MyApp.Supervisor)
+```
 
 I was skeptical when José Valim, the creator of Elixir, published [“Why Elixir is the best language for AI”](https://dashbit.co/blog/why-elixir-best-language-for-ai). A benchmark result like the [AutoCodeBench](https://autocodebench.github.io/) score he cites says little on its own. One of his reasons stuck with me, though: the ecosystem has stayed stable, so a model has not learned five generations of conflicting APIs. After a few months of building Elixir with agents, I agreed.
 
@@ -159,7 +195,7 @@ I started turning the checks I was performing during reviews into tools.
 
 [ExAST](https://github.com/elixir-vibe/ex_ast) is structural search and replacement for Elixir. [Grit](https://github.com/getgrit/gritql) rewrites code with structural patterns and [CodeQL](https://codeql.github.com) queries it as a database, both across many languages through a neutral layer. ExAST is Elixir-native: a pattern is ordinary Elixir code, matched against the AST the compiler itself produces. Instead of grepping source text or inventing a regular expression, an agent searches for an Elixir syntax pattern and rewrites the matching nodes.
 
-A pattern is Elixir with holes. `_` matches anything, a name captures the node it stands on, `...` captures the rest, and pipes are normalized, so `Enum.map(data, f)` also finds `data |> Enum.map(f)`. The questions a reviewer asks about generated code become queries over the tree:
+The questions a reviewer asks about generated code become queries over the tree:
 
 ```elixir
 import ExAST.Query
@@ -189,6 +225,21 @@ These tools mostly see local structure. A function can look reasonable in isolat
 
 ```sh
 mix reach.trace --from conn.params --to Repo
+```
+
+The other questions have the same shape. Here they are asked of QuackDB:
+
+```sh
+$ mix reach.map --hotspots --top 3
+  score combines branch count with caller impact
+  QuackDB.Source.literal!/1  score=96  branches=4  callers=24
+  QuackDB.SQL.literal/1      score=77  branches=7  callers=11
+  QuackDB.SQL.literal!/1     score=31  branches=1  callers=31
+
+$ mix reach.otp --concurrency
+  Tasks        async      lib/quack_db/server.ex:423   1 async without matching await
+  Monitors     trap_exit  lib/quack_db/server.ex:196
+  Supervisors             lib/quack_db/application.ex:12
 ```
 
 [Reach](https://github.com/elixir-vibe/reach) also turns architecture into something agents can check. A project declares its layers and forbidden dependencies, and changes that cross them are rejected. Findings are advisory by default, and every suggested fix is labeled equivalent, conditional, or review-only, so an agent can tell a proven rewrite from a lead.
@@ -231,6 +282,8 @@ This removes one boundary, but frontend and backend code can still describe two 
 
 [PhoenixVapor](https://github.com/elixir-volt/phoenix_vapor) explores a more direct bridge. It compiles Vue template syntax into native [Phoenix LiveView](https://hexdocs.pm/phoenix_live_view) rendering structures, so it uses the same diff protocol with no wrapper elements. It has four modes: Vue syntax with no client JavaScript, server-side reactivity through [QuickBEAM](https://github.com/elixir-volt/quickbeam), a full Vue runtime on the server that renders third-party component libraries without shipping them to the browser, and a hybrid where the server owns application data while the browser owns local interface state.
 
+<.article_vapor_wire />
+
 This connects back to [VuePencil](https://github.com/dannote/vue-pencil). A component created there can remain a real Vue component. It can become an ordinary client-side Vue application built by [Volt](https://github.com/elixir-volt/volt), a Vue island embedded in a server-rendered [Phoenix](https://www.phoenixframework.org) page, or a template compiled into LiveView.
 
 ## The coding environment
@@ -265,7 +318,30 @@ For storage, I settled on [DuckDB](https://duckdb.org).
 
 DuckDB combines much of the SQL surface I expect from PostgreSQL with the portability of SQLite. A complete database can live in one file, but it still supports analytical queries, full-text search, geospatial operations, Parquet, and direct access to S3. For many small and medium products, it can handle both ordinary application data and serious analytics without requiring a separate analytical cluster.
 
+```sql
+-- A campaign funnel, straight from a month of Parquet files on S3.
+SELECT utm_campaign,
+       count(DISTINCT session_id)                                AS sessions,
+       count(DISTINCT session_id) FILTER (WHERE name = 'signup') AS signups,
+       count(DISTINCT session_id) FILTER (WHERE name = 'paid')   AS paid,
+       round(100.0 * paid / sessions, 1)                         AS conversion
+FROM read_parquet('s3://analytics/events/2026-09-*.parquet')
+GROUP BY ALL
+QUALIFY row_number() OVER (ORDER BY conversion DESC) <= 10;
+```
+
 [QuackDB](https://github.com/elixir-vibe/quackdb) makes DuckDB usable as part of an Elixir application: an OTP-supervised DuckDB process, a `DBConnection` client, an Ecto adapter, native append and streaming, and a query DSL so most work never touches raw SQL.
+
+```elixir
+from e in Source.parquet("s3://analytics/events/2026-09-*.parquet"),
+  group_by: e.utm_campaign,
+  select: %{
+    campaign: e.utm_campaign,
+    sessions: count(e.session_id, :distinct),
+    signups: filter(count(e.session_id, :distinct), e.name == "signup"),
+    paid: filter(count(e.session_id, :distinct), e.name == "paid")
+  }
+```
 
 DuckDB is becoming the common storage layer across the platform. [Exograph](https://github.com/elixir-vibe/exograph)’s index lives in it, [pi-elixir](https://github.com/elixir-vibe/pi-elixir) mirrors its sessions into it, [Tilde](https://github.com/elixir-vibe/tilde) persists through it, [LLMProxy](https://github.com/elixir-vibe/llm_proxy)’s standalone mode keeps usage in it, and the analytics fork is moving onto it. [Vibe](https://github.com/elixir-vibe/vibe) still keeps its sessions in SQLite.
 
@@ -273,9 +349,7 @@ I started [QuackDB](https://github.com/elixir-vibe/quackdb) while DuckDB’s Qua
 
 Storage was one shared service. Model access is the other: not every product needs an LLM, but most now call one, and every product eventually depends on external APIs.
 
-[LLMProxy](https://github.com/elixir-vibe/llm_proxy) is one execution path for model calls, in the spirit of [LiteLLM](https://www.litellm.ai) but self-hosted, Elixir-native, and more flexible: with provider routing, fallbacks, credential pools, quotas, usage accounting, and cost. Callers ask for stable names such as `fast`, `smart`, or `cheap`, and each API key carries its own model allowlist and limits. It runs inside an Elixir application or standalone on DuckDB, exposing OpenAI- and Anthropic-compatible HTTP APIs, with its admin pages in [Incant](https://github.com/elixir-vibe/incant).
-
-The application and its agents do not each need their own provider integrations and accounting. Model selection can change without rewriting every caller, and the founder can see where tokens are being spent across products and agents.
+[LLMProxy](https://github.com/elixir-vibe/llm_proxy) is one execution path for every model call, in the spirit of [LiteLLM](https://www.litellm.ai) but Elixir-native: it runs inside the application, or standalone with OpenAI- and Anthropic-compatible endpoints. Callers ask for `fast`, `smart`, or `cheap`. Routing, fallbacks, quotas, and accounting happen behind those names, so a provider can change without touching a caller, and the founder sees where every token went.
 
 I found the same pattern repeated with non-LLM services. A startup gradually accumulates APIs for email, advertising, payments, image generation, vectorization, search, and hosting. Each integration comes with its own authentication, retries, limits, credentials, errors, and accounting.
 

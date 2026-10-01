@@ -1,0 +1,50 @@
+---
+# One template in three forms: the Vue source, the LiveView Rendered struct that
+# PhoenixVapor compiles it to, and what the socket carries. Colors follow the parts,
+# not the syntax: statics gray, each dynamic slot its own color, across all panes.
+# Braces are entities because HEEx would read them as interpolation.
+static = "color: light-dark(#57606a, #8b949e);"
+name = "color: light-dark(#6639ba, #d2a8ff);"
+count = "color: light-dark(#0550ae, #79c0ff);"
+key = "color: light-dark(#953800, #ffa657);"
+pane = "lumis lumis-themes dark light overflow-x-auto p-4 text-sm leading-6"
+theme = "color: light-dark(#1f2328, #e6edf3); background-color: light-dark(#ffffff, #0d1117);"
+
+assigns =
+  assigns
+  |> assign(:static, static)
+  |> assign(:name, name)
+  |> assign(:count, count)
+  |> assign(:key, key)
+  |> assign(:pane, pane)
+  |> assign(:theme, theme)
+---
+<figure class="not-prose my-10 border-y border-copy/25 py-6" aria-labelledby="vapor-wire-caption">
+  <figcaption id="vapor-wire-caption" class="mb-5 text-sm text-dim">
+    A Vue template, what PhoenixVapor compiles it to, and what the socket sends: the first render, then one changed value.
+  </figcaption>
+  <div class="grid gap-4 sm:grid-cols-2">
+    <div class="sm:col-span-2">
+      <div class="mb-2 text-xs uppercase tracking-wider text-dim">Template</div>
+      <pre class={@pane} style={@theme}><code class="language-vue" translate="no"><span style={@static}>&lt;p&gt;Hi, </span><span style={@name}>&#123;&#123; name &#125;&#125;</span><span style={@static}>. You have </span><span style={@count}>&#123;&#123; count &#125;&#125;</span><span style={@static}> new messages.&lt;/p&gt;</span></code></pre>
+    </div>
+    <div>
+      <div class="mb-2 text-xs uppercase tracking-wider text-dim">Compiled</div>
+      <pre class={@pane} style={@theme}><code class="language-elixir" translate="no">%Phoenix.LiveView.Rendered&#123;
+  <span style={@key}>static:</span> [<span style={@static}>"&lt;p&gt;Hi, "</span>, <span style={@static}>". You have "</span>,
+           <span style={@static}>" new messages.&lt;/p&gt;"</span>],
+  <span style={@key}>dynamic:</span> [<span style={@name}>name</span>, <span style={@count}>count</span>]
+&#125;</code></pre>
+    </div>
+    <div>
+      <div class="mb-2 text-xs uppercase tracking-wider text-dim">On the wire</div>
+      <pre class={@pane} style={@theme}><code class="language-json" translate="no"><span style={@static}>// first render</span>
+&#123;<span style={@key}>"s"</span>: [<span style={@static}>"&lt;p&gt;Hi, "</span>, <span style={@static}>". You have "</span>,
+       <span style={@static}>" new messages.&lt;/p&gt;"</span>],
+ <span style={@name}>"0"</span>: <span style={@name}>"Danila"</span>, <span style={@count}>"1"</span>: <span style={@count}>"3"</span>&#125;
+
+<span style={@static}>// count changed</span>
+&#123;<span style={@count}>"1"</span>: <span style={@count}>"4"</span>&#125;</code></pre>
+    </div>
+  </div>
+</figure>

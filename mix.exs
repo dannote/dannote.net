@@ -45,6 +45,7 @@ defmodule Blog.MixProject do
       {:lumis_wasm_html, "~> 0.26"},
       {:lumis_wasm_vue, "~> 0.26"},
       {:lumis_wasm_bash, "~> 0.26"},
+      {:lumis_wasm_sql, "~> 0.26"},
       {:lumis_wasm_comment, "~> 0.26"},
       {:skia, "~> 0.3.8"}
       # {:dep_from_hexpm, "~> 0.3.0"},
