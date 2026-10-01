@@ -10,14 +10,7 @@ rows = [
    ]},
   {"Prototype",
    [
-     {"VuePencil", "https://github.com/dannote/vue-pencil", "alpha"},
-     {"PhoenixVapor", "https://github.com/elixir-volt/phoenix_vapor", nil}
-   ]},
-  {"Code",
-   [
-     {"pi-elixir", "https://github.com/elixir-vibe/pi-elixir", nil},
-     {"Vibe", "https://github.com/elixir-vibe/vibe", "alpha"},
-     {"Tilde", "https://github.com/elixir-vibe/tilde", "alpha"}
+     {"VuePencil", "https://github.com/dannote/vue-pencil", "alpha"}
    ]},
   {"Check",
    [
@@ -28,7 +21,7 @@ rows = [
      {"Exograph", "https://github.com/elixir-vibe/exograph", nil},
      {"VibeKit", "https://github.com/elixir-vibe/vibe_kit", nil}
    ]},
-  {"Build and run",
+  {"Frontend",
    [
      {"QuickBEAM", "https://github.com/elixir-volt/quickbeam", nil},
      {"npm_ex", "https://github.com/elixir-volt/npm_ex", nil},
@@ -36,6 +29,16 @@ rows = [
      {"vize_ex", "https://github.com/elixir-volt/vize_ex", nil},
      {"oxide_ex", "https://github.com/elixir-volt/oxide_ex", nil},
      {"Volt", "https://github.com/elixir-volt/volt", nil},
+     {"PhoenixVapor", "https://github.com/elixir-volt/phoenix_vapor", nil}
+   ]},
+  {"Code",
+   [
+     {"pi-elixir", "https://github.com/elixir-vibe/pi-elixir", nil},
+     {"Vibe", "https://github.com/elixir-vibe/vibe", "alpha"},
+     {"Tilde", "https://github.com/elixir-vibe/tilde", "alpha"}
+   ]},
+  {"Storage and APIs",
+   [
      {"QuackDB", "https://github.com/elixir-vibe/quackdb", nil},
      {"LLMProxy", "https://github.com/elixir-vibe/llm_proxy", nil},
      {"Egress", nil, "design"}
