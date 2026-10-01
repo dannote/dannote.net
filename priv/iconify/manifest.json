@@ -3,6 +3,18 @@
   "icons": [
     {
       "hidden": false,
+      "name": "lucide:globe",
+      "left": 0,
+      "width": 24,
+      "body": "<g fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 2a14.5 14.5 0 0 0 0 20a14.5 14.5 0 0 0 0-20M2 12h20\"/></g>",
+      "top": 0,
+      "height": 24,
+      "rotate": 0,
+      "h_flip": false,
+      "v_flip": false
+    },
+    {
+      "hidden": false,
       "name": "lucide:mail",
       "left": 0,
       "width": 24,

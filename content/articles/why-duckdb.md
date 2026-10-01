@@ -15,7 +15,7 @@ Postgres is still the obvious default for highly concurrent OLTP systems, but ma
 
 I intend to use DuckDB as the primary storage layer for the platform I’m building, so QuackDB focuses on the parts I need in a real Elixir app: supervision, connection pooling, Ecto, fast append paths, dataframes, telemetry, and helpers for DuckDB’s analytical SQL.
 
-0.5 focuses on making the Ecto and analytical side much more complete:
+[QuackDB 0.5](https://github.com/elixir-vibe/quackdb/releases/tag/v0.5.0) focuses on making the Ecto and analytical side much more complete:
 
 - append through Ecto with defaults and returning
 - using an Ecto repo directly with QuackDB native query/append APIs
@@ -27,8 +27,6 @@ I intend to use DuckDB as the primary storage layer for the platform I’m build
 - better nullable/schema type handling for append-heavy workloads
 
 QuackDB also continues to cover the broader integration surface: supervised DuckDB, DBConnection/Ecto, native append, Explorer dataframes, Table.Reader results, Geo/WKB, telemetry, managed DuckDB binaries, and DuckDB-specific SQL helpers.
-
-[QuackDB 0.5 release notes](https://github.com/elixir-vibe/quackdb/releases/tag/v0.5.0).
 
 ## Update, August 2026
 
