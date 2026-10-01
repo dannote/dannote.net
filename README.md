@@ -2,9 +2,19 @@
 
 Danila Poyarkov's personal site, and a working example of building a site in Elixir from start to finish.
 
-It's built with [Astral](https://github.com/elixir-volt/astral), a static site generator for Elixir, and [Volt](https://github.com/elixir-volt/volt), which handles browser assets and the dev server. Pages are HEEx templates and Markdown. Content is typed collections. TypeScript, Tailwind CSS, syntax highlighting, and social cards all build inside the BEAM, so building the site doesn't need Node.js.
+It's built with [Astral](https://github.com/elixir-volt/astral), a static site generator for Elixir, and [Volt](https://github.com/elixir-volt/volt), which handles browser assets and the dev server. The whole site builds inside the BEAM: TypeScript, Tailwind CSS, syntax highlighting, and social cards included. There's no Node.js and no bundler config.
 
 ## What's in here
+
+### The whole frontend builds inside the BEAM
+
+`mix astral.build` runs without Node.js installed:
+
+- **TypeScript** in [`assets/`](assets) is bundled by Volt with [OXC](https://hex.pm/packages/oxc), the Rust JavaScript toolchain, through native bindings.
+- **Tailwind CSS 4** is compiled by Tailwind's own compiler, running inside the BEAM on [QuickBEAM](https://hex.pm/packages/quickbeam). npm packages such as `@tailwindcss/typography` are fetched by an Elixir npm client.
+- **Code blocks** are highlighted at build time by [Lumis](https://hex.pm/packages/lumis) with light and dark themes, so the browser runs no highlighter.
+- **Social cards** are drawn by [`Blog.SocialImages`](lib/blog/social_images.ex), a plugin written for this site. It renders a 1200 × 630 Open Graph image for every article with [Skia](https://hex.pm/packages/skia), with no headless browser and no image service.
+- **Icons** come from Iconify and are inlined at build time.
 
 ### Pages are templates with Elixir in them
 
@@ -56,23 +66,9 @@ Markdown can use components too. A note can quote the X post it replies to:
 </.x_post>
 ```
 
-### Everything else a blog needs comes from plugins
+### Feeds and indexes come from plugins
 
-- `Astral.Plugin.Feed` writes the Atom feed for the articles.
-- `Astral.Plugin.Sitemap` writes `sitemap.xml`.
-- `Astral.Plugin.LLMs` writes [`llms.txt`](https://llmstxt.org) for language models.
-- [`Blog.SocialImages`](lib/blog/social_images.ex) is a plugin written for this site. It draws a 1200 × 630 Open Graph card for every article with [Skia](https://hex.pm/packages/skia), and needs neither a headless browser nor an image service.
-
-### Builds don't need Node.js
-
-- **TypeScript** in [`assets/`](assets) is bundled by Volt with [OXC](https://hex.pm/packages/oxc), the Rust JavaScript toolchain, through native bindings.
-- **Tailwind CSS 4** is compiled by Tailwind's own compiler, running inside the BEAM on [QuickBEAM](https://hex.pm/packages/quickbeam). npm packages such as `@tailwindcss/typography` are fetched by an Elixir npm client.
-- **Code blocks** are highlighted at build time by [Lumis](https://hex.pm/packages/lumis) with light and dark themes, so the browser runs no highlighter.
-- **Icons** come from Iconify and are inlined at build time.
-
-### The dev server shows errors in the browser
-
-`mix astral.dev` serves the site with hot module reloading. Template errors, compile errors in [`lib/`](lib), and broken config show up in an overlay with the file, line, and source. Changes to `astral.config.exs` and `lib/` apply without a restart, and open pages reload on their own.
+`Astral.Plugin.Feed` writes the Atom feed, `Astral.Plugin.Sitemap` writes `sitemap.xml`, and `Astral.Plugin.LLMs` writes [`llms.txt`](https://llmstxt.org) for language models. Each is a few lines in `astral.config.exs`.
 
 ### One command checks everything
 
@@ -91,6 +87,8 @@ mix astral.dev      # http://localhost:4000, add --open to open a browser
 mix astral.build    # writes the static site to dist/
 mix ci
 ```
+
+The dev server reloads pages as you edit, applies changes to `astral.config.exs` and `lib/` without a restart, and shows template, compile, and config errors in the browser.
 
 ## Layout
 
