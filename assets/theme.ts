@@ -17,19 +17,19 @@ function currentTheme(): Theme {
   return preference ?? (system.matches ? "dark" : "light");
 }
 
+// CSS renders the theme, the toggle, and its icon from `data-theme`; this only keeps
+// the attribute and the toggle's label in sync.
 function applyTheme(): void {
-  const theme = currentTheme();
-  document.documentElement.style.colorScheme = theme;
+  const root = document.documentElement;
+
+  if (preference) root.dataset.theme = preference;
+  else delete root.dataset.theme;
+
+  const label = `Switch to ${currentTheme() === "dark" ? "light" : "dark"} theme`;
 
   for (const button of document.querySelectorAll<HTMLButtonElement>("[data-theme-toggle]")) {
-    button.hidden = false;
-    const label = `Switch to ${theme === "dark" ? "light" : "dark"} theme`;
     button.setAttribute("aria-label", label);
     button.title = label;
-
-    for (const icon of button.querySelectorAll<HTMLElement>("[data-theme-icon]")) {
-      icon.hidden = icon.dataset.themeIcon === theme;
-    }
   }
 }
 

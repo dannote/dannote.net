@@ -75,6 +75,46 @@
     scroll-behavior: smooth;
   }
 
+  html[data-theme="light"] {
+    color-scheme: light;
+  }
+
+  html[data-theme="dark"] {
+    color-scheme: dark;
+  }
+
+  /*
+   * The head script marks <html> with `js` and the stored `data-theme` before the
+   * first paint, so the toggle and its icon render in their final state. The toggle
+   * shows the icon of the theme it switches to, and needs JavaScript to work.
+   */
+  [data-theme-toggle] {
+    display: none;
+  }
+
+  html.js [data-theme-toggle] {
+    display: inline-block;
+  }
+
+  [data-theme-icon="light"],
+  html[data-theme="dark"] [data-theme-icon="dark"] {
+    display: none;
+  }
+
+  html[data-theme="dark"] [data-theme-icon="light"] {
+    display: inline;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    html:not([data-theme="light"]) [data-theme-icon="light"] {
+      display: inline;
+    }
+
+    html:not([data-theme="light"]) [data-theme-icon="dark"] {
+      display: none;
+    }
+  }
+
   body {
     min-width: 20rem;
     background: var(--color-page);
@@ -202,7 +242,8 @@
     margin: 18mm 20mm;
   }
 
-  :root {
+  :root,
+  html[data-theme] {
     color-scheme: light;
   }
 

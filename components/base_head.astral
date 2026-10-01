@@ -24,14 +24,13 @@ assigns =
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="color-scheme" content="light dark" />
-<.dynamic_tag tag_name="script">
-  {Phoenix.HTML.raw("""
+<script>
+  document.documentElement.classList.add("js");
   try {
     const theme = localStorage.getItem("theme");
-    if (theme === "light" || theme === "dark") document.documentElement.style.colorScheme = theme;
+    if (theme === "light" || theme === "dark") document.documentElement.dataset.theme = theme;
   } catch {}
-  """)}
-</.dynamic_tag>
+</script>
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f4f1e9" />
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#171714" />
 <link rel="canonical" href={@canonical} />

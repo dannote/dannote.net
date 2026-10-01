@@ -22,7 +22,6 @@ assigns = assign(assigns, :section, section)
     <.nav_link href="/projects/" active={@section == :projects}>Projects</.nav_link>
     <.nav_link href="/about/" active={@section == :about}>About</.nav_link>
     <button
-      hidden
       data-theme-toggle
       type="button"
       aria-label="Switch theme"
@@ -35,7 +34,7 @@ assigns = assign(assigns, :section, section)
         class="inline-block align-middle"
         aria-hidden="true"
       /></span>
-      <span data-theme-icon="dark" hidden><.icon
+      <span data-theme-icon="dark"><.icon
         name="lucide:moon"
         width="20"
         height="20"
