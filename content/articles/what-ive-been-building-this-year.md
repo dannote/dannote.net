@@ -66,6 +66,18 @@ With [`figma-use`](https://github.com/dannote/figma-use), an agent could work on
 
 Then Figma released an update that blocked the debugging interface [`figma-use`](https://github.com/dannote/figma-use) relied on.
 
+> Figma shipped a silent patch specifically to kill figma-use — my open-source tool that did what they wouldn't: an MCP server that creates and modifies designs, JSX export, design linting. Then they scrambled to catch up with their own MCP server.
+>
+> So I spent the weekend recreating Figma from scratch.
+>
+> OpenPencil: reads and writes .fig files, AI chat with full design tools, P2P collaboration with zero servers, ~7 MB app. No account, no subscription.
+>
+> Three days, one developer, MIT license.
+>
+> <https://openpencil.dev>
+>
+> — Danila Poyarkov (@dan_note), [1 March 2026](https://x.com/dan_note/status/2028201388074013048)
+
 I found workarounds and kept the tool working, but the larger lesson was obvious. I could not build this kind of infrastructure on access that a vendor could remove at any moment. If agents were going to treat design as a real programmable medium, the editor itself had to be open.
 
 The official route is not much safer. Figma's remote MCP server now decides which agents may connect at all: sign-in works only for client names on its list, such as Claude Code or Codex. When Mario Zechner tried to connect [Pi](https://github.com/badlogic/pi-mono), his open-source coding agent, Figma refused it because [Pi](https://github.com/badlogic/pi-mono) identifies itself as `pi`.
