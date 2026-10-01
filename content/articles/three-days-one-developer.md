@@ -17,4 +17,4 @@ OpenPencil: reads and writes `.fig` files, AI chat with full design tools, P2P c
 
 Three days, one developer, MIT license.
 
-<.link_card href="https://openpencil.dev" title="OpenPencil" description="A free, open-source design editor that reads and writes .fig files. Desktop and web." />
+<.article_link_card href="https://openpencil.dev" title="OpenPencil" description="A free, open-source design editor that reads and writes .fig files. Desktop and web." />

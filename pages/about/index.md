@@ -21,4 +21,4 @@ I’ve also reported security issues through [Google Bug Hunters](https://bughun
 
 ## Outside software
 
-I take photographs, write, and make absurdist YouTube clips with friends. There are links to those [elsewhere](/elsewhere/).
+I take photographs and write. There are links to those [elsewhere](/elsewhere/).
