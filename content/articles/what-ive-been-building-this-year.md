@@ -266,7 +266,22 @@ I found the same pattern repeated with non-LLM services. A startup gradually acc
 
 [Egress](https://github.com/elixir-vibe/egress) generalizes the approach I started with [LLMProxy](https://github.com/elixir-vibe/llm_proxy). An external service is described once as a set of typed operations. The same definition can produce an Elixir client or a standalone proxy route, while calls pass through one runtime path for authentication, retries, quotas, routing, tracing, and accounting.
 
-The unit an agent works with is an operation such as `create_campaign`, `send_email`, or `vectorize_image`, with a contract, rather than an HTTP URL and a provider’s authentication scheme.
+The unit an agent works with is an operation with a contract, not a URL and a provider’s authentication scheme:
+
+```elixir
+operation :get_repo do
+  get "/repos/:owner/:repo"
+
+  input GitHub.GetRepo
+  output GitHub.Repo
+
+  retry max_attempts: 3
+  timeout 5_000
+  cost units: 1
+end
+```
+
+Retries, limits, and cost live on the operation, so every caller and every proxy route get them for free.
 
 There will also be more conventional application building blocks: authentication and authorization, accounts, files, notifications, realtime features, billing, and the other things for which founders currently reach for [Supabase](https://supabase.com) or libraries such as [Better Auth](https://www.better-auth.com). I do not intend to rebuild everything. The goal is coherent Elixir APIs and defaults, using existing projects where they fit and filling gaps where they do not.
 

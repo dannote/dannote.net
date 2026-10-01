@@ -9,6 +9,30 @@ defmodule Blog.LinkPreview do
   cached, so the next build retries it.
   """
 
+  defmodule Preview do
+    @moduledoc "What a card shows for one URL. Image paths are relative to the image source directories."
+    use JSONCodec, strict: true
+
+    defstruct [:host, :title, :description, :image, :icon]
+
+    @type t :: %__MODULE__{
+            host: String.t(),
+            title: String.t() | nil,
+            description: String.t() | nil,
+            image: String.t() | nil,
+            icon: String.t() | nil
+          }
+  end
+
+  defmodule Cache do
+    @moduledoc "The committed cache file: previews keyed by the URL as written in the note."
+    use JSONCodec, strict: true
+
+    defstruct entries: %{}
+
+    @type t :: %__MODULE__{entries: %{String.t() => Preview.t()}}
+  end
+
   @cache_file "content/link_previews.json"
   @image_dir "assets/images/links"
   @extensions %{
@@ -19,22 +43,14 @@ defmodule Blog.LinkPreview do
   }
   @user_agent "Mozilla/5.0 (compatible; dannote.net link previews)"
 
-  @type preview :: %{
-          host: String.t(),
-          title: String.t() | nil,
-          description: String.t() | nil,
-          image: String.t() | nil,
-          icon: String.t() | nil
-        }
-
   @doc "Return the cached preview for a URL, fetching and caching it on first use."
-  @spec get(String.t()) :: preview()
+  @spec get(String.t()) :: Preview.t()
   def get(url) when is_binary(url) do
     :global.trans({__MODULE__, :cache}, fn ->
       cache = read_cache()
 
-      case Map.fetch(cache, url) do
-        {:ok, entry} -> from_cache(url, entry)
+      case Map.fetch(cache.entries, url) do
+        {:ok, preview} -> preview
         :error -> fetch_and_cache(url, cache)
       end
     end)
@@ -43,22 +59,20 @@ defmodule Blog.LinkPreview do
   defp fetch_and_cache(url, cache) do
     case fetch(url) do
       {:ok, preview} ->
-        write_cache(Map.put(cache, url, to_cache(preview)))
+        write_cache(%{cache | entries: Map.put(cache.entries, url, preview)})
         preview
 
       :error ->
-        empty(url)
+        %Preview{host: host(url)}
     end
   end
-
-  defp empty(url), do: %{host: host(url), title: nil, description: nil, image: nil, icon: nil}
 
   defp fetch(url) do
     with {:ok, %{status: status, body: body}} when status in 200..299 and is_binary(body) <-
            request(url),
          {:ok, document} <- Floki.parse_document(body) do
       {:ok,
-       %{
+       %Preview{
          host: host(url),
          title: meta(document, ["og:title", "twitter:title"]) || title_tag(document),
          description: meta(document, ["og:description", "twitter:description", "description"]),
@@ -193,25 +207,12 @@ defmodule Blog.LinkPreview do
 
   defp read_cache do
     case File.read(@cache_file) do
-      {:ok, json} -> Jason.decode!(json)
-      {:error, :enoent} -> %{}
+      {:ok, json} -> Cache.decode!(json)
+      {:error, :enoent} -> %Cache{}
     end
   end
 
-  defp write_cache(cache) do
-    File.write!(@cache_file, Jason.encode!(cache, pretty: true) <> "\n")
-  end
-
-  defp to_cache(preview),
-    do: Map.new(preview, fn {key, value} -> {Atom.to_string(key), value} end)
-
-  defp from_cache(url, entry) do
-    %{
-      host: entry["host"] || host(url),
-      title: entry["title"],
-      description: entry["description"],
-      image: entry["image"],
-      icon: entry["icon"]
-    }
+  defp write_cache(%Cache{} = cache) do
+    File.write!(@cache_file, Jason.encode!(JSONCodec.dump(cache), pretty: true) <> "\n")
   end
 end
