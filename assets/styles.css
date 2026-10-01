@@ -297,10 +297,10 @@
     margin-block: 0 !important;
   }
 
-  /* Chrome paints a cross-origin iframe opaque when its color-scheme differs from the
-     embedded document's, which shows as square corners around X's rounded card. */
+  /* X's document paints white behind its rounded card, which page CSS can't change,
+     so the iframe is clipped to the card's 12px corners. */
   .x-post iframe {
-    color-scheme: normal;
+    border-radius: 12px;
   }
 }
 
