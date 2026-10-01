@@ -1,65 +1,117 @@
 # dannote.net
 
-Danila Poyarkov’s personal website: open-source projects, writing, and a few personal links.
+Danila Poyarkov's personal site, and a working example of building a site in Elixir from start to finish.
 
-Built with [Astral](https://hexdocs.pm/astral), Elixir, and Tailwind CSS. Pages are static semantic HTML; Vue adds optional controls to the system diagram.
+It's built with [Astral](https://github.com/elixir-volt/astral), a static site generator for Elixir, and [Volt](https://github.com/elixir-volt/volt), which handles browser assets and the dev server. Pages are HEEx templates and Markdown. Content is typed collections. TypeScript, Tailwind CSS, syntax highlighting, and social cards all build inside the BEAM, so building the site doesn't need Node.js.
 
-## Development
+## What's in here
+
+### Pages are templates with Elixir in them
+
+An `.astral` page is a HEEx template with an Elixir setup block. The homepage lists the latest articles straight from the collection ([`pages/index.astral`](pages/index.astral)):
+
+```heex
+---
+articles =
+  @site
+  |> Astral.Collection.entries(:articles)
+  |> Astral.Collection.published()
+  |> Astral.Collection.sort_by_date(:desc)
+  |> Enum.take(6)
+
+assigns = assign(assigns, :articles, articles)
+---
+<ul>
+  <li :for={article <- @articles}>
+    <.writing_entry entry={article} />
+  </li>
+</ul>
+```
+
+Layouts and components work the same way, in [`layouts/`](layouts) and [`components/`](components).
+
+### Articles are a typed collection
+
+Articles are Markdown with YAML frontmatter, checked against a schema declared in [`astral.config.exs`](astral.config.exs):
+
+```elixir
+collection :articles, "content/articles" do
+  permalink("/writing/:slug/")
+  layout("article.astral")
+
+  schema do
+    field(:title, :string, required: true)
+    field(:date, :date, required: true)
+    field(:draft, :boolean, default: false)
+    field(:tags, {:array, :string}, default: [])
+  end
+end
+```
+
+Markdown can use components too. A note can quote the X post it replies to:
+
+```heex
+<.x_post kind="reply" name="Pietro Schirano" handle="skirano" date="2026-06-11" url="https://x.com/skirano/status/2065096311410409770">
+  You should basically never use Fable for coding, but instead use it as a planner/orchestrator.
+</.x_post>
+```
+
+### Everything else a blog needs comes from plugins
+
+- `Astral.Plugin.Feed` writes the Atom feed for the articles.
+- `Astral.Plugin.Sitemap` writes `sitemap.xml`.
+- `Astral.Plugin.LLMs` writes [`llms.txt`](https://llmstxt.org) for language models.
+- [`Blog.SocialImages`](lib/blog/social_images.ex) is a plugin written for this site. It draws a 1200 × 630 Open Graph card for every article with [Skia](https://hex.pm/packages/skia), and needs neither a headless browser nor an image service.
+
+### Builds don't need Node.js
+
+- **TypeScript** in [`assets/`](assets) is bundled by Volt with [OXC](https://hex.pm/packages/oxc), the Rust JavaScript toolchain, through native bindings.
+- **Tailwind CSS 4** is compiled by Tailwind's own compiler, running inside the BEAM on [QuickBEAM](https://hex.pm/packages/quickbeam). npm packages such as `@tailwindcss/typography` are fetched by an Elixir npm client.
+- **Code blocks** are highlighted at build time by [Lumis](https://hex.pm/packages/lumis) with light and dark themes, so the browser runs no highlighter.
+- **Icons** come from Iconify and are inlined at build time.
+
+### The dev server shows errors in the browser
+
+`mix astral.dev` serves the site with hot module reloading. Template errors, compile errors in [`lib/`](lib), and broken config show up in an overlay with the file, line, and source. Changes to `astral.config.exs` and `lib/` apply without a restart, and open pages reload on their own.
+
+### One command checks everything
+
+`mix ci` runs the full quality gate:
+
+- compilation with warnings as errors, and formatting for Elixir, HEEx templates, and TypeScript;
+- type-aware TypeScript linting with tsgolint;
+- a full site build and the tests;
+- Credo, Dialyzer, a duplicate-code check, and architecture and code-smell checks from [Reach](https://github.com/elixir-vibe/reach).
+
+## Running it
 
 ```sh
 mix deps.get
-mix astral.dev
-```
-
-Use `mix astral.dev --open` to open the local site automatically.
-
-## Build
-
-```sh
-mix astral.build
-```
-
-The static site is written to `dist/` (not committed).
-
-## Checks
-
-```sh
+mix astral.dev      # http://localhost:4000, add --open to open a browser
+mix astral.build    # writes the static site to dist/
 mix ci
 ```
 
-## Content
+## Layout
 
-- Add standalone Markdown or `.astral` pages under `pages/`.
-- Add articles under `content/articles/`; collections, feeds, and routes are configured in `astral.config.exs`.
-- Add shared layouts under `layouts/`.
-- Add browser assets under `assets/`; Volt builds and serves them.
-- Put files copied verbatim into the output under `public/`.
+| Path | What it holds |
+| --- | --- |
+| `pages/` | Pages: Markdown and `.astral` templates, routed by file path |
+| `content/articles/` | Articles and notes, the `:articles` collection |
+| `layouts/`, `components/` | Shared layouts and HEEx components |
+| `assets/` | TypeScript and Tailwind CSS, built by Volt |
+| `public/` | Files copied to the output as they are |
+| `lib/blog/` | Site code: identity and the social card plugin |
+| `astral.config.exs` | Collections, plugins, layouts, and Markdown options |
 
-## Icons
+Icons used on the site are listed in `priv/iconify/manifest.json`, which is committed so builds don't download them again. The Noto Sans fonts for social cards are in `priv/fonts/`, with their SIL Open Font License.
 
-The small `priv/iconify/manifest.json` is committed so builds can render the
-selected icons without fetching them again. Downloaded sets under
-`priv/iconify/sets/` are an ignored cache. Until PhoenixIconify discovers icons
-inside Markdown, their names are listed in `config/config.exs`.
+## Start your own
 
-Icons are explicit PhoenixIconify components, not inferred from URLs. Shared `icon_link`, `nav_link`, and `profile_links` components keep leading icons, navigation state, and profile destinations consistent. Prose links and source attributions stay plain; the footer feed and profile links have icons.
+```sh
+mix archive.install hex igniter_new
+mix igniter.new my_site --install astral
+cd my_site && mix astral.dev
+```
 
-## Formatting and highlighting
-
-`mix format` covers Elixir, `.astral` templates, and JavaScript/TypeScript. Template formatting delegates to Elixir, Phoenix HEEx, and Volt. Markdown and CSS are not currently source-formatted by this pipeline.
-
-Lumis renders language-tagged code blocks at build time with light/dark themes, using the Markdown options provided by Astral 0.3.2.
-
-## Social cards
-
-`Blog.SocialImages` is a site-local Astral plugin using Skia. It generates a default
-1200 × 630 PNG and one card per published article under `/social/`. The shared
-head component emits absolute Open Graph/X image URLs and alt text.
-
-The renderer owns named copy, palette, typography, and layout constants. Noto Sans
-Regular and Bold are bundled under `priv/fonts/` for reproducible Latin/Cyrillic
-text; their SIL Open Font License is included there. Cards render locally during
-builds and through the same route callback in development—no browser or remote
-image service is required.
-
-Astral documentation: <https://hexdocs.pm/astral>
+See the [Astral documentation](https://hexdocs.pm/astral) and the [Volt documentation](https://hexdocs.pm/volt).
