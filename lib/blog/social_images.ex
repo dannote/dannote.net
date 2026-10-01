@@ -4,6 +4,13 @@ defmodule Blog.SocialImages do
 
   Fonts are bundled so builds do not depend on installed fonts or remote services.
   The default card represents ordinary pages; published articles get their own card.
+
+  The site is set in Helvetica Neue, which the cards can't use: CI renders them on Linux,
+  which doesn't have it, and its license doesn't cover it anyway. Cards are drawn in
+  TeX Gyre Heros instead, a free digitization of Helvetica, so a card looks like the
+  page it links to. At 1200 × 630 its weaker screen hinting doesn't show. It has no
+  Cyrillic, so any text containing Cyrillic is drawn in Inter, the site's web fallback.
+  Both live in `priv/fonts/` with their licenses.
   """
 
   @behaviour Astral.Plugin
@@ -32,7 +39,7 @@ defmodule Blog.SocialImages do
   @marker %{y: @inset, width: 56, height: 6}
   @title %{top: 108, height: 280, size: 76, line_height: 90, max_lines: 3}
   @description %{top: 404, height: 90, size: 34, line_height: 44, max_lines: 2}
-  @footer %{rule_y: 532, rule_height: 1, baseline: 580, domain_x: 874, size: 30}
+  @footer %{rule_y: 532, rule_height: 1, baseline: 580, size: 30}
   @ellipsis "…"
 
   @doc "Identify this site-local plugin."
@@ -81,8 +88,7 @@ defmodule Blog.SocialImages do
   @doc "Draw a 1200 × 630 card, bounding long text with paragraph layout and ellipsis."
   @spec render(String.t(), String.t()) :: {:ok, binary()} | {:error, term()}
   def render(title, description) do
-    with {:ok, regular} <- typeface("Regular"),
-         {:ok, bold} <- typeface("Bold") do
+    with {:ok, faces} <- typefaces() do
       canvas(@width, @height)
       |> clear(@palette.paper)
       |> rect(
@@ -92,8 +98,8 @@ defmodule Blog.SocialImages do
         height: @marker.height,
         fill: @palette.accent
       )
-      |> paragraph(title, bold, @title, @palette.ink)
-      |> paragraph(description, regular, @description, @palette.muted)
+      |> paragraph(title, face(faces, title, :bold), @title, @palette.ink)
+      |> paragraph(description, face(faces, description, :regular), @description, @palette.muted)
       |> rect(
         x: @inset,
         y: @footer.rule_y,
@@ -104,14 +110,14 @@ defmodule Blog.SocialImages do
       |> text(@site_card.title,
         x: @inset,
         y: @footer.baseline,
-        font: Font.new(regular),
+        font: Font.new(face(faces, @site_card.title, :regular)),
         size: @footer.size,
         fill: @palette.ink
       )
       |> text(@site_card.domain,
-        x: @footer.domain_x,
+        x: right_aligned(@site_card.domain, face(faces, @site_card.domain, :bold), @footer.size),
         y: @footer.baseline,
-        font: Font.new(bold),
+        font: Font.new(face(faces, @site_card.domain, :bold)),
         size: @footer.size,
         fill: @palette.accent
       )
@@ -134,8 +140,32 @@ defmodule Blog.SocialImages do
     )
   end
 
-  defp typeface(weight) do
-    :blog |> Application.app_dir("priv/fonts/NotoSans-#{weight}.ttf") |> Typeface.load_path()
+  @fonts %{
+    {:latin, :regular} => "TeXGyreHeros-Regular.otf",
+    {:latin, :bold} => "TeXGyreHeros-Bold.otf",
+    {:cyrillic, :regular} => "Inter-Regular.ttf",
+    {:cyrillic, :bold} => "Inter-Bold.ttf"
+  }
+
+  defp typefaces do
+    Enum.reduce_while(@fonts, {:ok, %{}}, fn {key, file}, {:ok, faces} ->
+      case :blog |> Application.app_dir("priv/fonts/#{file}") |> Typeface.load_path() do
+        {:ok, face} -> {:cont, {:ok, Map.put(faces, key, face)}}
+        error -> {:halt, error}
+      end
+    end)
+  end
+
+  # The domain ends at the rule's right edge whatever the font's widths are.
+  defp right_aligned(text, face, size) do
+    {:ok, %{width: width}} = Skia.measure_text(text, font: Font.new(face), size: size)
+    @inset + @content_width - width
+  end
+
+  # One string, one face: TeX Gyre Heros unless the text needs Cyrillic, which it lacks.
+  defp face(faces, text, weight) do
+    script = if String.match?(text, ~r/\p{Cyrillic}/u), do: :cyrillic, else: :latin
+    Map.fetch!(faces, {script, weight})
   end
 
   defp card_route(site, path, card) do

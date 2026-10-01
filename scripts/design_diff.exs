@@ -3,8 +3,9 @@
 #     mix run scripts/design_diff.exs
 #
 # Output goes to assets/images/figma/. The cards are drawn at 2x (960 × 600) so
-# text stays crisp when the figure shows them at half size, with the Noto Sans the
-# site bundles for its social cards.
+# text stays crisp when the figure shows them at half size. They use TeX Gyre Heros,
+# the free Helvetica the social cards use, so every drawing on the site matches the
+# page's Helvetica Neue; see Blog.SocialImages for why that font.
 import Skia, only: [canvas: 2, clear: 2, rect: 2, circle: 2, text: 3, to_png: 1]
 alias Skia.{Font, Typeface}
 
@@ -13,8 +14,8 @@ typeface = fn file ->
   face
 end
 
-regular = Font.new(typeface.("NotoSans-Regular.ttf"))
-bold = Font.new(typeface.("NotoSans-Bold.ttf"))
+regular = Font.new(typeface.("TeXGyreHeros-Regular.otf"))
+bold = Font.new(typeface.("TeXGyreHeros-Bold.otf"))
 
 ink = "#15161A"
 muted = "#6B6F76"

@@ -36,6 +36,7 @@ Astral uses `{:astral, "~> 0.5.0"}`. Keep changes compatible with the version re
 - A component call inside Markdown stays on one line. A tag that spans lines makes MDEx treat the rest of the document as raw HTML. Data belongs in the component's preamble, not in attributes.
 - A module named more than once in a file gets an `alias`: at the top of an `.astral` preamble, which also covers its template, or of an Elixir module. A Markdown page cannot hold setup code, so repeated logic there moves into a component.
 - Code that no grammar can highlight, or that is colored by role rather than syntax, is written as data: lines of `{token, text}` segments rendered by `Blog.Highlight` through `<.article_code_pane>`. Never hand-write spans in a template; the formatter reflows them.
+- Type: pages use Helvetica Neue where the visitor has it (Apple devices) and the self-hosted Inter in `assets/fonts/` everywhere else; never preload Inter, or Apple devices download it too. Social cards and generated drawings use TeX Gyre Heros from `priv/fonts/`, a free Helvetica, with Inter for Cyrillic text. The reasons are in the comments in `assets/styles.css` and `Blog.SocialImages`.
 - Fenced code is highlighted by Lumis, one `lumis_wasm_*` package per language in `mix.exs`. A fence in a language with no package renders plain.
 - Islands are Vue files under `assets/islands/`, mounted with `<.vue component="islands/Name.vue" client={:visible} props={...}>` and static children as the pre-hydration content. The Vue runtime comes from `package.json`.
 
