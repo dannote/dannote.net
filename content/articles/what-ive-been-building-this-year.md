@@ -91,7 +91,7 @@ The Vue SDK lets developers construct a different editor shell around the same e
 
 The engine does not require an editor UI at all. A script or CI job can query a `.fig` file, lint it, extract tokens, convert it, render it, compare it with another revision, or modify it through the same operations used by the application and its agents.
 
-The application itself has moved quickly this year. It opens `.fig` and its own `.pen` files, imports and exports the formats designers and developers already use, from HTML and Tailwind to PPTX and Storybook, and collaborates peer to peer with no server. Agents reach it through MCP, WebMCP, ACP, and a harness for [Pi](https://github.com/badlogic/pi-mono).
+The application itself has moved quickly this year. It opens `.fig` and its own `.pen` files, imports and exports the formats designers and developers already use, from HTML and Tailwind to PPTX and Storybook, and collaborates peer to peer with no server. Agents reach it through MCP, WebMCP, ACP, and a companion runtime that runs [Pi](https://github.com/badlogic/pi-mono) inside the app.
 
 My goal is to make `.fig` a commodity. If independent software can parse, query, render, modify, and convert the format, it stops being something that can only be fully used inside Figma. It becomes input for other editors, IDEs, and automated pipelines.
 
@@ -100,6 +100,18 @@ This solves access to the design structure, but not the boundary between a desig
 ## From designs to real components
 
 The next direction I started exploring is [VuePencil](https://github.com/dannote/vue-pencil): something like Figma, but for Vue components.
+
+> Here’s a teaser for another project I’ve been working on for a while.
+>
+> It’s the next generation of OpenPencil — a visual editor where you draw directly in code. Compose real Vue components, nest slots, bind them to composables, use headless UI primitives like Reka, and export code that’s meant to run.
+>
+> Most attempts I’ve seen fall into two traps: inventing a JSON model for canvas items, then fighting to map it back to components — or trying to WYSIWYG-edit HTML, where the editor and app end up fighting over the same DOM, runtime, and iframe boundaries, slowly turning into a worse Chrome DevTools.
+>
+> VuePencil starts from the VNode tree. The visual editor is just another way to edit that tree.
+>
+> ![A frame from the VuePencil demo video: a canvas with real Vue components selected, next to the generated code.](images/x/dan_note-2058490589356707903.jpg)
+>
+> — Danila Poyarkov (@dan_note), [24 May 2026](https://x.com/dan_note/status/2058490589356707903)
 
 Many visual HTML builders have an abstraction problem. The editor is already an HTML application, and then it tries to build another HTML application inside itself. The layers gradually leak into each other. The tool either supports only a restricted subset of HTML and becomes brittle, or exposes more and more browser internals until it turns into a complicated version of developer tools.
 
