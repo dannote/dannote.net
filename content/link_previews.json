@@ -1,0 +1,16 @@
+{
+  "https://github.com/elixir-volt/quickbeam": {
+    "description": "JavaScript runtime for the BEAM — Web APIs backed by OTP, native DOM, and a built-in TypeScript toolchain. - elixir-volt/quickbeam",
+    "host": "github.com",
+    "icon": "images/links/github-com-elixir-volt-quickbeam-d06cac0c-icon.png",
+    "image": "images/links/github-com-elixir-volt-quickbeam-d06cac0c-image.webp",
+    "title": "GitHub - elixir-volt/quickbeam: JavaScript runtime for the BEAM — Web APIs backed by OTP, native DOM, and a built-in TypeScript toolchain."
+  },
+  "https://openpencil.dev": {
+    "description": "Open-source Figma alternative. Opens .fig files, built-in AI, fully programmable.",
+    "host": "openpencil.dev",
+    "icon": "images/links/openpencil-dev-d2e6f909-icon.png",
+    "image": "images/links/openpencil-dev-d2e6f909-image.webp",
+    "title": "OpenPencil — Open-Source Design Editor — OpenPencil"
+  }
+}

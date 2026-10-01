@@ -1,0 +1,45 @@
+---
+# A preview card for a URL posted in a note, like the cards X renders for links.
+# Metadata and images come from Blog.LinkPreview, fetched once and cached in the repo.
+# `title` and `description` attributes override what the page declares.
+preview = Blog.LinkPreview.get(assigns.href)
+
+assigns =
+  assigns
+  |> assign(:host, preview.host)
+  |> assign(:title, assigns[:title] || preview.title || preview.host)
+  |> assign(:description, assigns[:description] || preview.description)
+  |> assign(:image, preview.image)
+  |> assign(:icon, preview.icon)
+---
+<a
+  href={@href}
+  class="not-prose my-6 flex items-stretch gap-4 border border-rule p-3 text-sm no-underline hover:border-copy/40"
+>
+  <span class="flex min-w-0 flex-1 flex-col justify-center">
+    <span class="flex items-center gap-1.5 text-dim">
+      <.image
+        :if={@icon}
+        src={@icon}
+        alt=""
+        width={32}
+        height={32}
+        fit={:cover}
+        class="size-4 shrink-0"
+      />
+      <.icon :if={!@icon} name="lucide:globe" class="size-4 shrink-0" aria-hidden="true" />
+      <span class="truncate">{@host}</span>
+    </span>
+    <span class="mt-1 block font-semibold text-copy">{@title}</span>
+    <span :if={@description} class="line-clamp-2 block text-dim">{@description}</span>
+  </span>
+  <.image
+    :if={@image}
+    src={@image}
+    alt=""
+    width={320}
+    height={160}
+    fit={:cover}
+    class="hidden h-20 w-40 shrink-0 object-cover sm:block"
+  />
+</a>

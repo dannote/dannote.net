@@ -37,6 +37,8 @@ defmodule Blog.MixProject do
       {:vibe_kit, "~> 0.1"},
       {:astral, "~> 0.5.0"},
       {:lumis, "~> 0.10"},
+      {:req, "~> 0.7"},
+      {:floki, "~> 0.38"},
       {:lumis_wasm_elixir, "~> 0.26"},
       {:lumis_wasm_html, "~> 0.26"},
       {:lumis_wasm_vue, "~> 0.26"},
