@@ -31,6 +31,9 @@ rows = [
    [
      {"QuickBEAM", "https://github.com/elixir-volt/quickbeam", nil},
      {"npm_ex", "https://github.com/elixir-volt/npm_ex", nil},
+     {"oxc_ex", "https://github.com/elixir-volt/oxc_ex", nil},
+     {"vize_ex", "https://github.com/elixir-volt/vize_ex", nil},
+     {"oxide_ex", "https://github.com/elixir-volt/oxide_ex", nil},
      {"Volt", "https://github.com/elixir-volt/volt", nil},
      {"QuackDB", "https://github.com/elixir-vibe/quackdb", nil},
      {"LLMProxy", "https://github.com/elixir-vibe/llm_proxy", nil},
