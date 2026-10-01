@@ -2,10 +2,12 @@
 # The funnel as a flow splitting by campaign creative, then one abandoned session
 # as spans, drawn by assets/islands/CustomerPath.vue. The numbers are illustrative;
 # the caption says so.
+alias Blog.Highlight
+
 segments = [
-  %{key: "a", label: "spring · creative A", color: Blog.Highlight.style(:operator)},
-  %{key: "b", label: "spring · creative B", color: Blog.Highlight.style(:type)},
-  %{key: "o", label: "organic", color: Blog.Highlight.style(:comment)}
+  %{key: "a", label: "spring · creative A", color: Highlight.style(:operator)},
+  %{key: "b", label: "spring · creative B", color: Highlight.style(:type)},
+  %{key: "o", label: "organic", color: Highlight.style(:comment)}
 ]
 
 steps = [
@@ -16,9 +18,9 @@ steps = [
   %{label: "Paid", counts: %{a: 62, b: 9, o: 21}}
 ]
 
-llm = Blog.Highlight.style(:string)
-monitoring = Blog.Highlight.style(:keyword)
-replay = Blog.Highlight.style(:function)
+llm = Highlight.style(:string)
+monitoring = Highlight.style(:keyword)
+replay = Highlight.style(:function)
 
 spans = [
   %{label: "GET /signup?step=3", depth: 0, start: 0, duration: 180},

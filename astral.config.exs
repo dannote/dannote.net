@@ -1,4 +1,5 @@
 import Astral.Config
+alias Blog.Site
 
 root(".")
 outdir("dist")
@@ -16,18 +17,18 @@ markdown(
 )
 
 plugin(Astral.Plugin.Feed,
-  site_url: Blog.Site.url(),
-  title: Blog.Site.feed_title(),
-  author: Blog.Site.author(),
+  site_url: Site.url(),
+  title: Site.feed_title(),
+  author: Site.author(),
   collection: :articles
 )
 
-plugin(Astral.Plugin.Sitemap, site_url: Blog.Site.url())
+plugin(Astral.Plugin.Sitemap, site_url: Site.url())
 plugin(Blog.SocialImages)
 
 plugin(Astral.Plugin.LLMs,
-  site_url: Blog.Site.url(),
-  title: Blog.Site.author(),
+  site_url: Site.url(),
+  title: Site.author(),
   description: "Open-source projects, technical writing, and personal links.",
   sections: [
     {"About", ["/about/", "/projects/"]},

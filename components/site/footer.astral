@@ -1,14 +1,17 @@
+---
+alias Blog.Site
+---
 <footer class="site-footer mt-12 border-t border-rule pt-6 pb-10 text-base">
   <nav class="flex flex-wrap gap-x-5 gap-y-3" aria-label="Further links">
     <.nav_link href="https://github.com/dannote" icon="simple-icons:github" rel="me">GitHub</.nav_link>
     <.nav_link href="https://x.com/dan_note" icon="simple-icons:x" rel="me">Twitter</.nav_link>
-    <.nav_link href={"mailto:" <> Blog.Site.email()} icon="lucide:mail">Email</.nav_link>
+    <.nav_link href={"mailto:" <> Site.email()} icon="lucide:mail">Email</.nav_link>
     <.nav_link href="/feed.xml" icon="lucide:rss">Atom feed</.nav_link>
     <.nav_link href="/elsewhere/" icon="lucide:compass">Elsewhere</.nav_link>
     <.nav_link href="https://github.com/dannote/dannote.net" icon="lucide:code">Source code</.nav_link>
   </nav>
   <p class="mt-6 text-dim">
-    © 2012–{Date.utc_today().year} {Blog.Site.author()} · Built with
+    © 2012–{Date.utc_today().year} {Site.author()} · Built with
     <a href="https://github.com/elixir-volt/astral">Astral</a>
   </p>
 </footer>

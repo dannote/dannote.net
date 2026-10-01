@@ -9,6 +9,7 @@ defmodule Blog.SocialImages do
   @behaviour Astral.Plugin
 
   import Skia, only: [canvas: 2, clear: 2, rect: 2, text: 3, to_png: 1]
+  alias Astral.{Collection, Route}
   alias Blog.Site
   alias Skia.{Font, Typeface}
 
@@ -47,14 +48,14 @@ defmodule Blog.SocialImages do
 
   @doc "Register the default card and cards for published articles."
   @impl true
-  @spec routes(Astral.Site.t(), keyword()) :: [Astral.Route.t()]
+  @spec routes(Astral.Site.t(), keyword()) :: [Route.t()]
   def routes(site, _opts) do
     default = card_route(site, path(), @site_card)
 
     articles =
       site
-      |> Astral.Collection.entries(:articles)
-      |> Astral.Collection.published()
+      |> Collection.entries(:articles)
+      |> Collection.published()
       |> Enum.map(fn entry ->
         card_route(site, path(entry.route_path), %{
           title: entry.data.title,
@@ -67,9 +68,9 @@ defmodule Blog.SocialImages do
 
   @doc "Render generated PNG routes identically in development and static builds."
   @impl true
-  @spec render_route(Astral.Route.t(), Astral.Site.t(), keyword()) ::
+  @spec render_route(Route.t(), Astral.Site.t(), keyword()) ::
           {:ok, binary(), String.t()} | {:error, term()} | nil
-  def render_route(%Astral.Route{kind: :social_image, assigns: data}, _site, _opts) do
+  def render_route(%Route{kind: :social_image, assigns: data}, _site, _opts) do
     with {:ok, png} <- render(data.title, data.description) do
       {:ok, png, "image/png"}
     end
@@ -138,7 +139,7 @@ defmodule Blog.SocialImages do
   end
 
   defp card_route(site, path, card) do
-    Astral.Route.new(path, site.config,
+    Route.new(path, site.config,
       kind: :social_image,
       content_type: "image/png",
       assigns: card

@@ -1,10 +1,11 @@
+---
+alias Blog.Site
+---
 <!doctype html>
 <html lang={@metadata["language"] || "en"}>
   <head>
     <.site_head
-      title={
-        if @page.title, do: "#{@page.title} — #{Blog.Site.author()}", else: Blog.Site.author()
-      }
+      title={if @page.title, do: "#{@page.title} — #{Site.author()}", else: Site.author()}
       description={@metadata["description"]}
       route={@route}
       locale={@metadata["language"] || "en"}
