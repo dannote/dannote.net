@@ -10,6 +10,6 @@
     © 2012–{Date.utc_today().year} {Blog.Site.author()} · Built with
     <a href="https://github.com/elixir-volt/astral">Astral</a>
     ·
-    <a href="https://github.com/dannote/dannote.net" class="text-dim no-underline hover:text-copy">Source</a>
+    <a href="https://github.com/dannote/dannote.net" class="text-dim no-underline hover:text-copy">Source code</a>
   </p>
 </footer>
