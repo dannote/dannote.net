@@ -115,7 +115,7 @@ This also means that the things placed on the canvas can be real components. The
 
 The result can be serialized as a normal Vue [SFC](https://vuejs.org/guide/scaling-up/sfc.html). Frames and canvas positions remain editor metadata. Slots become Vue slots, capabilities become composable calls, and bindings become ordinary Vue expressions.
 
-This makes prototypes much more useful than links between static screens. A founder can continue the design process with working state and interactions, then take the resulting components into the coding environment. [VuePencil](https://github.com/dannote/vue-pencil) is still an early experiment, but it shows how [OpenPencil](https://github.com/open-pencil/open-pencil) can evolve beyond Figma compatibility without turning into an HTML builder.
+This makes prototypes much more useful than links between static screens. A founder can continue the design process with working state and interactions, then take the resulting components into the coding environment. [VuePencil](https://github.com/dannote/vue-pencil) is still an early experiment. It is the direction I want [OpenPencil](https://github.com/open-pencil/open-pencil) to grow in: a canvas of real components, past Figma compatibility.
 
 ## Why Elixir?
 
