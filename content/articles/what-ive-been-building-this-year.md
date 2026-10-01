@@ -16,7 +16,7 @@ tags:
 
 Since the beginning of this year, I have released dozens of open-source projects.
 
-There is a Figma-compatible design editor, a JavaScript runtime for the [BEAM](https://en.wikipedia.org/wiki/BEAM_%28Erlang_virtual_machine%29), a frontend build tool, an npm client, several static analyzers, coding-agent tools, a [DuckDB](https://duckdb.org) adapter, session replay, deployment tooling, and many smaller libraries in between.
+There is a [Figma-compatible design editor](https://openpencil.dev), a [JavaScript runtime](https://github.com/elixir-volt/quickbeam) for the [BEAM](https://en.wikipedia.org/wiki/BEAM_%28Erlang_virtual_machine%29), a [frontend build tool](https://github.com/elixir-volt/volt), an [npm client](https://github.com/elixir-volt/npm_ex), several [static analyzers](https://github.com/elixir-vibe/reach), [coding-agent tools](https://github.com/elixir-vibe/vibe), a [DuckDB adapter](https://github.com/elixir-vibe/quackdb), [session replay](https://github.com/elixir-vibe/phoenix_replay), [deployment tooling](https://github.com/elixir-vibe/host_kit), and [many smaller libraries](/projects/) in between.
 
 Judging by my feed, it probably looks like I wake up every few days with an unrelated idea, build it, publish it, and move on to the next one.
 
@@ -258,7 +258,7 @@ A [Tilde](https://github.com/elixir-vibe/tilde) session is a stream of semantic 
 
 A platform for building several products should not require a separate collection of managed services for each one. I wanted the default setup to remain cheap, portable, and easy to run locally.
 
-For storage, I settled on DuckDB.
+For storage, I settled on [DuckDB](https://duckdb.org).
 
 DuckDB combines much of the SQL surface I expect from PostgreSQL with the portability of SQLite. A complete database can live in one file, but it still supports analytical queries, full-text search, geospatial operations, Parquet, and direct access to S3. For many small and medium products, it can handle both ordinary application data and serious analytics without requiring a separate analytical cluster.
 
