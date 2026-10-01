@@ -3,8 +3,51 @@
 
 @source inline("prose prose-swiss prose-lg max-w-none");
 
+/*
+ * The site is set in Helvetica Neue, which only Apple devices have and which can't be
+ * served to anyone else: it is a commercial Monotype font. Everyone without it used to
+ * fall back to Arial. Inter stands in for them instead: it covers Cyrillic, renders well
+ * on Windows, and is free under the OFL (assets/fonts/Inter-OFL.txt).
+ *
+ * Browsers fetch a web font only when a character needs it, so Apple devices, which
+ * match Helvetica Neue first, never download Inter. Don't preload these files: that
+ * would make every visitor download them. The font is split with unicode-range into
+ * Latin, Cyrillic, and arrows, so each part loads only on a page that needs it.
+ * Social cards use TeX Gyre Heros instead; see Blog.SocialImages.
+ */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("./fonts/inter-latin.woff2") format("woff2");
+  unicode-range: U+0020-007E, U+00A0-017F, U+2000-206F, U+20A0-20BF, U+2100-214F, U+2212;
+}
+
+/* Helvetica Neue has no arrows, so a "→" makes even Apple devices reach for Inter.
+   Arrows get their own small file so that is all they download. */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("./fonts/inter-arrows.woff2") format("woff2");
+  unicode-range: U+2190-21FF;
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("./fonts/inter-cyrillic.woff2") format("woff2");
+  unicode-range: U+0400-045F, U+0490-0491, U+2116;
+}
+
 @theme {
-  --font-sans: "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+  /* Helvetica comes after Inter: some Linux systems alias the name "Helvetica" to a
+     lesser font, which would otherwise win over Inter. */
+  --font-sans: "Helvetica Neue", "Inter", Helvetica, Arial, system-ui, sans-serif;
   --font-mono: "SFMono-Regular", "Cascadia Mono", "Roboto Mono", Consolas, monospace;
 
   --color-paper: oklch(96.2% 0.012 88);
