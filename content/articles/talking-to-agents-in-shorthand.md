@@ -1,5 +1,5 @@
 ---
-title: "Talking to agents in shorthand"
+title: "Let the agent keep the plan"
 description: "Predictable habits, a plan the model keeps up to date, and prompts that keep getting shorter."
 date: 2026-06-10
 language: en

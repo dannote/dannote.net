@@ -1,5 +1,5 @@
 ---
-title: "What coding agents need"
+title: "Failures of the environment"
 description: "Reading existing code, understanding architecture, and checking for drift."
 date: 2026-07-02
 language: en

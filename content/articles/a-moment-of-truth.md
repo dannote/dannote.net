@@ -1,5 +1,5 @@
 ---
-title: "A moment of truth"
+title: "The cleanup cycle"
 description: "On imitation of competence, hiring rituals, and the cleanup cycle that follows."
 date: 2026-05-21
 language: en
