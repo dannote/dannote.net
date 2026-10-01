@@ -1,5 +1,5 @@
-import { effect } from "nanostores";
-import { $theme, type Theme } from "./theme";
+import { effectScope, watch } from "vue";
+import { theme as currentTheme, type Theme } from "./theme";
 
 // Blog.Markdown.XPosts wraps each quoted post in `.x-post`. X's embed replaces every
 // quote as soon as the page loads, and it is rebuilt when the theme changes: the embed
@@ -61,7 +61,7 @@ async function embed(post: HTMLElement, theme: Theme): Promise<void> {
   }
 
   // A newer theme may have started another embed meanwhile; keep only the latest.
-  if (!rendered || $theme.get() !== theme) {
+  if (!rendered || currentTheme.value !== theme) {
     target.remove();
     return;
   }
@@ -72,12 +72,12 @@ async function embed(post: HTMLElement, theme: Theme): Promise<void> {
   target.dataset.xEmbed = "";
 }
 
-const stops = Array.from(document.querySelectorAll<HTMLElement>(".x-post"), (post) =>
-  effect($theme, (theme) => void embed(post, theme).catch(() => {})),
-);
+const scope = effectScope();
 
-if (import.meta.hot) {
-  import.meta.hot.dispose(() => {
-    for (const stop of stops) stop();
-  });
-}
+scope.run(() => {
+  for (const post of document.querySelectorAll<HTMLElement>(".x-post")) {
+    watch(currentTheme, (value) => void embed(post, value).catch(() => {}), { immediate: true });
+  }
+});
+
+if (import.meta.hot) import.meta.hot.dispose(() => scope.stop());
