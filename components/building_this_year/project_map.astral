@@ -66,7 +66,7 @@ assigns = assign(assigns, :rows, rows)
     The platform by lifecycle stage. Unmarked projects are published and used in real work; alpha and beta mark the rest.
   </figcaption>
   <dl class="space-y-5">
-    <.article_map_row :for={{stage, projects} <- @rows} title={stage}>
+    <.building_this_year_map_row :for={{stage, projects} <- @rows} title={stage}>
       <ul class="flex flex-wrap gap-x-5 gap-y-1.5">
         <li :for={{name, url, status} <- projects} class="whitespace-nowrap">
           <a :if={url} href={url}>{name}</a>
@@ -77,6 +77,6 @@ assigns = assign(assigns, :rows, rows)
           >{status}</small>
         </li>
       </ul>
-    </.article_map_row>
+    </.building_this_year_map_row>
   </dl>
 </figure>

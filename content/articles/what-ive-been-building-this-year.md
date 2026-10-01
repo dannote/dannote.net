@@ -33,7 +33,7 @@ The process starts in [OpenPencil](https://github.com/open-pencil/open-pencil), 
 
 My ambition is an open-source platform that can eventually compete with [Figma](https://www.figma.com), [Lovable](https://lovable.dev), and [Replit](https://replit.com) on a technical founder’s terms: a commodity design format, and the work after deployment.
 
-<.article_project_map />
+<.building_this_year_project_map />
 
 The rest of this post walks through the map roughly one stage at a time.
 
@@ -82,7 +82,7 @@ export default () => <Card />
 
 I added visual diffing so it could see what changed, and design linting so it could catch structural and accessibility problems. I also wanted design files in automated pipelines: linted in CI, compared between revisions, and exported without anybody opening Figma.
 
-<.article_design_diff />
+<.building_this_year_design_diff />
 
 Then Figma [released an update](https://github.com/dannote/figma-use/issues/6#issuecomment-3925136616) that blocked the debugging interface [`figma-use`](https://github.com/dannote/figma-use) relied on.
 
@@ -156,7 +156,7 @@ Once the prototype becomes a real application, design is only one part of the pr
 
 For mathematics there is [Lean](https://lean-lang.org). Every definition, theorem, and proof is written in one language and checked by one small, trusted kernel. A model trained on Lean does not spend capacity learning five notations for the same idea, and every step it takes gets a verdict. My bet is that this is why such models reason so densely.
 
-<.article_lean_sample />
+<.building_this_year_lean_sample />
 
 I want the same for the web stack: one language in which bundling, the JavaScript runtime, storage, the backend, deployment, and operations share the same kind of API, the same runtime, and the same checks, while JavaScript, Rust, and SQL keep doing their jobs underneath. Elixir is the closest thing I found, and the rest of this post is what it took to make that true. I first wrote about this intuition in [“A language for humans and models”](/writing/a-language-for-humans-and-models/).
 
@@ -200,7 +200,7 @@ In JavaScript and Python projects I see the opposite. Strict types sit on top of
 
 Then there is [OTP](https://www.erlang.org/doc/system/design_principles.html), the framework of processes and supervisors that Elixir inherits from Erlang. User sessions, background jobs, external API calls, and agent runs can all be represented as isolated processes with explicit ownership and supervision. One process can fail without taking the rest of the application with it. The running system is also directly inspectable. The questions an engineer asks in a shell, an agent can ask too, one call each.
 
-<.article_runtime_map />
+<.building_this_year_runtime_map />
 
 José made the same argument from the tooling side in [“The future of coding agents is vertical integration”](https://tidewave.ai/blog/the-future-of-coding-agents-is-vertical-integration): an agent works much better when it can connect source code to the browser, logs, database, and running application instead of asking the developer to translate between them.
 
@@ -331,13 +331,13 @@ I also created Elixir bindings for the Rust tools that already do much of the re
 
 [Volt](https://github.com/elixir-volt/volt) assembles these pieces into one frontend toolchain that replaces esbuild, the Tailwind CLI, and Node.js: a development server with hot module replacement, linting, and production builds for TypeScript, Vue, React, Svelte, and Solid. JavaScript tests run inside `mix test`, and since September every error in the chain, from OXC through [QuickBEAM](https://github.com/elixir-volt/quickbeam) and Volt to [PhoenixVapor](https://github.com/elixir-volt/phoenix_vapor), has the same diagnostic shape with file, line, and column. The toolchain starts with the application and can be configured, observed, and extended from Elixir.
 
-<.article_volt_tree />
+<.building_this_year_volt_tree />
 
 This removes one boundary, but frontend and backend code can still describe two halves of the same behavior and quietly disagree.
 
 [PhoenixVapor](https://github.com/elixir-volt/phoenix_vapor) explores a more direct bridge. It compiles Vue template syntax into native [Phoenix LiveView](https://hexdocs.pm/phoenix_live_view) rendering structures, so it uses the same diff protocol with no wrapper elements. It has four modes: Vue syntax with no client JavaScript, server-side reactivity through [QuickBEAM](https://github.com/elixir-volt/quickbeam), a full Vue runtime on the server that renders third-party component libraries without shipping them to the browser, and a hybrid where the server owns application data while the browser owns local interface state.
 
-<.article_vapor_wire />
+<.building_this_year_vapor_wire />
 
 This connects back to [VuePencil](https://github.com/dannote/vue-pencil). A component created there can remain a real Vue component. It can become an ordinary client-side Vue application built by [Volt](https://github.com/elixir-volt/volt), a Vue island embedded in a server-rendered [Phoenix](https://www.phoenixframework.org) page, or a template compiled into LiveView.
 
@@ -355,7 +355,7 @@ I built [Vibe](https://github.com/elixir-vibe/vibe) to explore this architecture
 
 In [Vibe](https://github.com/elixir-vibe/vibe), sessions, agents, subagents, commands, and interfaces are OTP processes. Agents can start other agents and communicate through messages. They can run on one node or communicate across machines through Erlang distribution and SSH. Closing a terminal does not have to stop the work, and a failing subagent does not have to destroy its parent session. A background server owns the sessions, like tmux, so several terminals or a LiveView console can attach to the same one, and memory and past transcripts are searchable. Vibe can also run its own checks, patch its own code, and hot-reload the result, which makes it a first step toward agents that modify and improve themselves.
 
-<.article_vibe_tree />
+<.building_this_year_vibe_tree />
 
 OpenAI reached the same conclusion. The reference implementation of [Symphony](https://github.com/openai/symphony), its system for supervising long-running coding-agent work, is written in Elixir.
 
@@ -486,9 +486,9 @@ The next step is to connect these sources rather than open them in separate dash
 
 Suppose a customer arrives through a paid campaign, begins registration, gets stuck, and leaves. I want to see where they came from and how much that acquisition cost, replay what they saw, screen by screen, from the backend state that produced it, inspect related errors and traces, and follow the relevant code path. If an LLM or another paid API participated in the request, its latency and cost should be visible too.
 
-[Incant](https://github.com/elixir-vibe/incant) is the common admin interface for this. Resources, dashboards, datasets, and actions are modules, and a service declares what its admin pages contain, and a standalone Incant host renders them. [LLMProxy](https://github.com/elixir-vibe/llm_proxy)’s provider usage already lives there; replay sessions, telemetry, campaign performance, agent state, and infrastructure are meant to follow through the same Elixir APIs.
+<.building_this_year_customer_path />
 
-<.article_evidence_chain />
+[Incant](https://github.com/elixir-vibe/incant) is the common admin interface for this. Resources, dashboards, datasets, and actions are modules, and a service declares what its admin pages contain, and a standalone Incant host renders them. [LLMProxy](https://github.com/elixir-vibe/llm_proxy)’s provider usage already lives there; replay sessions, telemetry, campaign performance, agent state, and infrastructure are meant to follow through the same Elixir APIs.
 
 An agent can use the same data. A background agent could notice that conversion from a campaign dropped, identify the affected landing page, inspect recent sessions, find where users started abandoning the funnel, and propose a change with the evidence that led to it. Each one arrives as a suggestion with its evidence attached, and the founder approves it or not.
 

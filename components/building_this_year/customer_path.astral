@@ -1,0 +1,104 @@
+---
+# The funnel as a flow splitting by campaign creative, then one abandoned session
+# as spans, drawn by assets/islands/CustomerPath.vue. The numbers are illustrative;
+# the caption says so.
+segments = [
+  %{key: "a", label: "spring · creative A", color: Blog.Highlight.style(:operator)},
+  %{key: "b", label: "spring · creative B", color: Blog.Highlight.style(:type)},
+  %{key: "o", label: "organic", color: Blog.Highlight.style(:comment)}
+]
+
+steps = [
+  %{label: "/pricing", counts: %{a: 420, b: 380, o: 200}},
+  %{label: "Signup · step 1", counts: %{a: 290, b: 230, o: 100}},
+  %{label: "Signup · step 2", counts: %{a: 220, b: 160, o: 60}},
+  %{label: "Signup · step 3", counts: %{a: 130, b: 10, o: 28}},
+  %{label: "Paid", counts: %{a: 62, b: 9, o: 21}}
+]
+
+llm = Blog.Highlight.style(:string)
+monitoring = Blog.Highlight.style(:keyword)
+replay = Blog.Highlight.style(:function)
+
+spans = [
+  %{label: "GET /signup?step=3", depth: 0, start: 0, duration: 180},
+  %{label: "LiveView mount", depth: 1, start: 60, duration: 100},
+  %{label: "phx:submit card", depth: 0, start: 400, duration: 3010},
+  %{label: "Checkout.submit", depth: 1, start: 410, duration: 3000},
+  %{
+    label: "Address.autocomplete",
+    depth: 2,
+    start: 420,
+    duration: 220,
+    color: llm,
+    note: "LLM · $0.002"
+  },
+  %{
+    label: "Address.autocomplete",
+    depth: 2,
+    start: 700,
+    duration: 220,
+    color: llm,
+    note: "LLM · $0.002"
+  },
+  %{
+    label: "Payments.charge",
+    depth: 2,
+    start: 1000,
+    duration: 3000,
+    color: monitoring,
+    note: "timeout 3,000 ms"
+  },
+  %{
+    label: "Stripe POST /v1/charges",
+    depth: 3,
+    start: 1010,
+    duration: 2990,
+    color: monitoring,
+    note: "no response"
+  },
+  %{
+    label: "replay frame",
+    depth: 0,
+    start: 3900,
+    duration: 0,
+    color: replay,
+    note: "card, no submit"
+  }
+]
+
+assigns =
+  assigns
+  |> assign(:segments, segments)
+  |> assign(:steps, steps)
+  |> assign(:spans, spans)
+---
+<figure
+  class="not-prose my-10 border-y border-copy/25 py-6"
+  aria-labelledby="customer-path-caption"
+>
+  <figcaption id="customer-path-caption" class="mb-4 text-sm text-dim">
+    Where the funnel narrows and why: traffic splitting by campaign creative, then one abandoned session as the spans that produced it. The numbers are illustrative.
+  </figcaption>
+  <.vue
+    component="islands/CustomerPath.vue"
+    client={:visible}
+    props={
+      %{
+        segments: @segments,
+        steps: @steps,
+        focus: 2,
+        session: "one session · creative B · 14:32:07",
+        spans: @spans,
+        duration: 4000
+      }
+    }
+  >
+    <ol class="grid grid-cols-2 gap-3 text-xs sm:grid-cols-5">
+      <li :for={step <- @steps}>
+        <div class="mb-1 uppercase tracking-wider text-dim">{step.label}</div>
+        <div class="font-mono">{step.counts.a + step.counts.b + step.counts.o}</div>
+      </li>
+    </ol>
+  </.vue>
+</figure>

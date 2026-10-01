@@ -44,8 +44,8 @@ assigns =
   <figcaption id="design-diff-caption" class="mb-5 text-sm text-dim">
     What the agent sees after a change: before, after, the pixels that differ, and the same change as a patch.
   </figcaption>
-  <div class="grid gap-4 sm:grid-cols-3">
-    <div>
+  <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+    <div class="min-w-0">
       <div class="mb-2 text-xs uppercase tracking-wider text-dim">Before</div>
       <.image
         src="images/figma/diff-before.png"
@@ -55,7 +55,7 @@ assigns =
         class="h-auto w-full border border-rule"
       />
     </div>
-    <div>
+    <div class="min-w-0">
       <div class="mb-2 text-xs uppercase tracking-wider text-dim">After</div>
       <.image
         src="images/figma/diff-after.png"
@@ -65,7 +65,7 @@ assigns =
         class="h-auto w-full border border-rule"
       />
     </div>
-    <div>
+    <div class="min-w-0">
       <div class="mb-2 text-xs uppercase tracking-wider text-dim">Diff</div>
       <.image
         src="images/figma/diff-result.png"
@@ -75,9 +75,9 @@ assigns =
         class="h-auto w-full border border-rule"
       />
     </div>
-    <div class="sm:col-span-3">
+    <div class="min-w-0 sm:col-span-3">
       <div class="mb-2 text-xs uppercase tracking-wider text-dim">Patch</div>
-      <div class="grid gap-4 sm:grid-cols-3">
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
         <.article_code_pane lang="diff" lines={@card} class={@pane} />
         <.article_code_pane lang="diff" lines={@title} class={@pane} />
         <.article_code_pane lang="diff" lines={@button} class={@pane} />

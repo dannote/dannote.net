@@ -26,7 +26,24 @@ Astral uses `{:astral, "~> 0.5.0"}`. Keep changes compatible with the version re
 - `assets/` — Volt-managed TypeScript, CSS, and imported browser assets.
 - `public/` — files copied unchanged to the static output.
 - `lib/` — project-specific Elixir modules.
+- `scripts/` — one-off generators for committed assets, run with `mix run`.
 - `dist/` — generated static output; never edit or commit it.
+
+## Components
+
+- `components/` is discovered recursively; Astral names a component by its path with underscores, so `components/site/header.astral` is `<.site_header />`. Folders are prefixes.
+- `site/` is the chrome, `writing/` the index entry, `article/` what any article may use: contents, meta, callout, code pane, link card, supervision tree. Blocks that belong to one post live in a folder named after it, such as `building_this_year/`; the generic primitives stay at the top level.
+- A component call inside Markdown stays on one line. A tag that spans lines makes MDEx treat the rest of the document as raw HTML. Data belongs in the component's preamble, not in attributes.
+- Code that no grammar can highlight, or that is colored by role rather than syntax, is written as data: lines of `{token, text}` segments rendered by `Blog.Highlight` through `<.article_code_pane>`. Never hand-write spans in a template; the formatter reflows them.
+- Fenced code is highlighted by Lumis, one `lumis_wasm_*` package per language in `mix.exs`. A fence in a language with no package renders plain.
+- Islands are Vue files under `assets/islands/`, mounted with `<.vue component="islands/Name.vue" client={:visible} props={...}>` and static children as the pre-hydration content. The Vue runtime comes from `package.json`.
+
+## Content conventions
+
+- An X post is a blockquote ending in `— Name (@handle), [date](url)`; `Blog.Markdown.XPosts` marks it and `assets/x-posts.ts` swaps in the embed on load. Put the poster frame of a video in the quote as an image under `assets/images/x/`.
+- A URL posted on its own becomes `<.article_link_card href="..." />`. `Blog.LinkPreview` fetches the page once at build time; the cache in `content/link_previews.json` and the images in `assets/images/links/` are committed, so builds run offline. Delete a cache entry to refetch.
+- Every mention of one of the author's projects links to it; an external technology links once, on first mention.
+- `.reach.exs` is the architecture policy, checked in `mix ci`. Keep it true when adding modules.
 
 Use HEEx semantics in `.astral` templates and local components. Extract repeated template styling into shared components and prefer Tailwind utilities and named theme tokens over repeated arbitrary values. `Astral.Formatter` integrates `.astral` templates with `mix format`; Markdown and CSS are not covered by that plugin. Content collections use Markdown with YAML frontmatter and schemas declared in `astral.config.exs`. Prefer Astral's built-in APIs and components over hand-rolled routing, asset, image, feed, or sitemap behavior.
 
