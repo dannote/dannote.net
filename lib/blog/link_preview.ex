@@ -92,8 +92,6 @@ defmodule Blog.LinkPreview do
       receive_timeout: 10_000,
       decode_body: false
     )
-  rescue
-    _ -> :error
   end
 
   defp meta(document, names) do
@@ -179,7 +177,7 @@ defmodule Blog.LinkPreview do
       headers
       |> Map.get("content-type", [])
       |> List.first("")
-      |> String.split(";")
+      |> String.split(";", parts: 2)
       |> hd()
       |> String.downcase()
 
