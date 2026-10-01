@@ -2,8 +2,8 @@
 title: "What I’ve been building this year"
 description: An end-to-end open-source platform for startup factories, assembled one missing building block at a time.
 subtitle: "Or: how the hell are all these things related?"
-date: 2026-10-01
-updated: 2026-10-01
+date: 2026-10-02
+updated: 2026-10-02
 language: en
 draft: false
 tags:
