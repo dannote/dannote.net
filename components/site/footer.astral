@@ -4,8 +4,8 @@
     <.nav_link href="https://x.com/dan_note" icon="simple-icons:x" rel="me">Twitter</.nav_link>
     <.nav_link href={"mailto:" <> Blog.Site.email()} icon="lucide:mail">Email</.nav_link>
     <.nav_link href="/feed.xml" icon="lucide:rss">Atom feed</.nav_link>
-    <.nav_link href="/elsewhere/">Elsewhere</.nav_link>
-    <.nav_link href="https://github.com/dannote/dannote.net">Source code</.nav_link>
+    <.nav_link href="/elsewhere/" icon="lucide:compass">Elsewhere</.nav_link>
+    <.nav_link href="https://github.com/dannote/dannote.net" icon="lucide:code">Source code</.nav_link>
   </nav>
   <p class="mt-6 text-dim">
     © 2012–{Date.utc_today().year} {Blog.Site.author()} · Built with
