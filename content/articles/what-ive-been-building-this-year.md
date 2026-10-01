@@ -263,6 +263,42 @@ $ mix reach.otp --concurrency
 
 [Reach](https://github.com/elixir-vibe/reach) also turns architecture into something agents can check. A project declares its layers and forbidden dependencies, and changes that cross them are rejected. Findings are advisory by default, and every suggested fix is labeled equivalent, conditional, or review-only, so an agent can tell a proven rewrite from a lead.
 
+This site has [such a policy](https://github.com/dannote/dannote.net/blob/main/.reach.exs). Three layers, and the lower ones may not reach up:
+
+```elixir
+[
+  layers: [
+    site: "Blog.Site",
+    plugins: ["Blog.SocialImages", "Blog.Markdown.*"],
+    previews: "Blog.LinkPreview*"
+  ],
+  deps: [forbidden: [{:site, :plugins}, {:site, :previews}, {:plugins, :previews}]],
+  calls: [forbidden: [{"Blog.LinkPreview", "Req.get/2"}]]
+]
+```
+
+The last line is a trap I set for the example, and the check walks into it:
+
+```sh
+$ mix reach.check --arch
+  1 violation(s)
+  lib/blog/link_preview.ex:88 Blog.LinkPreview calls Req.get/2 (configured forbidden call)
+** (Mix) Architecture policy failed
+```
+
+Smell findings carry the label in their JSON, the form an agent reads. Reach found these two in this site while I was writing the paragraph:
+
+```json
+{"kind": "suboptimal", "location": "lib/blog/highlight.ex:33",
+ "message": "Enum.map_join/3 defaults to empty separator; remove the \"\" argument",
+ "remediation_safety": "equivalent"}
+{"kind": "suboptimal", "location": "lib/blog/link_preview.ex:179",
+ "message": "String.split/2 |> hd/1 splits the entire string; use String.split/3 with parts: 2",
+ "remediation_safety": "review_only"}
+```
+
+The first is a proven rewrite. The second needs a look, because `parts: 2` changes what the function returns when the string has more than one separator.
+
 But adding more checks creates its own risk. A false positive is annoying for a human, but an agent may obey it and make the code worse just to silence the warning. A rule that looks convincing in a few hand-written examples may fail on perfectly reasonable code in a real project.
 
 That is why I built [Exograph](https://github.com/elixir-vibe/exograph): local CodeQL-style code search for Elixir, backed by DuckDB through [QuackDB](https://github.com/elixir-vibe/quackdb) and [ExAST](https://github.com/elixir-vibe/ex_ast). It indexes the entire public [Hex](https://hex.pm) package ecosystem and queries it by structure, similarity, and call graph. Running a proposed rule across that corpus is how I find false positives and decide whether it is reliable enough to keep.
