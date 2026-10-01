@@ -1,5 +1,5 @@
 ---
-title: What I’ve Been Building This Year
+title: "What I’ve been building this year"
 description: An end-to-end open-source platform for startup factories, assembled one missing building block at a time.
 subtitle: "Or: my roadmap for turning Figma into a penny stock."
 date: 2026-10-01
