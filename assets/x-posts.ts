@@ -1,9 +1,9 @@
 import { effect } from "nanostores";
 import { $theme, type Theme } from "./theme";
 
-// Blog.Markdown.XPosts wraps each quoted post in `.x-post`. Once one nears the viewport,
-// X's embed replaces the quote, and it is rebuilt when the theme changes: the embed is
-// an iframe that page CSS can't restyle.
+// Blog.Markdown.XPosts wraps each quoted post in `.x-post`. X's embed replaces every
+// quote as soon as the page loads, and it is rebuilt when the theme changes: the embed
+// is an iframe that page CSS can't restyle. The quote stays as the fallback.
 
 interface Twttr {
   ready(callback: (twttr: Twttr) => void): void;
@@ -67,24 +67,12 @@ async function embed(post: HTMLElement, theme: Theme): Promise<void> {
   target.dataset.xEmbed = "";
 }
 
-const stops: (() => void)[] = [];
-
-const observer = new IntersectionObserver(
-  (entries) => {
-    for (const { isIntersecting, target } of entries) {
-      if (!isIntersecting || !(target instanceof HTMLElement)) continue;
-      observer.unobserve(target);
-      stops.push(effect($theme, (theme) => void embed(target, theme).catch(() => {})));
-    }
-  },
-  { rootMargin: "400px" },
+const stops = Array.from(document.querySelectorAll<HTMLElement>(".x-post"), (post) =>
+  effect($theme, (theme) => void embed(post, theme).catch(() => {})),
 );
-
-for (const post of document.querySelectorAll(".x-post")) observer.observe(post);
 
 if (import.meta.hot) {
   import.meta.hot.dispose(() => {
-    observer.disconnect();
     for (const stop of stops) stop();
   });
 }
