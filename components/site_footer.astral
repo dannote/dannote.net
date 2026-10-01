@@ -2,6 +2,7 @@
   <nav class="flex flex-wrap gap-x-5 gap-y-3" aria-label="Further links">
     <.nav_link href="https://github.com/dannote" icon="simple-icons:github" rel="me">GitHub</.nav_link>
     <.nav_link href="https://x.com/dan_note" icon="simple-icons:x" rel="me">Twitter</.nav_link>
+    <.nav_link href={"mailto:" <> Blog.Site.email()} icon="lucide:mail">Email</.nav_link>
     <.nav_link href="/feed.xml" icon="lucide:rss">Atom feed</.nav_link>
     <.nav_link href="/elsewhere/">Elsewhere</.nav_link>
   </nav>

@@ -2,8 +2,8 @@
 title: What I’ve Been Building This Year
 description: An end-to-end open-source platform for startup factories, assembled one missing building block at a time.
 subtitle: "Or: my roadmap for turning Figma into a penny stock."
-date: 2026-09-16
-updated: 2026-09-16
+date: 2026-10-01
+updated: 2026-10-01
 language: en
 draft: false
 tags:
@@ -69,6 +69,12 @@ With [`figma-use`](https://github.com/dannote/figma-use), an agent could work on
 Then Figma released an update that blocked the debugging interface [`figma-use`](https://github.com/dannote/figma-use) relied on.
 
 I found workarounds and kept the tool working, but the larger lesson was obvious. I could not build this kind of infrastructure on access that a vendor could remove at any moment. If agents were going to treat design as a real programmable medium, the editor itself had to be open.
+
+The official route is not much safer. Figma's remote MCP server now decides which agents may connect at all: sign-in works only for client names on its list, such as Claude Code or Codex. When Mario Zechner tried to connect Pi, his open-source coding agent, Figma refused it because Pi identifies itself as `pi`.
+
+<.x_post name="Mario Zechner" handle="badlogicgames" date="2026-09-30" url="https://x.com/badlogicgames/status/2105234146499203255" image="images/x/badlogicgames-2105234146499203255.png" image_alt="A message: I'm trying to connect to Figma's remote MCP server. Figma only accepts certain client names during sign-in, e.g., Claude Code or Codex, but Pi 0.99.1 always sends pi.">today in MCP land ...
+
+thing are better compared to a year ago, but also worse.</.x_post>
 
 That is how [OpenPencil](https://github.com/open-pencil/open-pencil) began.
 
@@ -161,6 +167,8 @@ Reach also turns architecture into something agents can check rather than someth
 But adding more checks creates its own risk. A false positive is annoying for a human, but an agent may obey it and make the code worse just to silence the warning. A rule that looks convincing in a few hand-written examples may fail on perfectly reasonable code in a real project.
 
 That is why I built [Exograph](https://github.com/elixir-vibe/exograph). It can index the entire public Hex package ecosystem and combine structural ExAST queries with facts produced by Reach. I use that corpus to find false positives and decide whether a proposed rule is reliable enough to keep.
+
+José Valim recently argued in [“Evolving programming languages in the AI era”](https://dashbit.co/blog/evolving-ai-era) that agents need stronger guarantees and a program database with a query language more than an editor protocol built for humans. Reach and Exograph are my attempt at that database for Elixir: facts about calls, data flow, effects, and architecture that an agent can query instead of reconstructing from files.
 
 The same tools are used to check themselves. My projects combine the compiler, tests, Dialyzer, ExDNA, ExSlop, Reach, and architecture rules. [VibeKit](https://github.com/elixir-vibe/vibe_kit) packages the common setup so I can apply it consistently to new projects.
 
@@ -359,4 +367,4 @@ This is still mostly a one-person effort, and there are more useful directions t
 
 Until now, I have paid for the development and infrastructure myself. I am beginning to look for sponsors, grants, infrastructure partners, and companies interested in supporting particular parts of the work. I am also preparing OpenPencil Cloud as the first commercial service around the open-source projects.
 
-If you use any of these tools, want to contribute, or represent an organization interested in supporting the work, please contact me.
+If you use any of these tools, want to contribute, or represent an organization interested in supporting the work, please contact me at [hello@dannote.net](mailto:hello@dannote.net).

@@ -9,6 +9,10 @@ defmodule Blog.Site do
   @spec domain() :: String.t()
   def domain, do: "dannote.net"
 
+  @doc "The public contact address."
+  @spec email() :: String.t()
+  def email, do: "hello@" <> domain()
+
   @doc "The canonical site origin."
   @spec url() :: String.t()
   def url, do: "https://" <> domain()
