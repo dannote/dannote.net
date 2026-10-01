@@ -59,6 +59,7 @@ mix ci
 - Use `mix astral.dev` for local development; add `--open` only when opening a browser is wanted.
 - Run `mix astral.build` after routing, content, layout, or asset changes and inspect the generated route table.
 - Run `mix ci` before finishing.
+- `.github/workflows/ci.yml` runs `mix ci` and deploys `dist/` to the Cloudflare Pages project `dannote-net`: production from `main`, a preview per pull request with its URL in a comment. Tool versions come from `.tool-versions`, shared with mise. A manual deploy is `wrangler pages deploy dist --project-name dannote-net --branch main` after `mix astral.build`.
 
 # VibeKit quality gate
 

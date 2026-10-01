@@ -1,0 +1,69 @@
+# Checks, builds, and deploys the site to Cloudflare Pages.
+#
+# A push to main deploys production. A pull request from this repository deploys a
+# preview under its branch name and comments the URL. Tool versions come from
+# .tool-versions, the same file mise reads locally.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+
+env:
+  MIX_ENV: test
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: erlef/setup-beam@v1
+        with:
+          version-file: .tool-versions
+          version-type: strict
+
+      - name: Restore dependencies and build artifacts
+        uses: actions/cache@v6
+        with:
+          path: |
+            deps
+            _build
+            node_modules
+          key: mix-${{ runner.os }}-${{ hashFiles('.tool-versions', 'mix.lock', 'npm.lock') }}
+          restore-keys: mix-${{ runner.os }}-${{ hashFiles('.tool-versions') }}-
+
+      - name: Install dependencies
+        run: |
+          mix deps.get
+          mix npm.ci
+
+      # Formatting, compilation, JS type checks, the site build, tests, Credo,
+      # Dialyzer, ExDNA, and Reach, as defined by the ci alias in mix.exs.
+      - name: Check and build
+        run: mix ci
+
+      - name: Deploy to Cloudflare Pages
+        id: deploy
+        if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name dannote-net --branch ${{ github.head_ref || github.ref_name }} --commit-hash ${{ github.sha }}
+
+      - name: Comment the preview URL
+        if: github.event_name == 'pull_request' && steps.deploy.outputs.deployment-url
+        env:
+          GH_TOKEN: ${{ github.token }}
+          URL: ${{ steps.deploy.outputs.deployment-url }}
+        run: gh pr comment ${{ github.event.pull_request.number }} --edit-last --create-if-none --body "Preview: $URL"
