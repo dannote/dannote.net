@@ -1,0 +1,37 @@
+---
+# One stuck customer, traced across the platform: the question, what answers it, and which project holds the answer.
+rows = [
+  {"Where did they come from, and what did the click cost?",
+   "Campaign, landing page, and attribution for that visit.", "Plausible on DuckDB"},
+  {"What did they see?", "The browser session and the backend state that produced each screen.",
+   "PhoenixReplay"},
+  {"What broke?", "Errors, traces, and slow requests from the same minutes.", "Incant"},
+  {"Which code ran?",
+   "The path from the request to the failing function, and what else depends on it.", "Reach"},
+  {"What did the model calls cost?",
+   "Tokens, latency, and provider for every call in the request.", "LLMProxy"},
+  {"What should change?",
+   "A proposed fix with the evidence above attached, waiting for approval.",
+   "the agent and the founder"}
+]
+
+assigns = assign(assigns, :rows, rows)
+---
+<figure
+  class="not-prose my-10 border-y border-copy/25 py-6"
+  aria-labelledby="evidence-chain-caption"
+>
+  <figcaption id="evidence-chain-caption" class="mb-5 text-sm text-dim">
+    One stuck customer, traced across the platform.
+  </figcaption>
+  <ol class="text-sm">
+    <li
+      :for={{question, evidence, source} <- @rows}
+      class="grid gap-1 border-t border-copy/15 py-3 first:border-0 first:pt-0 sm:grid-cols-[minmax(0,13rem)_1fr_minmax(0,10rem)] sm:gap-4"
+    >
+      <strong class="font-semibold">{question}</strong>
+      <span>{evidence}</span>
+      <span class="text-dim sm:text-right">{source}</span>
+    </li>
+  </ol>
+</figure>

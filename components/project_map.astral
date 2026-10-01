@@ -1,0 +1,71 @@
+---
+# Rows are lifecycle stages; cells are the projects that serve each stage.
+# A nil status means the project is published and used in real work.
+rows = [
+  {"Design",
+   [
+     {"OpenPencil", "https://github.com/open-pencil/open-pencil", nil},
+     {"figma-use", "https://github.com/dannote/figma-use", nil}
+   ]},
+  {"Prototype",
+   [
+     {"VuePencil", "https://github.com/dannote/vue-pencil", "prototype"},
+     {"PhoenixVapor", "https://github.com/elixir-volt/phoenix_vapor", nil}
+   ]},
+  {"Write",
+   [
+     {"pi-elixir", "https://github.com/elixir-vibe/pi-elixir", nil},
+     {"Vibe", "https://github.com/elixir-vibe/vibe", "experiment"},
+     {"Tilde", "https://github.com/elixir-vibe/tilde", "early"}
+   ]},
+  {"Check",
+   [
+     {"ExAST", "https://github.com/elixir-vibe/ex_ast", nil},
+     {"ExDNA", "https://github.com/elixir-vibe/ex_dna", nil},
+     {"ExSlop", "https://github.com/elixir-vibe/ex_slop", nil},
+     {"Reach", "https://github.com/elixir-vibe/reach", nil},
+     {"Exograph", "https://github.com/elixir-vibe/exograph", nil},
+     {"VibeKit", "https://github.com/elixir-vibe/vibe_kit", nil}
+   ]},
+  {"Build and run",
+   [
+     {"QuickBEAM", "https://github.com/elixir-volt/quickbeam", nil},
+     {"npm_ex", "https://github.com/elixir-volt/npm_ex", nil},
+     {"Volt", "https://github.com/elixir-volt/volt", nil},
+     {"QuackDB", "https://github.com/elixir-vibe/quackdb", nil},
+     {"LLMProxy", "https://github.com/elixir-vibe/llm_proxy", nil},
+     {"Egress", "https://github.com/elixir-vibe/egress", "early"}
+   ]},
+  {"Deploy",
+   [
+     {"ReleaseKit", "https://github.com/elixir-vibe/release_kit", nil},
+     {"HostKit", "https://github.com/elixir-vibe/host_kit", "beta"}
+   ]},
+  {"Observe and decide",
+   [
+     {"Plausible on DuckDB", "https://github.com/dannote/analytics", "in progress"},
+     {"PhoenixReplay", "https://github.com/elixir-vibe/phoenix_replay", nil},
+     {"Incant", "https://github.com/elixir-vibe/incant", "early"}
+   ]}
+]
+
+assigns = assign(assigns, :rows, rows)
+---
+<figure
+  class="not-prose my-10 border-y border-copy/25 py-6"
+  aria-labelledby="project-map-caption"
+>
+  <figcaption id="project-map-caption" class="mb-5 text-sm text-dim">
+    The platform by lifecycle stage. Unmarked projects are published and used in real work.
+  </figcaption>
+  <dl class="space-y-5">
+    <.map_row :for={{stage, projects} <- @rows} title={stage}>
+      <ul class="flex flex-wrap gap-x-5 gap-y-1.5">
+        <li :for={{name, url, status} <- projects} class="whitespace-nowrap">
+          <a href={url}>{name}</a>
+          <span :if={status} class="text-sm text-dim">{status}</span>
+        </li>
+      </ul>
+    </.map_row>
+  </dl>
+</figure>

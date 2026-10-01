@@ -1,0 +1,44 @@
+---
+# Renders a supervision tree from nested {label, note, children} tuples.
+# Box-drawing prefixes are decorative; assistive technology reads labels and notes.
+flatten = fn
+  _flatten, [], _prefix ->
+    []
+
+  flatten, nodes, prefix ->
+    count = length(nodes)
+
+    nodes
+    |> Enum.with_index()
+    |> Enum.flat_map(fn {{label, note, children}, index} ->
+      last? = index == count - 1
+
+      {branch, child_prefix} =
+        case prefix do
+          nil ->
+            {"", ""}
+
+          prefix ->
+            {prefix <> if(last?, do: "└── ", else: "├── "),
+             prefix <> if(last?, do: "    ", else: "│   ")}
+        end
+
+      [{branch, label, note} | flatten.(flatten, children, child_prefix)]
+    end)
+end
+
+assigns =
+  assigns
+  |> assign(:lines, flatten.(flatten, assigns.nodes, nil))
+  |> assign_new(:caption, fn -> nil end)
+---
+<figure class="not-prose my-10 border-y border-copy/25 py-6">
+  <figcaption :if={@caption} class="mb-4 text-sm text-dim">{@caption}</figcaption>
+  <ol class="overflow-x-auto font-mono text-sm leading-6">
+    <li :for={{branch, label, note} <- @lines}>
+      <span :if={branch != ""} aria-hidden="true" class="whitespace-pre text-dim">{branch}</span>
+      <span>{label}</span>
+      <span :if={note} class="ml-3 text-dim">{note}</span>
+    </li>
+  </ol>
+</figure>
