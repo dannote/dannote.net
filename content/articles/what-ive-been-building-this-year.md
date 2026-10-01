@@ -64,7 +64,7 @@ Most AI design tools ignore this process. They try to generate a finished screen
 
 With [`figma-use`](https://github.com/dannote/figma-use), an agent could work on the actual structure. It could create and modify nodes, use components and variants, describe a screen in JSX and render it as Figma layers, inspect the resulting tree, and continue from there. I added visual diffing so it could see what changed, and design linting so it could catch structural and accessibility problems. I also wanted design files in automated pipelines: linted in CI, compared between revisions, and exported without anybody opening Figma.
 
-Then Figma released an update that blocked the debugging interface [`figma-use`](https://github.com/dannote/figma-use) relied on.
+Then Figma [released an update](https://github.com/dannote/figma-use/issues/6#issuecomment-3925136616) that blocked the debugging interface [`figma-use`](https://github.com/dannote/figma-use) relied on.
 
 > Figma shipped a silent patch specifically to kill figma-use — my open-source tool that did what they wouldn't: an MCP server that creates and modifies designs, JSX export, design linting. Then they scrambled to catch up with their own MCP server.
 >
