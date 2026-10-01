@@ -46,14 +46,6 @@
       "tarball": "https://registry.npmjs.org/@jridgewell/sourcemap-codec/-/sourcemap-codec-1.6.0.tgz",
       "version": "1.6.0"
     },
-    "@nanostores/persistent": {
-      "dependencies": {},
-      "has_install_script": false,
-      "integrity": "sha512-CNdhro3jEzNdPpPImIltnPpDKp5vxYmomHlZI7EMNoAxddImx97djxXDdPd2HIC4UczzUUMk7AMWCfMpFJHUsw==",
-      "optional_dependencies": {},
-      "tarball": "https://registry.npmjs.org/@nanostores/persistent/-/persistent-1.3.5.tgz",
-      "version": "1.3.5"
-    },
     "@oxlint-tsgolint/darwin-arm64": {
       "dependencies": {},
       "has_install_script": false,
@@ -111,6 +103,14 @@
       "optional_dependencies": {},
       "tarball": "https://registry.npmjs.org/@tailwindcss/typography/-/typography-0.5.20.tgz",
       "version": "0.5.20"
+    },
+    "@types/web-bluetooth": {
+      "dependencies": {},
+      "has_install_script": false,
+      "integrity": "sha512-oIQLCGWtcFZy2JW77j9k8nHzAOpqMHLQejDA48XXMWH6tjCQHz5RCFz1bzsmROyL6PUm+LLnUiI4BCn221inxA==",
+      "optional_dependencies": {},
+      "tarball": "https://registry.npmjs.org/@types/web-bluetooth/-/web-bluetooth-0.0.21.tgz",
+      "version": "0.0.21"
     },
     "@vue/compiler-core": {
       "dependencies": {
@@ -220,6 +220,34 @@
       "tarball": "https://registry.npmjs.org/@vue/shared/-/shared-3.5.43.tgz",
       "version": "3.5.43"
     },
+    "@vueuse/core": {
+      "dependencies": {
+        "@types/web-bluetooth": "^0.0.21",
+        "@vueuse/metadata": "15.0.0",
+        "@vueuse/shared": "15.0.0"
+      },
+      "has_install_script": false,
+      "integrity": "sha512-Zv67h5mrk7YHDJsRObx+DXaCBz6RKBUpxqLesJ+3xZNPG6yuQs7ja7kg3veFrrouYLWAqydQ7CwGEbLVxB43Ng==",
+      "optional_dependencies": {},
+      "tarball": "https://registry.npmjs.org/@vueuse/core/-/core-15.0.0.tgz",
+      "version": "15.0.0"
+    },
+    "@vueuse/metadata": {
+      "dependencies": {},
+      "has_install_script": false,
+      "integrity": "sha512-sfWE5LADAKJ0KnjtGliMdSN8Ij/L7uP6rXIZlgPloAI4zvvefbw6H5Lt7KJA6RqQOYgVqWF5Guj50HHMIzygBg==",
+      "optional_dependencies": {},
+      "tarball": "https://registry.npmjs.org/@vueuse/metadata/-/metadata-15.0.0.tgz",
+      "version": "15.0.0"
+    },
+    "@vueuse/shared": {
+      "dependencies": {},
+      "has_install_script": false,
+      "integrity": "sha512-vbNXhGrbV53xPOMSyOzMHQRvhMgZf7oNDw2RChUetVxwTIEkInQ1joZ9JbT0G3z2n2AJNjvmCWeM9ySYrnvogA==",
+      "optional_dependencies": {},
+      "tarball": "https://registry.npmjs.org/@vueuse/shared/-/shared-15.0.0.tgz",
+      "version": "15.0.0"
+    },
     "cssesc": {
       "dependencies": {},
       "has_install_script": false,
@@ -269,14 +297,6 @@
       "optional_dependencies": {},
       "tarball": "https://registry.npmjs.org/nanoid/-/nanoid-3.3.19.tgz",
       "version": "3.3.19"
-    },
-    "nanostores": {
-      "dependencies": {},
-      "has_install_script": false,
-      "integrity": "sha512-4UXY7OAJEK0Y6V3SudBU7cXjAzTDc189R78dDOh0Xbm19gpKYto6WizSg58LJf12lTsRxKSLGyE117OiLpM4DQ==",
-      "optional_dependencies": {},
-      "tarball": "https://registry.npmjs.org/nanostores/-/nanostores-1.5.4.tgz",
-      "version": "1.5.4"
     },
     "oxlint-tsgolint": {
       "dependencies": {},

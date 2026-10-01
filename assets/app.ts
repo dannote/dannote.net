@@ -1,18 +1,24 @@
+import { useMediaQuery } from "@vueuse/core";
+import { effectScope, watchEffect } from "vue";
 import "./theme";
 import "./x-posts";
 
-const contents = document.querySelector<HTMLDetailsElement>(".article-toc details");
-const breakpoint = getComputedStyle(document.documentElement)
-  .getPropertyValue("--breakpoint-wide")
-  .trim();
-const wide = matchMedia(`(min-width: ${breakpoint})`);
-const syncContents = () => {
-  if (contents) contents.open = wide.matches;
-};
-syncContents();
-wide.addEventListener("change", syncContents);
+// The contents sidebar is open where there is room for it, collapsed above the article otherwise.
+const scope = effectScope();
+
+scope.run(() => {
+  const contents = document.querySelector<HTMLDetailsElement>(".article-toc details");
+  const breakpoint = getComputedStyle(document.documentElement)
+    .getPropertyValue("--breakpoint-wide")
+    .trim();
+  const wide = useMediaQuery(`(min-width: ${breakpoint})`);
+
+  watchEffect(() => {
+    if (contents) contents.open = wide.value;
+  });
+});
 
 if (import.meta.hot) {
   import.meta.hot.accept();
-  import.meta.hot.dispose(() => wide.removeEventListener("change", syncContents));
+  import.meta.hot.dispose(() => scope.stop());
 }
