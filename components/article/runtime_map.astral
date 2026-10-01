@@ -1,0 +1,37 @@
+---
+# What a running BEAM application will tell an agent, one dimension per row:
+# the question, and the standard OTP or Elixir call that answers it.
+rows = [
+  {"Structure", "What runs under this supervisor, and who restarts whom?",
+   "Supervisor.which_children/1"},
+  {"Links", "If this process dies, what dies with it?", "Process.info(pid, :links)"},
+  {"State", "What is this process holding right now?", ":sys.get_state/1"},
+  {"Mailbox", "Is work piling up somewhere?", "Process.info(pid, :message_queue_len)"},
+  {"Load", "Which process is burning the schedulers?", "Process.info(pid, :reductions)"},
+  {"Memory", "What grew, and in which table?", ":ets.info(table, :memory)"},
+  {"Calls", "What is this function called with, live?", ":dbg.tp(Mod, :fun, :x)"},
+  {"Code", "Which version is loaded, and what does it say about itself?", "Code.fetch_docs/1"},
+  {"Config", "What is this application configured with?", "Application.get_all_env/1"},
+  {"Queries", "What did the database do for this request?", "[:my_app, :repo, :query] telemetry"}
+]
+
+assigns = assign(assigns, :rows, rows)
+---
+<figure
+  class="not-prose my-10 border-y border-copy/25 py-6"
+  aria-labelledby="runtime-map-caption"
+>
+  <figcaption id="runtime-map-caption" class="mb-5 text-sm text-dim">
+    What a running BEAM application will tell an agent, and the call that answers each question.
+  </figcaption>
+  <ol class="text-sm">
+    <li
+      :for={{dimension, question, call} <- @rows}
+      class="grid gap-1 border-t border-copy/15 py-3 first:border-0 first:pt-0 sm:grid-cols-[minmax(0,6rem)_1fr_minmax(0,17rem)] sm:gap-4"
+    >
+      <strong class="font-semibold">{dimension}</strong>
+      <span>{question}</span>
+      <code class="text-dim">{call}</code>
+    </li>
+  </ol>
+</figure>

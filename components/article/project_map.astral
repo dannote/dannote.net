@@ -1,6 +1,7 @@
 ---
 # Rows are lifecycle stages; cells are the projects that serve each stage.
 # A nil status means the project is published and used in real work; "alpha" and "beta" mark the rest.
+# A nil url means the repository is not public yet.
 rows = [
   {"Design",
    [
@@ -37,7 +38,7 @@ rows = [
      {"Volt", "https://github.com/elixir-volt/volt", nil},
      {"QuackDB", "https://github.com/elixir-vibe/quackdb", nil},
      {"LLMProxy", "https://github.com/elixir-vibe/llm_proxy", nil},
-     {"Egress", "https://github.com/elixir-vibe/egress", "alpha"}
+     {"Egress", nil, "design"}
    ]},
   {"Deploy",
    [
@@ -62,16 +63,17 @@ assigns = assign(assigns, :rows, rows)
     The platform by lifecycle stage. Unmarked projects are published and used in real work; alpha and beta mark the rest.
   </figcaption>
   <dl class="space-y-5">
-    <.map_row :for={{stage, projects} <- @rows} title={stage}>
+    <.article_map_row :for={{stage, projects} <- @rows} title={stage}>
       <ul class="flex flex-wrap gap-x-5 gap-y-1.5">
         <li :for={{name, url, status} <- projects} class="whitespace-nowrap">
-          <a href={url}>{name}</a>
+          <a :if={url} href={url}>{name}</a>
+          <span :if={!url}>{name}</span>
           <small
             :if={status}
             class="ml-0.5 align-top text-[0.6em] font-medium uppercase tracking-wider text-dim"
           >{status}</small>
         </li>
       </ul>
-    </.map_row>
+    </.article_map_row>
   </dl>
 </figure>

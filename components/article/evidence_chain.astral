@@ -3,7 +3,7 @@
 rows = [
   {"Where did they come from, and what did the click cost?",
    "Campaign, landing page, and attribution for that visit.", "Plausible on DuckDB"},
-  {"What did they see?", "The browser session and the backend state that produced each screen.",
+  {"What did they see?", "Each screen re-rendered from the backend state that produced it.",
    "PhoenixReplay"},
   {"What broke?", "Errors, traces, and slow requests from the same minutes.", "Incant"},
   {"Which code ran?",

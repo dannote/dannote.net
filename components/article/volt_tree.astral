@@ -21,7 +21,7 @@ nodes = [
 
 assigns = assign(assigns, :nodes, nodes)
 ---
-<.tree
+<.article_tree
   caption="A Phoenix application supervising its own frontend toolchain. Simplified: the real tree has more children."
   nodes={@nodes}
 />

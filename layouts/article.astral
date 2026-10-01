@@ -10,7 +10,7 @@ assigns =
 <!doctype html>
 <html lang={@lang}>
   <head>
-    <.base_head
+    <.site_head
       title={@title}
       description={@description}
       route={@route}
@@ -33,7 +33,7 @@ assigns =
             >
               {@entry.data.subtitle}
             </p>
-            <.entry_meta entry={@entry} />
+            <.article_meta entry={@entry} />
           </header>
 
           <.article_contents headings={@entry.content.headings} />

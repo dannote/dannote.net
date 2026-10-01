@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang={@metadata["language"] || "en"}>
   <head>
-    <.base_head
+    <.site_head
       title={
         if @page.title, do: "#{@page.title} — #{Blog.Site.author()}", else: Blog.Site.author()
       }

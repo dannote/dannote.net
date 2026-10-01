@@ -15,7 +15,7 @@ nodes = [
 
 assigns = assign(assigns, :nodes, nodes)
 ---
-<.tree
+<.article_tree
   caption="A Vibe session as a supervision tree. The terminal and the browser attach as observers; closing one changes nothing below."
   nodes={@nodes}
 />
