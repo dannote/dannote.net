@@ -12,7 +12,8 @@ rows = [
   {"Calls", "What is this function called with, live?", ":dbg.tp(Mod, :fun, :x)"},
   {"Code", "Which version is loaded, and what does it say about itself?", "Code.fetch_docs/1"},
   {"Config", "What is this application configured with?", "Application.get_all_env/1"},
-  {"Queries", "What did the database do for this request?", "[:my_app, :repo, :query] telemetry"}
+  {"Queries", "What did the database do for this request? Ecto emits every query as an event.",
+   ":telemetry.attach/4"}
 ]
 
 assigns = assign(assigns, :rows, rows)
