@@ -262,20 +262,24 @@
     padding: 0;
   }
 
-  /* While X's embed loads, the quote's rule pulses in the accent so the reader knows
-     something is on its way. The quote itself stays still. */
-  .x-post.is-loading {
-    animation: x-post-pulse 1.4s ease-in-out infinite;
+  /* While X's embed loads, a line under the quote says so and breathes. */
+  .x-post.is-loading::after {
+    content: "Loading embed…";
+    display: block;
+    margin-block-start: --spacing(2);
+    font-size: var(--text-xs);
+    color: var(--color-dim);
+    animation: x-post-pulse 0.9s ease-in-out infinite;
   }
 
   @keyframes x-post-pulse {
     50% {
-      border-inline-start-color: var(--color-accent);
+      opacity: 0.35;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .x-post.is-loading {
+    .x-post.is-loading::after {
       animation: none;
     }
   }

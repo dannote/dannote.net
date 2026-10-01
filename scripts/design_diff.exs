@@ -1,27 +1,51 @@
+# Draws the before and after cards for the visual diff figure and diffs them.
+#
+#     mix run scripts/design_diff.exs
+#
+# Output goes to assets/images/figma/. The cards are drawn at 2x (960 × 600) so
+# text stays crisp when the figure shows them at half size, with the Noto Sans the
+# site bundles for its social cards.
 import Skia, only: [canvas: 2, clear: 2, rect: 2, circle: 2, text: 3, to_png: 1]
 alias Skia.{Font, Typeface}
 
-{:ok, regular} = :blog |> Application.app_dir("priv/fonts/NotoSans-Regular.ttf") |> Typeface.load_path()
-{:ok, bold} = :blog |> Application.app_dir("priv/fonts/NotoSans-Bold.ttf") |> Typeface.load_path()
+typeface = fn file ->
+  {:ok, face} = :blog |> Application.app_dir("priv/fonts/#{file}") |> Typeface.load_path()
+  face
+end
 
-# A small "card" screen, drawn twice. The second has the changes a design review
-# would catch: a tinted surface, a renamed title, a rounder and darker button.
+regular = Font.new(typeface.("NotoSans-Regular.ttf"))
+bold = Font.new(typeface.("NotoSans-Bold.ttf"))
+
+ink = "#15161A"
+muted = "#6B6F76"
+rule = "#E4E1DA"
+
 draw = fn %{surface: surface, title: title, button: button, radius: radius} ->
-  canvas(480, 300)
-  |> clear("#E9E6DF")
-  |> rect(x: 40, y: 32, width: 400, height: 236, radius: 16, fill: surface)
-  |> circle(x: 84, y: 84, radius: 20, fill: "#D9D4C7")
-  |> text(title, x: 120, y: 66, size: 22, fill: "#15161A", font: Font.new(bold))
-  |> text("Updated 2 min ago", x: 120, y: 96, size: 14, fill: "#555961", font: Font.new(regular))
-  |> text("A silent patch broke the debugging port. The team is looking into it.",
-    x: 64, y: 134, width: 352, size: 15, fill: "#15161A", font: Font.new(regular), line_height: 22)
-  |> rect(x: 64, y: 206, width: 132, height: 40, radius: radius, fill: button)
-  |> text("Reply", x: 64, y: 216, width: 132, size: 15, fill: "#FFFFFF", font: Font.new(bold), align: :center)
+  canvas(960, 600)
+  |> clear("#ECEAE4")
+  # card
+  |> rect(x: 80, y: 64, width: 800, height: 472, radius: 24, fill: surface, stroke: rule, stroke_width: 2)
+  # avatar with a monogram
+  |> circle(x: 164, y: 148, radius: 36, fill: "#DCD7CB")
+  |> text("DP", x: 128, y: 134, width: 72, size: 24, fill: "#7A7262", font: bold, weight: 700, align: :center)
+  # header
+  |> text(title, x: 224, y: 112, size: 40, fill: ink, font: bold, weight: 700)
+  |> text("Updated 2 min ago", x: 224, y: 164, size: 26, fill: muted, font: regular)
+  # body
+  |> text("A silent patch broke the debugging port. The team is looking into it and will post an update here.",
+    x: 128, y: 236, width: 704, size: 28, fill: ink, font: regular, line_height: 42)
+  # divider
+  |> rect(x: 128, y: 372, width: 704, height: 2, fill: rule)
+  # actions
+  |> rect(x: 128, y: 420, width: 232, height: 80, radius: radius, fill: button)
+  |> text("Reply", x: 128, y: 441, width: 232, size: 28, fill: "#FFFFFF", font: bold, weight: 700, align: :center)
+  |> rect(x: 384, y: 420, width: 232, height: 80, radius: 16, stroke: "#C9C4B8", stroke_width: 2)
+  |> text("Remind me", x: 384, y: 441, width: 232, size: 28, fill: ink, font: regular, align: :center)
   |> to_png()
 end
 
-{:ok, before} = draw.(%{surface: "#FFFFFF", title: "Card / Header", button: "#2563EB", radius: 8})
-{:ok, after_} = draw.(%{surface: "#F0F0F0", title: "Card / Header v2", button: "#1D4ED8", radius: 20})
+{:ok, before} = draw.(%{surface: "#FFFFFF", title: "Card / Header", button: "#2563EB", radius: 16})
+{:ok, after_} = draw.(%{surface: "#F3F2EF", title: "Card / Header v2", button: "#1D4ED8", radius: 40})
 
 File.write!("assets/images/figma/diff-before.png", before)
 File.write!("assets/images/figma/diff-after.png", after_)
@@ -30,4 +54,4 @@ File.write!("assets/images/figma/diff-after.png", after_)
 {:ok, b} = Image.from_binary(after_)
 {:ok, metric, diff} = Image.compare(a, b, difference_color: :red, difference_boost: 2.0)
 Image.write!(diff, "assets/images/figma/diff-result.png")
-IO.puts("metric: #{inspect(metric)}")
+IO.puts("difference metric: #{Float.round(metric, 3)}")

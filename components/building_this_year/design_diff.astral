@@ -24,7 +24,7 @@ assigns =
     :title,
     hunk.(
       ["--- /Card/Title #1:24", "+++ /Card/Title #1:24"],
-      ["type: TEXT", "font: Inter Bold 22"],
+      ["type: TEXT", "font: Noto Sans Bold 20"],
       [~s(text: "Card / Header")],
       [~s(text: "Card / Header v2")]
     )
