@@ -1,0 +1,13 @@
+# Cloudflare Pages response headers. Volt names everything under /assets/ by its
+# content hash, so those files never change and can be cached for a year. The
+# manifest keeps one name across builds and must not be.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/manifest.json
+  ! Cache-Control
+  Cache-Control: no-cache
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
