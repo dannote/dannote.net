@@ -61,7 +61,26 @@ Good design is iterative too. A designer normally begins by collecting reference
 
 Most AI design tools ignore this process. They try to generate a finished screen in one shot. Even when the screenshot looks impressive, the structure underneath is often useless: unnamed nested frames, no components, no tokens, and no coherent system that another designer can continue working with.
 
-With [`figma-use`](https://github.com/dannote/figma-use), an agent could work on the actual structure. It could create and modify nodes, use components and variants, describe a screen in JSX and render it as Figma layers, inspect the resulting tree, and continue from there. I added visual diffing so it could see what changed, and design linting so it could catch structural and accessibility problems. I also wanted design files in automated pipelines: linted in CI, compared between revisions, and exported without anybody opening Figma.
+With [`figma-use`](https://github.com/dannote/figma-use), an agent could work on the actual structure. It could create and modify nodes, use components and variants, describe a screen in JSX and render it as Figma layers, inspect the resulting tree, and continue from there. A `.figma.tsx` file defines components; the first render creates the master, the rest create instances:
+
+```tsx
+import { defineComponent, Frame, Text } from 'figma-use/render'
+
+const Card = defineComponent(
+  'Card',
+  <Frame style={{ p: 24, bg: '#FFF', rounded: 16, flex: 'col', gap: 12 }}>
+    <Text style={{ size: 22, weight: 'bold' }}>Card / Header</Text>
+    <Text style={{ size: 14, color: '#555' }}>Updated 2 min ago</Text>
+    <Frame style={{ p: 10, bg: '#2563EB', rounded: 8 }}>
+      <Text style={{ color: '#FFF' }}>Reply</Text>
+    </Frame>
+  </Frame>
+)
+
+export default () => <Card />
+```
+
+I added visual diffing so it could see what changed, and design linting so it could catch structural and accessibility problems. I also wanted design files in automated pipelines: linted in CI, compared between revisions, and exported without anybody opening Figma.
 
 <.article_design_diff />
 
@@ -298,7 +317,7 @@ A coding harness is a concurrent, long-running system: model streams, terminal i
 
 I built [Vibe](https://github.com/elixir-vibe/vibe) to explore this architecture without the constraints of an existing harness.
 
-In [Vibe](https://github.com/elixir-vibe/vibe), sessions, agents, subagents, commands, and interfaces are OTP processes. Agents can start other agents and communicate through messages. They can run on one node or communicate across machines through Erlang distribution and SSH. Closing a terminal does not have to stop the work, and a failing subagent does not have to destroy its parent session. A background server owns the sessions, like tmux, so several terminals or a LiveView console can attach to the same one, and memory and past transcripts are searchable.
+In [Vibe](https://github.com/elixir-vibe/vibe), sessions, agents, subagents, commands, and interfaces are OTP processes. Agents can start other agents and communicate through messages. They can run on one node or communicate across machines through Erlang distribution and SSH. Closing a terminal does not have to stop the work, and a failing subagent does not have to destroy its parent session. A background server owns the sessions, like tmux, so several terminals or a LiveView console can attach to the same one, and memory and past transcripts are searchable. Vibe can also run its own checks, patch its own code, and hot-reload the result, which makes it a first step toward agents that modify and improve themselves.
 
 <.article_vibe_tree />
 
@@ -412,6 +431,20 @@ I started experimenting with this in [a branch of my fork](https://github.com/da
 Aggregate analytics still cannot explain what happened to one particular user. For that, I built [PhoenixReplay](https://github.com/elixir-vibe/phoenix_replay).
 
 In a Phoenix LiveView application, much of the interface state lives on the backend, and the browser displays updates produced from that state. So instead of recording clicks and DOM changes in the browser, [PhoenixReplay](https://github.com/elixir-vibe/phoenix_replay) records the server’s assigns, sanitizes them, and re-renders them later. The replay shows each screen as the server produced it, next to the state behind it. Because nothing runs in the browser, client-only JavaScript state is outside the recording.
+
+> New package! PhoenixReplay — session recording and replay for Phoenix LiveView.
+>
+> → Records assigns server-side, replays by re-rendering the actual view — pixel-perfect, not a DOM approximation\
+> → Zero client-side JS — no bundle size impact, invisible to users\
+> → See actual server state during replay: changesets, Ecto structs, form data\
+> → Navigation, page transitions, live_patch — all captured in one session automatically\
+> → 30s session = 8 KB
+>
+> rrweb and friends record DOM mutations client-side: they fight CORS, break on shadow DOM, drift when assets change, and produce approximate replays with visual glitches. None of that applies here — LiveView templates are pure functions, so same assigns = same HTML. The BEAM just keeps the state.
+>
+> ![A frame from the PhoenixReplay demo video: a recorded LiveView session playing back next to the server state behind it.](images/x/dan_note-2031256903192342649.jpg)
+>
+> — Danila Poyarkov (@dan_note), [10 March 2026](https://x.com/dan_note/status/2031256903192342649)
 
 The next step is to connect these sources rather than open them in separate dashboards.
 
