@@ -14,8 +14,6 @@ config :volt,
     arrow_parens: :always
   ],
   lint: [
-    plugins: ["typescript"],
-    tsgolint: System.find_executable("tsgolint"),
     rules: %{
       "correctness" => :deny,
       "no-debugger" => :deny,
