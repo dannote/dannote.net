@@ -22,11 +22,13 @@ An `.astral` page is a HEEx template with an Elixir setup block. The homepage li
 
 ```heex
 ---
+alias Astral.Collection
+
 articles =
   @site
-  |> Astral.Collection.entries(:articles)
-  |> Astral.Collection.published()
-  |> Astral.Collection.sort_by_date(:desc)
+  |> Collection.entries(:articles)
+  |> Collection.published()
+  |> Collection.sort_by_date(:desc)
   |> Enum.take(6)
 
 assigns = assign(assigns, :articles, articles)
@@ -66,7 +68,7 @@ Markdown plugins work too. A note quotes the X post it replies to as an ordinary
 > — Pietro Schirano (@skirano), [11 June 2026](https://x.com/skirano/status/2065096311410409770)
 ```
 
-[`Blog.Markdown.XPosts`](lib/blog/markdown/x_posts.ex), an [MDEx plugin](https://hexdocs.pm/mdex/plugins.html) listed in `astral.config.exs`, marks such quotes at build time. In the browser, [`assets/x-posts.ts`](assets/x-posts.ts) replaces each one with X's embed in the site's theme once it nears the viewport. The quote stays readable everywhere else: on GitHub, in the feed, and without JavaScript.
+[`Blog.Markdown.XPosts`](lib/blog/markdown/x_posts.ex), an [MDEx plugin](https://hexdocs.pm/mdex/plugins.html) listed in `astral.config.exs`, marks such quotes at build time. In the browser, [`assets/x-posts.ts`](assets/x-posts.ts) replaces each one with X's embed in the site's theme as the page loads. The quote stays readable everywhere else: on GitHub, in the feed, and without JavaScript.
 
 ### Feeds and indexes come from plugins
 
