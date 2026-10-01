@@ -9,9 +9,11 @@ sources:
   - https://x.com/dan_note/status/2064540776512504198
 ---
 
-<.x_post kind="reply" name="Mario Zechner" handle="badlogicgames" date="2026-06-09" url="https://x.com/badlogicgames/status/2064491848018587897">On the matter of loops, I give you my 12 months old slop blog post. Let's call it a "proto-loop". We were much more innocent back then.
-
-https://mariozechner.at/posts/2025-06-02-prompts-are-code/</.x_post>
+> On the matter of loops, I give you my 12 months old slop blog post. Let's call it a "proto-loop". We were much more innocent back then.
+>
+> <https://mariozechner.at/posts/2025-06-02-prompts-are-code/>
+>
+> — Mario Zechner (@badlogicgames), [9 June 2026](https://x.com/badlogicgames/status/2064491848018587897)
 
 I discovered that I’m (unsurprisingly) a very predictable person over longer periods of time.
 

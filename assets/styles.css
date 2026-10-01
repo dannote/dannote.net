@@ -58,8 +58,6 @@
   --tw-prose-counters: var(--color-accent);
   --tw-prose-bullets: var(--color-accent);
   --tw-prose-hr: color-mix(in oklch, var(--color-copy) 30%, transparent);
-  --tw-prose-quotes: var(--color-copy);
-  --tw-prose-quote-borders: var(--color-accent);
   --tw-prose-captions: var(--color-dim);
   --tw-prose-code: var(--color-copy);
   --tw-prose-pre-code: var(--color-page);
@@ -235,6 +233,47 @@
     content: none;
   }
 
+  /* Quotes read like quoted email: a thin rule and dimmed text, without quote marks. */
+  .prose-swiss :where(blockquote):not(:where(.not-prose, .not-prose *)) {
+    border-inline-start-width: 1px;
+    border-inline-start-color: var(--color-rule);
+    color: var(--color-dim);
+    font-style: normal;
+    font-weight: inherit;
+    quotes: none;
+  }
+
+  /* Blog.Markdown.XPosts marks quoted posts and assets/x-posts.ts embeds them. The post
+     keeps the quote's rule, whether it shows the quote or X's embed. */
+  .x-post {
+    position: relative;
+    margin-block: --spacing(6);
+    border-inline-start: 1px solid var(--color-rule);
+    padding-inline-start: 1em;
+  }
+
+  .x-post:first-child {
+    margin-block-start: 0;
+  }
+
+  .x-post > blockquote {
+    margin-block: 0;
+    border: 0;
+    padding: 0;
+  }
+
+  /* An embed renders out of flow and invisible, so nothing shifts until it's ready. */
+  .x-post > .x-post-loading {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline: 1em 0;
+    visibility: hidden;
+  }
+
+  /* X's embed sets its own margins inline. */
+  .x-post .twitter-tweet {
+    margin-block: 0 !important;
+  }
 }
 
 @media print {

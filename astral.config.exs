@@ -4,6 +4,7 @@ root(".")
 outdir("dist")
 
 markdown(
+  plugins: [Blog.Markdown.XPosts],
   syntax_highlight: [
     engine: :lumis,
     opts: [

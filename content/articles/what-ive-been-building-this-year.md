@@ -72,9 +72,13 @@ I found workarounds and kept the tool working, but the larger lesson was obvious
 
 The official route is not much safer. Figma's remote MCP server now decides which agents may connect at all: sign-in works only for client names on its list, such as Claude Code or Codex. When Mario Zechner tried to connect Pi, his open-source coding agent, Figma refused it because Pi identifies itself as `pi`.
 
-<.x_post name="Mario Zechner" handle="badlogicgames" date="2026-09-30" url="https://x.com/badlogicgames/status/2105234146499203255" image="images/x/badlogicgames-2105234146499203255.png" image_alt="A message: I'm trying to connect to Figma's remote MCP server. Figma only accepts certain client names during sign-in, e.g., Claude Code or Codex, but Pi 0.99.1 always sends pi.">today in MCP land ...
-
-thing are better compared to a year ago, but also worse.</.x_post>
+> today in MCP land ...
+>
+> thing are better compared to a year ago, but also worse.
+>
+> ![A message: I'm trying to connect to Figma's remote MCP server. Figma only accepts certain client names during sign-in, e.g., Claude Code or Codex, but Pi 0.99.1 always sends pi.](images/x/badlogicgames-2105234146499203255.png)
+>
+> — Mario Zechner (@badlogicgames), [30 September 2026](https://x.com/badlogicgames/status/2105234146499203255)
 
 That is how [OpenPencil](https://github.com/open-pencil/open-pencil) began.
 

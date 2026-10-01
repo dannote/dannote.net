@@ -9,9 +9,11 @@ sources:
   - https://x.com/dan_note/status/2057607642160550046
 ---
 
-<.x_post name="Zeb Evans" handle="DJ_CURFEW" date="2026-05-21" url="https://x.com/DJ_CURFEW/status/2057522382315929802">Today we reduced headcount by 22%. The business is the strongest it's ever been. So I think it's important to be direct about what I'm seeing and why.
-
-First, I made this decision and I own it. I did it because the way to operate at the highest level of productivity is changing, and to win the future, ClickUp needs to change with it. …</.x_post>
+> Today we reduced headcount by 22%. The business is the strongest it's ever been. So I think it's important to be direct about what I'm seeing and why.
+>
+> First, I made this decision and I own it. I did it because the way to operate at the highest level of productivity is changing, and to win the future, ClickUp needs to change with it. …
+>
+> — Zeb Evans (@DJ_CURFEW), [21 May 2026](https://x.com/DJ_CURFEW/status/2057522382315929802)
 
 ClickUp just cut 22% of its staff while saying the business has never been stronger. Honestly, this feels like a moment of truth for the industry.
 

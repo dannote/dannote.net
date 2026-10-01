@@ -1,69 +1,61 @@
-type Theme = "light" | "dark";
+import { persistentAtom } from "@nanostores/persistent";
+import { atom, computed, effect, onMount } from "nanostores";
 
-const system = matchMedia("(prefers-color-scheme: dark)");
-const listeners = new AbortController();
-let preference: Theme | undefined;
+export type Theme = "light" | "dark";
 
-function readPreference(): Theme | undefined {
-  try {
-    const stored = localStorage.getItem("theme");
-    return stored === "light" || stored === "dark" ? stored : undefined;
-  } catch {
-    return undefined;
-  }
+const isTheme = (value: unknown): value is Theme => value === "light" || value === "dark";
+
+// The head script in components/base_head.astral reads the same key before first paint.
+export const $preference = persistentAtom<Theme | undefined>("theme", undefined, {
+  decode: (value) => (isTheme(value) ? value : undefined),
+  encode: (value) => value,
+});
+
+const darkScheme = matchMedia("(prefers-color-scheme: dark)");
+const $systemTheme = atom<Theme>(darkScheme.matches ? "dark" : "light");
+
+onMount($systemTheme, () => {
+  const update = () => $systemTheme.set(darkScheme.matches ? "dark" : "light");
+  update();
+  darkScheme.addEventListener("change", update);
+  return () => darkScheme.removeEventListener("change", update);
+});
+
+export const $theme = computed(
+  [$preference, $systemTheme],
+  (preference, system): Theme => preference ?? system,
+);
+
+export function toggleTheme(): void {
+  $preference.set($theme.get() === "dark" ? "light" : "dark");
 }
 
-function currentTheme(): Theme {
-  return preference ?? (system.matches ? "dark" : "light");
-}
-
-// CSS renders the theme, the toggle, and its icon from `data-theme`; this only keeps
-// the attribute and the toggle's label in sync.
-function applyTheme(): void {
+// CSS renders the theme, the toggle, and its icon from `data-theme`.
+const stopRoot = effect($preference, (preference) => {
   const root = document.documentElement;
-
   if (preference) root.dataset.theme = preference;
   else delete root.dataset.theme;
+});
 
-  const label = `Switch to ${currentTheme() === "dark" ? "light" : "dark"} theme`;
+const toggles = document.querySelectorAll<HTMLButtonElement>("[data-theme-toggle]");
 
-  for (const button of document.querySelectorAll<HTMLButtonElement>("[data-theme-toggle]")) {
+const stopLabels = effect($theme, (theme) => {
+  const label = `Switch to ${theme === "dark" ? "light" : "dark"} theme`;
+
+  for (const button of toggles) {
     button.setAttribute("aria-label", label);
     button.title = label;
   }
-}
+});
 
-preference = readPreference();
-applyTheme();
-
-for (const button of document.querySelectorAll<HTMLButtonElement>("[data-theme-toggle]")) {
-  button.addEventListener(
-    "click",
-    () => {
-      preference = currentTheme() === "dark" ? "light" : "dark";
-      try {
-        localStorage.setItem("theme", preference);
-      } catch {
-        // Keep the current-page preference when browser storage is unavailable.
-      }
-      applyTheme();
-    },
-    { signal: listeners.signal },
-  );
-}
-
-system.addEventListener("change", applyTheme, { signal: listeners.signal });
-window.addEventListener(
-  "storage",
-  (event) => {
-    if (event.key === "theme" || event.key === null) {
-      preference = readPreference();
-      applyTheme();
-    }
-  },
-  { signal: listeners.signal },
-);
+const clicks = new AbortController();
+for (const button of toggles)
+  button.addEventListener("click", toggleTheme, { signal: clicks.signal });
 
 if (import.meta.hot) {
-  import.meta.hot.dispose(() => listeners.abort());
+  import.meta.hot.dispose(() => {
+    stopRoot();
+    stopLabels();
+    clicks.abort();
+  });
 }

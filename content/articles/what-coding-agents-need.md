@@ -9,7 +9,9 @@ sources:
   - https://x.com/dan_note/status/2072655266126979558
 ---
 
-<.x_post name="the tiny corp" handle="__tinygrad__" date="2026-06-30" url="https://x.com/__tinygrad__/status/2072091861473431605">Claude Code is vibecoded and full of spyware, it's possible Anthropic doesn't even know what's in there. After reading this report, we are banning it from our systems and strongly encourage other enterprises to do the same. It is an unacceptable security risk.</.x_post>
+> Claude Code is vibecoded and full of spyware, it's possible Anthropic doesn't even know what's in there. After reading this report, we are banning it from our systems and strongly encourage other enterprises to do the same. It is an unacceptable security risk.
+>
+> — the tiny corp (@\_\_tinygrad\_\_), [30 June 2026](https://x.com/__tinygrad__/status/2072091861473431605)
 
 Finally, somebody said it out loud. I’m not proud of OpenPencil’s code quality, but somehow a project maintained by a single developer is in better shape than what I saw in the leaked Claude Code source.
 

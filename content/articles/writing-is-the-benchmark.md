@@ -9,11 +9,13 @@ sources:
   - https://x.com/dan_note/status/2065133135730205167
 ---
 
-<.x_post kind="reply" name="Pietro Schirano" handle="skirano" date="2026-06-11" url="https://x.com/skirano/status/2065096311410409770">You should basically never use Fable for coding, but instead use it as a planner/orchestrator.
-
-Most of today's advanced models can implement a spec perfectly, and once done you can send the work to Fable to review.
-
-This has been my most powerful flow so far.</.x_post>
+> You should basically never use Fable for coding, but instead use it as a planner/orchestrator.
+>
+> Most of today's advanced models can implement a spec perfectly, and once done you can send the work to Fable to review.
+>
+> This has been my most powerful flow so far.
+>
+> — Pietro Schirano (@skirano), [11 June 2026](https://x.com/skirano/status/2065096311410409770)
 
 For me, the ultimate intelligence benchmark is still text writing. Which is kind of ironic, because models that were initially created to generate text are still often that bad at it.
 

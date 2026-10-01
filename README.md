@@ -58,13 +58,15 @@ collection :articles, "content/articles" do
 end
 ```
 
-Markdown can use components too. A note can quote the X post it replies to:
+Markdown plugins work too. A note quotes the X post it replies to as an ordinary blockquote that ends with a link to the post:
 
-```heex
-<.x_post kind="reply" name="Pietro Schirano" handle="skirano" date="2026-06-11" url="https://x.com/skirano/status/2065096311410409770">
-  You should basically never use Fable for coding, but instead use it as a planner/orchestrator.
-</.x_post>
+```md
+> You should basically never use Fable for coding, but instead use it as a planner/orchestrator.
+>
+> — Pietro Schirano (@skirano), [11 June 2026](https://x.com/skirano/status/2065096311410409770)
 ```
+
+[`Blog.Markdown.XPosts`](lib/blog/markdown/x_posts.ex), an [MDEx plugin](https://hexdocs.pm/mdex/plugins.html) listed in `astral.config.exs`, marks such quotes at build time. In the browser, [`assets/x-posts.ts`](assets/x-posts.ts) replaces each one with X's embed in the site's theme once it nears the viewport. The quote stays readable everywhere else: on GitHub, in the feed, and without JavaScript.
 
 ### Feeds and indexes come from plugins
 

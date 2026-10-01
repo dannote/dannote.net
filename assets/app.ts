@@ -1,4 +1,5 @@
 import "./theme";
+import "./x-posts";
 
 const contents = document.querySelector<HTMLDetailsElement>(".article-toc details");
 const breakpoint = getComputedStyle(document.documentElement)
