@@ -1,6 +1,6 @@
 ---
 title: Projects
-description: Open-source tools by Danila Poyarkov for design automation, code intelligence, and the Elixir ecosystem.
+description: Open-source tools by Danila Poyarkov for design automation, code intelligence, native software, and the Elixir ecosystem.
 ---
 
 # Projects
@@ -11,6 +11,13 @@ Most of my current work concerns coding agents: giving them access to structured
 
 - [OpenPencil](https://openpencil.dev) — an AI-native, open-source design editor and Figma alternative built with Skia and WebGL.
 - [figma-use](https://github.com/dannote/figma-use) — structural queries, JSX rendering, diffs, linting, editing, and exports through a CLI for Figma.
+
+## Native software from Elixir
+
+[Elixir Crab](https://github.com/elixir-crab) builds native applications that keep behavior, state, supervision, and public contracts in Elixir, and use Rust only for bounded platform mechanics.
+
+- [gpui](https://github.com/elixir-crab/gpui) — declarative native desktop UI for Elixir/OTP: GPUI windows, HEEx-style views, native controls, deterministic test displays, and remote displays.
+- [rustq](https://github.com/elixir-crab/rustq) — typed Rust and Rustler code generation from Elixir, with quasiquoting and ASTs, so NIF boundaries need no handwritten Rust.
 
 ## Code intelligence for Elixir
 
@@ -32,8 +39,8 @@ Most of my current work concerns coding agents: giving them access to structured
 
 ## Running systems
 
-- [pi-elixir](https://github.com/dannote/pi-elixir) — runtime and code-structure tools for the Pi coding agent.
-- [phoenix_replay](https://github.com/dannote/phoenix_replay) — recording and replay for LiveView sessions.
+- [pi-elixir](https://github.com/elixir-vibe/pi-elixir) — runtime and code-structure tools for the Pi coding agent.
+- [phoenix_replay](https://github.com/elixir-vibe/phoenix_replay) — recording and replay for LiveView sessions.
 - [live_render](https://github.com/dannote/live_render) — server-driven generative UI for LiveView.
 - [phoenix_streamdown](https://github.com/dannote/phoenix_streamdown) — streaming Markdown for incremental LLM output.
 
