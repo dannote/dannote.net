@@ -246,7 +246,39 @@
 
 @layer components {
   .prose-swiss :where(h2, h3, h4) {
+    position: relative;
     scroll-margin-block-start: 2rem;
+  }
+
+  /* Every heading links to its own section. The Markdown renderer appends an empty,
+     labelled a.anchor to each; stretched over the heading, it makes the whole line
+     the target, which suits a thumb. A "#" in the margin marks it on hover and on
+     keyboard focus, where the focus ring also outlines the heading. */
+  .prose-swiss :where(h2, h3, h4) > a.anchor {
+    position: absolute;
+    inset: 0;
+    text-decoration: none;
+  }
+
+  .prose-swiss :where(h2, h3, h4) > a.anchor::before {
+    content: "#";
+    position: absolute;
+    right: 100%;
+    margin-right: 0.35em;
+    color: var(--color-dim);
+    font-weight: 400;
+    opacity: 0;
+    transition: opacity 150ms;
+  }
+
+  .prose-swiss :where(h2, h3, h4) > a.anchor:focus-visible::before {
+    opacity: 1;
+  }
+
+  @media (hover: hover) {
+    .prose-swiss :where(h2, h3, h4):hover > a.anchor::before {
+      opacity: 1;
+    }
   }
 
   .prose-swiss :where(a):not(:where(.not-prose, .not-prose *)) {
