@@ -75,13 +75,10 @@ assigns =
   |> assign(:steps, steps)
   |> assign(:spans, spans)
 ---
-<figure
-  class="not-prose my-10 border-y border-copy/25 py-6"
-  aria-labelledby="customer-path-caption"
+<.article_figure
+  id="customer-path"
+  caption="Where the funnel narrows and why: traffic splitting by campaign creative, then one abandoned session as the spans that produced it. The numbers are illustrative."
 >
-  <figcaption id="customer-path-caption" class="mb-4 text-sm text-dim">
-    Where the funnel narrows and why: traffic splitting by campaign creative, then one abandoned session as the spans that produced it. The numbers are illustrative.
-  </figcaption>
   <.vue
     component="islands/CustomerPath.vue"
     client={:visible}
@@ -103,4 +100,4 @@ assigns =
       </li>
     </ol>
   </.vue>
-</figure>
+</.article_figure>

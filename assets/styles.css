@@ -90,6 +90,10 @@
   --color-underline: color-mix(in oklch, var(--color-copy) 35%, transparent);
   --color-rule: color-mix(in oklch, var(--color-copy) 14%, transparent);
   --color-accent: light-dark(var(--color-signal), oklch(66% 0.2 28));
+  /* The two tints that drift behind figures: a trace of the accent and a cool blue.
+     Kept faint enough that text over them still passes WCAG AA in both themes. */
+  --color-ambient-warm: light-dark(oklch(56% 0.22 28 / 0.09), oklch(66% 0.2 28 / 0.1));
+  --color-ambient-cool: light-dark(oklch(58% 0.1 250 / 0.08), oklch(70% 0.09 250 / 0.08));
 }
 
 @utility prose-swiss {
@@ -345,9 +349,69 @@
   .x-post iframe {
     border-radius: 12px;
   }
+
+  /*
+   * The background that drifts behind article figures (components/article/figure.astral).
+   * Two radial gradients are already as soft as a blur, so no blur filter is needed;
+   * only transform animates, which the compositor handles without repainting. A full
+   * cycle takes three minutes. Off-screen figures pause (assets/app.ts), and the layer
+   * holds still for reduced motion and disappears for high contrast and print.
+   */
+  /* The frame stays still and clips the drifting layer, fading it out toward the
+     sides so the tint never ends in a hard edge at the column's boundary. */
+  .figure-ambient-frame {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+    mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+  }
+
+  .figure-ambient {
+    position: absolute;
+    inset: -40%;
+    background:
+      radial-gradient(closest-side at 32% 38%, var(--color-ambient-warm), transparent),
+      radial-gradient(closest-side at 68% 62%, var(--color-ambient-cool), transparent);
+    animation: figure-drift 90s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+
+  .figure-ambient[data-offscreen] {
+    animation-play-state: paused;
+  }
+
+  @keyframes figure-drift {
+    0% {
+      transform: translate3d(-6%, -4%, 0) rotate(0deg) scale(1);
+    }
+    50% {
+      transform: translate3d(5%, 3%, 0) rotate(110deg) scale(1.12);
+    }
+    100% {
+      transform: translate3d(-3%, 5%, 0) rotate(220deg) scale(1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .figure-ambient {
+      animation: none;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .figure-ambient-frame {
+      display: none;
+    }
+  }
 }
 
 @media print {
+  .figure-ambient-frame {
+    display: none;
+  }
+
   @page {
     margin: 18mm 20mm;
   }

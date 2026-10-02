@@ -32,8 +32,7 @@ assigns =
   |> assign(:lines, flatten.(flatten, assigns.nodes, nil))
   |> assign_new(:caption, fn -> nil end)
 ---
-<figure class="not-prose my-10 border-y border-copy/25 py-6">
-  <figcaption :if={@caption} class="mb-4 text-sm text-dim">{@caption}</figcaption>
+<.article_figure caption={@caption}>
   <ol class="overflow-x-auto font-mono text-sm leading-6">
     <li :for={{branch, label, note} <- @lines}>
       <span :if={branch != ""} aria-hidden="true" class="whitespace-pre text-dim">{branch}</span>
@@ -41,4 +40,4 @@ assigns =
       <span :if={note} class="ml-3 text-dim">{note}</span>
     </li>
   </ol>
-</figure>
+</.article_figure>

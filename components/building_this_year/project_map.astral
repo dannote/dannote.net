@@ -58,13 +58,10 @@ rows = [
 
 assigns = assign(assigns, :rows, rows)
 ---
-<figure
-  class="not-prose my-10 border-y border-copy/25 py-6"
-  aria-labelledby="project-map-caption"
+<.article_figure
+  id="project-map"
+  caption="The platform by lifecycle stage. Unmarked projects are published and used in real work; alpha and beta mark the rest."
 >
-  <figcaption id="project-map-caption" class="mb-5 text-sm text-dim">
-    The platform by lifecycle stage. Unmarked projects are published and used in real work; alpha and beta mark the rest.
-  </figcaption>
   <dl class="space-y-5">
     <.building_this_year_map_row :for={{stage, projects} <- @rows} title={stage}>
       <ul class="flex flex-wrap gap-x-5 gap-y-1.5">
@@ -79,4 +76,4 @@ assigns = assign(assigns, :rows, rows)
       </ul>
     </.building_this_year_map_row>
   </dl>
-</figure>
+</.article_figure>
