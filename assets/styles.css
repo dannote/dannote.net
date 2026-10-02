@@ -397,16 +397,16 @@
   }
 
   /* One pass of the figure through the viewport: the tints swing a half turn around each
-     other along a curved path and swell in the middle. The inset leaves room for the shift. */
+     other while sliding sideways, and swell in the middle. The inset leaves room for the shift. */
   @keyframes figure-drift {
     from {
-      transform: translate3d(-14%, 10%, 0) rotate(-90deg) scale(0.9);
+      transform: translate3d(-14%, 0, 0) rotate(-90deg) scale(0.9);
     }
     50% {
-      transform: translate3d(6%, 8%, 0) rotate(0deg) scale(1.2);
+      transform: translate3d(0, 0, 0) rotate(0deg) scale(1.2);
     }
     to {
-      transform: translate3d(14%, -10%, 0) rotate(90deg) scale(0.95);
+      transform: translate3d(14%, 0, 0) rotate(90deg) scale(0.95);
     }
   }
 
