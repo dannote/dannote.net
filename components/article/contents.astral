@@ -1,21 +1,37 @@
+---
+# The island renders the contents once the page loads; this markup is what shows
+# before that and without JavaScript, so it matches the island's first render.
+assigns =
+  assign(assigns, :entries, Enum.map(assigns.headings, &Map.take(&1, [:id, :text, :level])))
+---
 <aside
   :if={@headings != []}
   class="article-toc my-6 border-y border-rule py-3 text-sm leading-relaxed wide:sticky wide:top-6 wide:col-start-1 wide:row-start-1 wide:row-span-2 wide:my-0 wide:max-h-toc-height wide:self-start wide:overflow-y-auto wide:overscroll-contain wide:border-0"
   aria-labelledby="toc-title"
 >
-  <details>
-    <summary
-      id="toc-title"
-      class="cursor-pointer font-medium wide:cursor-default wide:list-none wide:[&::-webkit-details-marker]:hidden"
-    >
-      Contents
-    </summary>
-    <div>
-      <ol class="space-y-1 pt-2">
-        <li :for={heading <- @headings} class={heading.level > 2 && "pl-3"}>
-          <a class="text-dim no-underline hover:text-copy" href={"##{heading.id}"}>{heading.text}</a>
-        </li>
-      </ol>
-    </div>
-  </details>
+  <.vue component="islands/Contents.vue" client={:load} props={%{headings: @entries}}>
+    <details>
+      <summary
+        id="toc-title"
+        class="cursor-pointer font-medium wide:cursor-default wide:list-none wide:[&::-webkit-details-marker]:hidden"
+      >
+        Contents
+      </summary>
+      <div>
+        <ol class="space-y-1 pt-2">
+          <li :for={heading <- @headings}>
+            <a
+              class={[
+                "block border-l-2 border-transparent text-dim no-underline transition-colors duration-(--duration-hover) hover:text-copy current:border-accent current:text-copy",
+                if(heading.level > 2, do: "pl-6", else: "pl-3")
+              ]}
+              href={"##{heading.id}"}
+            >
+              {heading.text}
+            </a>
+          </li>
+        </ol>
+      </div>
+    </details>
+  </.vue>
 </aside>
