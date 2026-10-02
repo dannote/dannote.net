@@ -330,15 +330,13 @@ But the more I extended the harness, the less natural its underlying execution m
 
 A coding harness is a concurrent, long-running system: model streams, terminal input, tool execution, background work, cancellation, retries, persistence, and eventually coordination with other agents. [Pi](https://github.com/badlogic/pi-mono) implements all of this carefully in JavaScript, but the work still travels through layers of promises, callbacks, and terminal redraws inside one process, with ownership and failure boundaries maintained by convention. OTP has a more direct model. A session is a process, a model request and each tool execution are supervised children, and terminal, browser, and remote clients observe the session without owning it. Processes can be monitored, cancelled, restarted, or allowed to fail independently, and the scheduler preempts them.
 
-I built [Vibe](https://github.com/elixir-vibe/vibe) to explore this architecture without the constraints of an existing harness.
+I built [Vibe](https://github.com/elixir-vibe/vibe) to explore this architecture without the constraints of an existing harness, and ideas that work there move back into [pi-elixir](https://github.com/elixir-vibe/pi-elixir).
 
 In [Vibe](https://github.com/elixir-vibe/vibe), sessions, agents, subagents, commands, and interfaces are OTP processes. Agents can start other agents and communicate through messages. They can run on one node or communicate across machines through Erlang distribution and SSH. Closing a terminal does not have to stop the work, and a failing subagent does not have to destroy its parent session. A background server owns the sessions, like tmux, so several terminals or a LiveView console can attach to the same one, and memory and past transcripts are searchable. Vibe can also run its own checks, patch its own code, and hot-reload the result, which makes it a first step toward agents that modify and improve themselves.
 
 <.building_this_year_vibe_tree />
 
 OpenAI is exploring the same direction. The reference implementation of [Symphony](https://github.com/openai/symphony), its system for supervising long-running coding-agent work, is written in Elixir.
-
-[Vibe](https://github.com/elixir-vibe/vibe) is useful, but it is also an experiment. I do not want to force users to replace a mature harness with my half-finished one just to test each hypothesis. When an idea works in [Vibe](https://github.com/elixir-vibe/vibe), I can bring it back into [pi-elixir](https://github.com/elixir-vibe/pi-elixir) and test it inside [Pi](https://github.com/badlogic/pi-mono). The newer [pi-elixir](https://github.com/elixir-vibe/pi-elixir) combines [Pi](https://github.com/badlogic/pi-mono)’s model support, interface, and extension system with more of the BEAM-native runtime and structural tooling explored in [Vibe](https://github.com/elixir-vibe/vibe).
 
 [Tilde](https://github.com/elixir-vibe/tilde) develops another part of this architecture: separating an agent session from any particular interface.
 
