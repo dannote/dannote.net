@@ -367,6 +367,13 @@
     quotes: none;
   }
 
+  /* Lumis paints code blocks with the GitHub theme's backgrounds, cool white and
+     blue-black, in an inline style. They sit on the site's warm surface instead; the
+     syntax colours stay. !important is the only way past an inline style. */
+  pre.lumis {
+    background-color: var(--color-surface) !important;
+  }
+
   /* Blog.Markdown.XPosts marks quoted posts and assets/x-posts.ts embeds them. The post
      keeps the quote's rule, whether it shows the quote or X's embed. */
   .x-post {
