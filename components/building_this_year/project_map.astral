@@ -60,7 +60,7 @@ assigns = assign(assigns, :rows, rows)
 ---
 <.article_figure
   id="project-map"
-  caption="The platform by lifecycle stage. Unmarked projects are published and used in real work; alpha and beta mark the rest."
+  caption="The platform by lifecycle stage. Unmarked projects are published and used in real work; alpha and beta mark the rest. Totals as of 2 October 2026."
 >
   <dl class="space-y-5">
     <.building_this_year_map_row :for={{stage, projects} <- @rows} title={stage}>
@@ -75,5 +75,43 @@ assigns = assign(assigns, :rows, rows)
         </li>
       </ul>
     </.building_this_year_map_row>
+  </dl>
+  <dl class="mt-6 grid grid-cols-2 gap-x-6 gap-y-5 border-t border-rule pt-6 sm:grid-cols-4">
+    <.building_this_year_stat value="66" label="Hex packages">
+      <.icon
+        name="lucide:package"
+        width="16"
+        height="16"
+        class="shrink-0 text-accent"
+        aria-hidden="true"
+      />
+    </.building_this_year_stat>
+    <.building_this_year_stat value="1.8M" label="Downloads">
+      <.icon
+        name="lucide:download"
+        width="16"
+        height="16"
+        class="shrink-0 text-accent"
+        aria-hidden="true"
+      />
+    </.building_this_year_stat>
+    <.building_this_year_stat value="12k" label="GitHub stars">
+      <.icon
+        name="lucide:star"
+        width="16"
+        height="16"
+        class="shrink-0 text-accent"
+        aria-hidden="true"
+      />
+    </.building_this_year_stat>
+    <.building_this_year_stat value="493" label="Pull requests this year">
+      <.icon
+        name="lucide:git-pull-request"
+        width="16"
+        height="16"
+        class="shrink-0 text-accent"
+        aria-hidden="true"
+      />
+    </.building_this_year_stat>
   </dl>
 </.article_figure>
