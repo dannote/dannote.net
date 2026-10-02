@@ -15,7 +15,7 @@ assigns =
   |> assign(:caption_id, assigns.caption && "#{id}-caption")
 ---
 <figure
-  class="figure not-prose relative isolate my-10 border-y border-copy/25 py-6"
+  class="figure not-prose relative isolate my-10 border-y border-rule-strong py-6"
   aria-labelledby={@caption_id}
 >
   <div class="figure-ambient-frame" aria-hidden="true">

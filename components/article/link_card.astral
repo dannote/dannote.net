@@ -14,7 +14,7 @@ assigns =
 ---
 <a
   href={@href}
-  class="not-prose my-6 flex items-stretch gap-4 border border-rule p-3 text-sm no-underline hover:border-copy/40"
+  class="not-prose my-6 flex items-stretch gap-4 border border-rule p-3 text-sm no-underline hover:border-rule-strong"
 >
   <span class="flex min-w-0 flex-1 flex-col justify-center">
     <span class="flex items-center gap-1.5 text-dim">

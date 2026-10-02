@@ -41,6 +41,14 @@ Astral uses `{:astral, "~> 0.5.0"}`. Keep changes compatible with the version re
 - Fenced code is highlighted by Lumis, one `lumis_wasm_*` package per language in `mix.exs`. A fence in a language with no package renders plain.
 - Islands are Vue files under `assets/islands/`, mounted with `<.vue component="islands/Name.vue" client={:visible} props={...}>` and static children as the pre-hydration content. The Vue runtime comes from `package.json`.
 
+## Styling
+
+- Tailwind utilities by default, on markup we write.
+- Plain CSS in `assets/styles.css` only for: markup we don't write (Markdown, plugin output, embeds); keyframes, scroll timelines, `@supports`, `@page`, pseudo-elements with real content; page-wide defaults; utilities needing 3+ stacked variants or 2+ arbitrary values. Each feature block says why in a comment.
+- Shared values are tokens in `@theme`: colours, durations, sizes. Use colour tokens whole: `border-rule-strong`, not `border-copy/25`. No colour literals outside `@theme` and print. A one-off arbitrary value or element-local measurement is fine.
+- A semantic class (`figure`, `article-toc`) exists only as a hook for CSS or scripts. Repeated utility strings become a component; never `@apply`.
+- Order in `styles.css`: fonts, tokens, base, one components block per feature, print.
+
 ## Content conventions
 
 - An X post is a blockquote ending in `— Name (@handle), [date](url)`; `Blog.Markdown.XPosts` marks it and `assets/x-posts.ts` swaps in the embed on load. Put the poster frame of a video in the quote as an image under `assets/images/x/`.
@@ -48,7 +56,7 @@ Astral uses `{:astral, "~> 0.5.0"}`. Keep changes compatible with the version re
 - Every mention of one of the author's projects links to it; an external technology links once, on first mention.
 - `.reach.exs` is the architecture policy, checked in `mix ci`. Keep it true when adding modules.
 
-Use HEEx semantics in `.astral` templates and local components. Extract repeated template styling into shared components and prefer Tailwind utilities and named theme tokens over repeated arbitrary values. `Astral.Formatter` integrates `.astral` templates with `mix format`; Markdown and CSS are not covered by that plugin. Content collections use Markdown with YAML frontmatter and schemas declared in `astral.config.exs`. Prefer Astral's built-in APIs and components over hand-rolled routing, asset, image, feed, or sitemap behavior.
+Use HEEx semantics in `.astral` templates and local components. `Astral.Formatter` integrates `.astral` templates with `mix format`; Markdown and CSS are not covered by that plugin. Content collections use Markdown with YAML frontmatter and schemas declared in `astral.config.exs`. Prefer Astral's built-in APIs and components over hand-rolled routing, asset, image, feed, or sitemap behavior.
 
 ## Development
 

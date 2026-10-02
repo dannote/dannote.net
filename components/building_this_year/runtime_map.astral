@@ -25,7 +25,7 @@ assigns = assign(assigns, :rows, rows)
   <ol class="text-sm">
     <li
       :for={{dimension, question, call} <- @rows}
-      class="grid gap-1 border-t border-copy/15 py-3 first:border-0 first:pt-0 sm:grid-cols-[minmax(0,6rem)_1fr_minmax(0,17rem)] sm:gap-4"
+      class="grid gap-1 border-t border-rule py-3 first:border-0 first:pt-0 sm:grid-cols-[minmax(0,6rem)_1fr_minmax(0,17rem)] sm:gap-4"
     >
       <strong class="font-semibold">{dimension}</strong>
       <span>{question}</span>
