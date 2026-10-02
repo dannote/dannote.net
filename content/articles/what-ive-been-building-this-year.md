@@ -397,7 +397,7 @@ Elixir already has a good deployment unit: an OTP release containing the applica
 
 So instead of Docker and Kubernetes, I built two small tools that take a release to a running server. [ReleaseKit](https://github.com/elixir-vibe/release_kit) packages the release: it turns a Mix release into a repeatable, deployment-neutral artifact. It produces an ordinary tarball and a small manifest describing how to run it, which environment it expects, and how to check its health. It deliberately knows nothing about servers, users, systemd, or reverse proxies.
 
-[HostKit](https://github.com/elixir-vibe/host_kit) prepares the server. It describes a Linux host in Elixir: packages, users, services, secrets, firewall rules, and [Caddy](https://caddyserver.com) reverse-proxy routes. It reads the current state, produces a plan, applies the reviewed plan locally or over SSH, and can bootstrap a bare machine with no Elixir on it. A host is ordinary Elixir:
+[HostKit](https://github.com/elixir-vibe/host_kit) prepares the server. It describes a Linux host in Elixir: packages, users, services, secrets, firewall rules, and [Caddy](https://caddyserver.com) reverse-proxy routes. It reads the current state, produces a plan, applies the reviewed plan locally or over SSH, and can bootstrap a bare machine with no Elixir on it. A host is plain Elixir:
 
 ```elixir
 use HostKit.DSL, providers: [HostKit.Providers.Caddy]
@@ -429,7 +429,7 @@ project :prod do
 end
 ```
 
-The result is ordinary Linux: services under systemd with restart policies, resource limits, filesystem restrictions, and network isolation. Everything is a library call first, and the Mix tasks are wrappers. So the questions an agent asks the runtime have host-level answers too: which ports listen, which services failed, what a plan would change, and how to roll it back.
+The result is standard Linux: services under systemd with restart policies, resource limits, filesystem restrictions, and network isolation. Everything is a library call first, and the Mix tasks are wrappers. So the questions an agent asks the runtime have host-level answers too: which ports listen, which services failed, what a plan would change, and how to roll it back.
 
 [HostKit](https://github.com/elixir-vibe/host_kit) is still a beta, but it runs my own infrastructure. It makes deploying a small or medium product cheap and understandable, with infrastructure as observable as every other part of the platform.
 
