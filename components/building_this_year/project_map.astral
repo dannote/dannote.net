@@ -80,36 +80,36 @@ assigns = assign(assigns, :rows, rows)
     <.building_this_year_stat value="66" label="Hex packages">
       <.icon
         name="lucide:package"
-        width="16"
-        height="16"
-        class="shrink-0 text-accent"
+        width="14"
+        height="14"
+        class="shrink-0 text-dim"
         aria-hidden="true"
       />
     </.building_this_year_stat>
     <.building_this_year_stat value="1.8M" label="Downloads">
       <.icon
         name="lucide:download"
-        width="16"
-        height="16"
-        class="shrink-0 text-accent"
+        width="14"
+        height="14"
+        class="shrink-0 text-dim"
         aria-hidden="true"
       />
     </.building_this_year_stat>
     <.building_this_year_stat value="12k" label="GitHub stars">
       <.icon
         name="lucide:star"
-        width="16"
-        height="16"
-        class="shrink-0 text-accent"
+        width="14"
+        height="14"
+        class="shrink-0 text-dim"
         aria-hidden="true"
       />
     </.building_this_year_stat>
     <.building_this_year_stat value="493" label="Pull requests this year">
       <.icon
         name="lucide:git-pull-request"
-        width="16"
-        height="16"
-        class="shrink-0 text-accent"
+        width="14"
+        height="14"
+        class="shrink-0 text-dim"
         aria-hidden="true"
       />
     </.building_this_year_stat>
