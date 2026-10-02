@@ -4,11 +4,18 @@
   aria-labelledby="toc-title"
 >
   <details>
-    <summary id="toc-title" class="cursor-pointer font-medium">Contents</summary>
-    <ol class="space-y-1 pt-2">
-      <li :for={heading <- @headings} class={heading.level > 2 && "pl-3"}>
-        <a class="text-dim no-underline hover:text-copy" href={"##{heading.id}"}>{heading.text}</a>
-      </li>
-    </ol>
+    <summary
+      id="toc-title"
+      class="cursor-pointer font-medium wide:cursor-default wide:list-none wide:[&::-webkit-details-marker]:hidden"
+    >
+      Contents
+    </summary>
+    <div>
+      <ol class="space-y-1 pt-2">
+        <li :for={heading <- @headings} class={heading.level > 2 && "pl-3"}>
+          <a class="text-dim no-underline hover:text-copy" href={"##{heading.id}"}>{heading.text}</a>
+        </li>
+      </ol>
+    </div>
   </details>
 </aside>

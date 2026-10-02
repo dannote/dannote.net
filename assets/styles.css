@@ -483,19 +483,22 @@
 
   /* The contents slide open and shut on narrow screens. The details' content is a
      one-row grid whose row grows from 0fr to 1fr, so the list animates to its own
-     height with no fixed maximum. content-visibility is discrete, and allow-discrete
-     keeps the list visible until it has closed. Wide screens skip it: app.ts opens
-     the contents on load there, and that shouldn't animate. */
+     height with no fixed maximum. The browser hides closed content at once with
+     content-visibility, and Safari won't delay that, so it is overridden and the list
+     is hidden with visibility instead, which every engine keeps visible until the
+     transition ends. Wide screens skip it: the contents stay open there. */
   .article-toc details::details-content {
     @variant max-wide {
       @variant motion-safe {
         display: grid;
         grid-template-rows: 0fr;
         opacity: 0;
+        content-visibility: visible;
+        visibility: hidden;
         transition:
           grid-template-rows var(--duration-reveal) ease-out,
           opacity var(--duration-reveal) ease-out,
-          content-visibility var(--duration-reveal) allow-discrete;
+          visibility var(--duration-reveal);
       }
     }
   }
@@ -505,20 +508,29 @@
       @variant motion-safe {
         grid-template-rows: 1fr;
         opacity: 1;
+        visibility: visible;
       }
     }
   }
 
-  /* The list is the grid's only item; with no minimum height it can shrink to the row.
-     Clipping it would cut off the focus ring, so it is padded by the ring's reach and
-     pulled back sideways by as much. */
-  .article-toc details > ol {
+  /* The wrapper is the grid's only item; with no minimum height it shrinks to the row,
+     and with no padding of its own the closed row is empty. Clipping would cut off the
+     focus ring, so the list inside is padded by the ring's reach, pulled back sideways
+     by as much. */
+  .article-toc details > div {
     @variant max-wide {
       @variant motion-safe {
         min-height: 0;
         overflow: hidden;
         margin-inline: -0.4rem;
         padding-inline: 0.4rem;
+      }
+    }
+  }
+
+  .article-toc details > div > ol {
+    @variant max-wide {
+      @variant motion-safe {
         padding-block-end: 0.4rem;
       }
     }
