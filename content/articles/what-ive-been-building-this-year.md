@@ -244,7 +244,7 @@ mix reach.trace --from conn.params --to Repo
 
 The other questions have the same shape. Here they are asked of QuackDB:
 
-```sh
+```console
 $ mix reach.map --hotspots --top 3
   score combines branch count with caller impact
   QuackDB.Source.literal!/1  score=96  branches=4  callers=24
@@ -275,7 +275,7 @@ This site has [such a policy](https://github.com/dannote/dannote.net/blob/main/.
 
 The last line is a trap I set for the example, and the check walks into it:
 
-```sh
+```console
 $ mix reach.check --arch
   1 violation(s)
   lib/blog/link_preview.ex:88 Blog.LinkPreview calls Req.get/2 (configured forbidden call)
@@ -284,7 +284,7 @@ $ mix reach.check --arch
 
 Reach found two smells in this site’s own code:
 
-```sh
+```console
 $ mix reach.check --smells
 Suboptimal patterns
 ───────────────────

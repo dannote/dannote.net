@@ -5,7 +5,7 @@ root(".")
 outdir("dist")
 
 markdown(
-  plugins: [Blog.Markdown.XPosts],
+  plugins: [Blog.Markdown.XPosts, Blog.Markdown.Console],
   syntax_highlight: [
     engine: :lumis,
     opts: [

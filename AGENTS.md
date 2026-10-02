@@ -53,6 +53,7 @@ Astral uses `{:astral, "~> 0.5.0"}`. Keep changes compatible with the version re
 ## Content conventions
 
 - An X post is a blockquote ending in `— Name (@handle), [date](url)`; `Blog.Markdown.XPosts` marks it and `assets/x-posts.ts` swaps in the embed on load. Put the poster frame of a video in the quote as an image under `assets/images/x/`.
+- A terminal session is a ` ```console ` fence: `$ ` lines are commands, the rest output. `Blog.Markdown.Console` colors it by role; a shell grammar would color the output as code.
 - A URL posted on its own becomes `<.article_link_card href="..." />`. `Blog.LinkPreview` fetches the page once at build time; the cache in `content/link_previews.json` and the images in `assets/images/links/` are committed, so builds run offline. Delete a cache entry to refetch.
 - Every mention of one of the author's projects links to it; an external technology links once, on first mention.
 - `.reach.exs` is the architecture policy, checked in `mix ci`. Keep it true when adding modules.
