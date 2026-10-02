@@ -47,6 +47,10 @@
 @theme {
   /* Helvetica comes after Inter: some Linux systems alias the name "Helvetica" to a
      lesser font, which would otherwise win over Inter. */
+  /* Hover feedback, and anything that opens, closes, or cross-fades. */
+  --duration-hover: 150ms;
+  --duration-reveal: 220ms;
+
   --font-sans: "Helvetica Neue", "Inter", Helvetica, Arial, system-ui, sans-serif;
   --font-mono: "SFMono-Regular", "Cascadia Mono", "Roboto Mono", Consolas, monospace;
 
@@ -89,6 +93,8 @@
   --color-dim: light-dark(var(--color-muted), oklch(68% 0.012 88));
   --color-underline: color-mix(in oklch, var(--color-copy) 35%, transparent);
   --color-rule: color-mix(in oklch, var(--color-copy) 14%, transparent);
+  /* Rules that frame something, and the hover on a bordered card. */
+  --color-rule-strong: color-mix(in oklch, var(--color-copy) 30%, transparent);
   --color-accent: light-dark(var(--color-signal), oklch(66% 0.2 28));
   /* The two tints that drift behind figures: a trace of the accent and a cool blue.
      Kept faint enough that text over them still passes WCAG AA in both themes. */
@@ -104,13 +110,13 @@
   --tw-prose-bold: var(--color-copy);
   --tw-prose-counters: var(--color-accent);
   --tw-prose-bullets: var(--color-accent);
-  --tw-prose-hr: color-mix(in oklch, var(--color-copy) 30%, transparent);
+  --tw-prose-hr: var(--color-rule-strong);
   --tw-prose-captions: var(--color-dim);
   --tw-prose-code: var(--color-copy);
   --tw-prose-pre-code: var(--color-page);
   --tw-prose-pre-bg: var(--color-copy);
-  --tw-prose-th-borders: color-mix(in oklch, var(--color-copy) 48%, transparent);
-  --tw-prose-td-borders: color-mix(in oklch, var(--color-copy) 22%, transparent);
+  --tw-prose-th-borders: var(--color-rule-strong);
+  --tw-prose-td-borders: var(--color-rule);
 }
 
 @layer base {
@@ -192,7 +198,7 @@
     text-decoration-color: var(--color-underline);
     text-decoration-thickness: 0.06em;
     text-underline-offset: 0.18em;
-    transition: text-decoration-color 120ms;
+    transition: text-decoration-color var(--duration-hover);
   }
 
   a:hover {
@@ -224,7 +230,7 @@
 
     ::view-transition-old(root),
     ::view-transition-new(root) {
-      animation-duration: 180ms;
+      animation-duration: var(--duration-reveal);
     }
   }
 
@@ -245,6 +251,8 @@
 }
 
 @layer components {
+  /* Article prose is rendered from Markdown, so it has no class attributes to hold
+     utilities; these refine the typography plugin's defaults. */
   .prose-swiss :where(h2, h3, h4) {
     position: relative;
     scroll-margin-block-start: 2rem;
@@ -268,7 +276,7 @@
     color: var(--color-dim);
     font-weight: 400;
     opacity: 0;
-    transition: opacity 150ms;
+    transition: opacity var(--duration-hover);
   }
 
   .prose-swiss :where(h2, h3, h4) > a.anchor:focus-visible::before {
@@ -485,9 +493,9 @@
         grid-template-rows: 0fr;
         opacity: 0;
         transition:
-          grid-template-rows 220ms ease-out,
-          opacity 220ms ease-out,
-          content-visibility 220ms allow-discrete;
+          grid-template-rows var(--duration-reveal) ease-out,
+          opacity var(--duration-reveal) ease-out,
+          content-visibility var(--duration-reveal) allow-discrete;
       }
     }
   }
@@ -542,11 +550,7 @@
     color: inherit;
   }
 
-  .site-header,
-  .site-footer,
-  .article-toc,
-  .skip-link,
-  [data-reading-progress] {
+  .article-toc {
     display: none !important;
   }
 
