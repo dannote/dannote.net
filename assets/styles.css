@@ -292,12 +292,13 @@
      utilities; these refine the typography plugin's defaults. */
   .prose-swiss :where(h2, h3, h4) {
     position: relative;
+    width: fit-content;
     scroll-margin-block-start: 2rem;
   }
 
   /* Every heading links to its own section. The Markdown renderer appends an empty,
-     labelled a.anchor to each; stretched over the heading, it makes the whole line
-     the target, which suits a thumb. A "#" in the margin marks it on hover and on
+     labelled a.anchor to each; stretched over the heading, which is only as wide
+     as its text, it makes the text the target, which suits a thumb. A "#" in the margin marks it on hover and on
      keyboard focus, where the focus ring also outlines the heading. */
   .prose-swiss :where(h2, h3, h4) > a.anchor {
     position: absolute;
