@@ -122,7 +122,7 @@ Figma keeps proving the point. This week, when Mario Zechner tried to connect [P
 >
 > — Mario Zechner (@badlogicgames), [30 September 2026](https://x.com/badlogicgames/status/2105234146499203255)
 
-A company that decides which agents may touch your designs is a threat to the design community. Closing the interface [`figma-use`](https://github.com/dannote/figma-use) relied on and keeping an allowlist of MCP clients look like the last breaths of a dragon. [OpenPencil](https://github.com/open-pencil/open-pencil) opens the `.fig` format and the building blocks for editors like it, so anyone can build their own. Figma’s moat will dissipate the way the moats around `.docx` and `.pdf` did, once any program could open and write them.
+A company that decides which agents may touch your designs is a threat to the design community. Both moves look like the last breaths of a dragon. [OpenPencil](https://github.com/open-pencil/open-pencil) opens the `.fig` format and the building blocks for editors like it, so anyone can build their own. Figma’s moat will dissipate the way the moats around `.docx` and `.pdf` did, once any program could open and write them.
 
 This solves access to the design structure, but not the boundary between a design and the application eventually built from it.
 
