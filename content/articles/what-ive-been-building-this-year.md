@@ -154,7 +154,7 @@ For mathematics there is [Lean](https://lean-lang.org). Every definition, theore
 
 <.building_this_year_lean_sample />
 
-I want the same for the web stack: one language in which bundling, the JavaScript runtime, storage, the backend, deployment, and operations share the same kind of API, the same runtime, and the same checks, while JavaScript, Rust, and SQL keep doing their jobs underneath. Elixir is the closest thing I found, and the rest of this post is what it took to make that true. I first wrote about this intuition in [“A language for humans and models”](/writing/a-language-for-humans-and-models/).
+I want the same for the web stack: one language in which bundling, the JavaScript runtime, storage, the backend, deployment, and operations share the same kind of API, the same runtime, and the same checks, while JavaScript, Rust, and SQL keep doing their jobs underneath. That needs a language that can grow a new API for each layer. I spent a long time looking at languages with flexible metaprogramming, such as [Metalua](https://github.com/fab13n/metalua), and Elixir is a rare one: its macros are written in Elixir itself, with no separate macro language as in Rust. I first wrote about this intuition in [“A language for humans and models”](/writing/a-language-for-humans-and-models/).
 
 All of it in one session, the same one an agent works in:
 
@@ -190,7 +190,7 @@ Supervisor.which_children(MyApp.Supervisor)
 
 I was skeptical when José Valim, the creator of Elixir, published [“Why Elixir is the best language for AI”](https://dashbit.co/blog/why-elixir-best-language-for-ai). A benchmark result like the [AutoCodeBench](https://autocodebench.github.io/) score he cites says little on its own. One of his reasons stuck with me, though: the ecosystem has stayed stable, so a model has not learned five generations of conflicting APIs. After a few months of building Elixir with agents, I agreed.
 
-Elixir is dynamic too, so this is not typed versus untyped. But data flow is explicit, pattern matching puts contracts in the code, conventions are consistent, and the compiler and the growing type system catch more with every release.
+Elixir is dynamic too, so this is not typed versus untyped. Its data is immutable: a function gets everything it needs as input and returns everything it changes. In an object-oriented language any method call may modify an object somewhere else, so neither a human nor an agent can read a function on its own. As José puts it in the same post, “immutability enables local reasoning”. Data flow is explicit, pattern matching puts contracts in the code, conventions are consistent, and the compiler and the growing type system catch more with every release.
 
 In JavaScript and Python projects I see the opposite. Strict types sit on top of those languages as optional layers, while their ecosystems contain many competing generations of tools and conventions. Agents mix ESM with CommonJS, use an old framework pattern beside a new one, hand-roll something the project already has, or create another implementation because they did not find the first one. Skills and prompts can reduce this, but they do not change the language underneath.
 
