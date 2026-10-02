@@ -391,7 +391,7 @@ Egress is the next step, and it is still a design: an external service described
 
 Once the application is built, it still has to run somewhere.
 
-For small products, deployment often introduces another large stack: container registries, orchestration, managed databases, queues, proxies, secret stores, and several dashboards. These tools can be justified at a certain scale, but I do not want every experiment to begin with them.
+Even for small products, deployment nowadays often introduces another large stack: container registries, orchestration, managed databases, queues, proxies, secret stores, and several dashboards. These tools can be justified at a certain scale, but I do not want every experiment to begin with them.
 
 Elixir already has a good deployment unit: an OTP release containing the application, its dependencies, and the runtime it needs.
 
