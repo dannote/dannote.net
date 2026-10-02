@@ -352,11 +352,14 @@
 
   /*
    * The background that drifts behind article figures (components/article/figure.astral).
-   * Two radial gradients are already as soft as a blur, so no blur filter is needed;
-   * only transform animates, which the compositor handles without repainting. A full
-   * cycle takes three minutes. Off-screen figures pause (assets/app.ts), and the layer
-   * holds still for reduced motion and disappears for high contrast and print.
+   * Two soft radial gradients need no blur filter. The drift follows scrolling rather
+   * than a clock: a view timeline maps the figure's passage through the viewport
+   * onto the keyframes, so nothing moves while the reader is still. Only
+   * transform changes, which the compositor handles without repainting. Browsers
+   * without scroll-driven animations get the still tint. The layer holds still for
+   * reduced motion and disappears for high contrast and print.
    */
+
   /* The frame stays still and clips the drifting layer, fading it out toward the
      sides so the tint never ends in a hard edge at the column's boundary. */
   .figure-ambient-frame {
@@ -368,29 +371,38 @@
     mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
   }
 
+  /* Ellipses sized in percent of the layer keep their shape in proportion to the
+     figure, so a tall, narrow figure on a phone gets tall fields, not small blobs. */
   .figure-ambient {
     position: absolute;
     inset: -40%;
     background:
-      radial-gradient(closest-side at 32% 38%, var(--color-ambient-warm), transparent),
-      radial-gradient(closest-side at 68% 62%, var(--color-ambient-cool), transparent);
-    animation: figure-drift 90s ease-in-out infinite alternate;
-    will-change: transform;
+      radial-gradient(ellipse 34% 30% at 34% 38%, var(--color-ambient-warm), transparent),
+      radial-gradient(ellipse 34% 30% at 66% 62%, var(--color-ambient-cool), transparent);
   }
 
-  .figure-ambient[data-offscreen] {
-    animation-play-state: paused;
+  /* The figure names its own passage through the page and the layer follows it. A
+     plain view() on the layer would track the clipping frame instead, because its
+     overflow: hidden makes it the nearest scroll container, and nothing would move. */
+  @supports (animation-timeline: view()) {
+    .figure {
+      view-timeline: --figure block;
+    }
+
+    .figure-ambient {
+      animation: figure-drift linear both;
+      animation-timeline: --figure;
+      animation-range: cover;
+    }
   }
 
+  /* One pass of the figure through the viewport: a slow quarter turn and a slight swell. */
   @keyframes figure-drift {
-    0% {
-      transform: translate3d(-6%, -4%, 0) rotate(0deg) scale(1);
+    from {
+      transform: translate3d(-5%, 4%, 0) rotate(-35deg) scale(1);
     }
-    50% {
-      transform: translate3d(5%, 3%, 0) rotate(110deg) scale(1.12);
-    }
-    100% {
-      transform: translate3d(-3%, 5%, 0) rotate(220deg) scale(1);
+    to {
+      transform: translate3d(5%, -4%, 0) rotate(35deg) scale(1.1);
     }
   }
 
