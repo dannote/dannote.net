@@ -431,7 +431,7 @@ end
 
 The result is standard Linux: services under systemd with restart policies, resource limits, filesystem restrictions, and network isolation. Everything is a library call first, and the Mix tasks are wrappers. So the questions an agent asks the runtime have host-level answers too: which ports listen, which services failed, what a plan would change, and how to roll it back.
 
-[HostKit](https://github.com/elixir-vibe/host_kit) is still a beta, but it runs my own infrastructure. It makes deploying a small or medium product cheap and understandable, with infrastructure as observable as every other part of the platform.
+[HostKit](https://github.com/elixir-vibe/host_kit) is still a beta, but it runs my own infrastructure.
 
 Once the product is running, the more interesting question begins: what are users doing, where did they come from, what is breaking, and what should change next?
 
