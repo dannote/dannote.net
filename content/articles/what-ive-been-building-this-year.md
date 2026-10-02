@@ -112,7 +112,7 @@ The application itself has moved quickly this year. It opens `.fig` and its own 
 
 My goal is to make `.fig` a commodity. If independent software can parse, query, render, modify, and convert the format, it stops being something that can only be fully used inside Figma. It becomes input for other editors, IDEs, and automated pipelines.
 
-Figma keeps showing why that matters. This week, when Mario tried to connect [Pi](https://github.com/badlogic/pi-mono) to Figma, its remote MCP server refused it: sign-in works only for client names on its list, such as Claude Code or Codex, and [Pi](https://github.com/badlogic/pi-mono) identifies itself as `pi`.
+Figma keeps showing why that matters. This week, when Mario tried to connect his agent to Figma, its remote MCP server refused it: sign-in works only for client names on its list, such as Claude Code or Codex, and Pi identifies itself as `pi`.
 
 > today in MCP land ...
 >
@@ -122,7 +122,7 @@ Figma keeps showing why that matters. This week, when Mario tried to connect [Pi
 >
 > — Mario Zechner (@badlogicgames), [30 September 2026](https://x.com/badlogicgames/status/2105234146499203255)
 
-A company that decides which agents may touch your designs is a threat to the design community. First [`figma-use`](https://github.com/dannote/figma-use), now [Pi](https://github.com/badlogic/pi-mono): these look like the last breaths of a dragon. [OpenPencil](https://github.com/open-pencil/open-pencil) opens the `.fig` format and the building blocks for editors like it, so anyone can build their own. Figma’s moat will dissipate the way the moats around `.docx` and `.pdf` did, once any program could open and write them.
+A company that decides which agents may touch your designs is a threat to the design community. First [`figma-use`](https://github.com/dannote/figma-use), now this: these look like the last breaths of a dragon. [OpenPencil](https://github.com/open-pencil/open-pencil) opens the `.fig` format and the building blocks for editors like it, so anyone can build their own. Figma’s moat will dissipate the way the moats around `.docx` and `.pdf` did, once any program could open and write them.
 
 An open format solves access to the design structure, but not the boundary between a design and the application eventually built from it.
 
