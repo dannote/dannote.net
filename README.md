@@ -2,7 +2,7 @@
 
 Danila Poyarkov's personal site, and a working example of building a site in Elixir from start to finish.
 
-It's built with [Astral](https://github.com/elixir-volt/astral), a static site generator for Elixir, and [Volt](https://github.com/elixir-volt/volt), which handles browser assets and the dev server. The whole site builds inside the BEAM: TypeScript, Tailwind CSS, syntax highlighting, and social cards included. There's no Node.js and no bundler config.
+It's built with [Astral](https://github.com/elixir-volt/astral), a static site generator for Elixir, and [Volt](https://github.com/elixir-volt/volt), which handles browser assets and the dev server. The whole site builds inside the BEAM: TypeScript, Vue, Tailwind CSS, syntax highlighting, and social cards included. There's no Node.js and no bundler config.
 
 ## What's in here
 
@@ -11,6 +11,7 @@ It's built with [Astral](https://github.com/elixir-volt/astral), a static site g
 `mix astral.build` runs without Node.js installed:
 
 - **TypeScript** in [`assets/`](assets) is bundled by Volt with [OXC](https://hex.pm/packages/oxc), the Rust JavaScript toolchain, through native bindings.
+- **Vue islands** in [`assets/islands/`](assets/islands), such as the contents sidebar and the funnel diagram, are compiled by [Vize](https://hex.pm/packages/vize), a Vue compiler in Rust, and written with VueUse.
 - **Tailwind CSS 4** is compiled by Tailwind's own compiler, running inside the BEAM on [QuickBEAM](https://hex.pm/packages/quickbeam). npm packages such as `@tailwindcss/typography` are fetched by an Elixir npm client.
 - **Code blocks** are highlighted at build time by [Lumis](https://hex.pm/packages/lumis) with light and dark themes, so the browser runs no highlighter.
 - **Social cards** are drawn by [`Blog.SocialImages`](lib/blog/social_images.ex), a plugin written for this site. It renders a 1200 × 630 Open Graph image for every article with [Skia](https://hex.pm/packages/skia), with no headless browser and no image service.
@@ -70,6 +71,8 @@ Markdown plugins work too. A note quotes the X post it replies to as an ordinary
 
 [`Blog.Markdown.XPosts`](lib/blog/markdown/x_posts.ex), an [MDEx plugin](https://hexdocs.pm/mdex/plugins.html) listed in `astral.config.exs`, marks such quotes at build time. In the browser, [`assets/x-posts.ts`](assets/x-posts.ts) replaces each one with X's embed in the site's theme as the page loads. The quote stays readable everywhere else: on GitHub, in the feed, and without JavaScript.
 
+A URL on a line of its own becomes a link card. [`Blog.LinkPreview`](lib/blog/link_preview.ex) fetches the page's title, description, and image once at build time. The cache in `content/link_previews.json` and the images are committed, so builds run offline.
+
 ### Feeds and indexes come from plugins
 
 `Astral.Plugin.Feed` writes the Atom feed, `Astral.Plugin.Sitemap` writes `sitemap.xml`, and `Astral.Plugin.LLMs` writes [`llms.txt`](https://llmstxt.org) for language models. Each is a few lines in `astral.config.exs`.
@@ -94,6 +97,8 @@ mix ci
 
 The dev server reloads pages as you edit, applies changes to `astral.config.exs` and `lib/` without a restart, and shows template, compile, and config errors in the browser.
 
+GitHub Actions runs `mix ci` on every push and deploys `dist/` to Cloudflare Pages: production from `main`, and a preview for each pull request.
+
 ## Layout
 
 | Path | What it holds |
@@ -101,12 +106,13 @@ The dev server reloads pages as you edit, applies changes to `astral.config.exs`
 | `pages/` | Pages: Markdown and `.astral` templates, routed by file path |
 | `content/articles/` | Articles and notes, the `:articles` collection |
 | `layouts/`, `components/` | Shared layouts and HEEx components |
-| `assets/` | TypeScript and Tailwind CSS, built by Volt |
+| `assets/` | TypeScript, Vue islands, and Tailwind CSS, built by Volt |
 | `public/` | Files copied to the output as they are |
-| `lib/blog/` | Site code: identity and the social card plugin |
+| `lib/blog/` | Site code: identity, social cards, link previews, code drawing, and the X post plugin |
+| `scripts/` | One-off generators for committed images, run with `mix run` |
 | `astral.config.exs` | Collections, plugins, layouts, and Markdown options |
 
-Icons used on the site are listed in `priv/iconify/manifest.json`, which is committed so builds don't download them again. The Noto Sans fonts for social cards are in `priv/fonts/`, with their SIL Open Font License.
+Icons used on the site are listed in `priv/iconify/manifest.json`, which is committed so builds don't download them again. Social cards and drawn images use TeX Gyre Heros, a free Helvetica, with Inter for Cyrillic. Both are in `priv/fonts/` with their licenses.
 
 ## Start your own
 
