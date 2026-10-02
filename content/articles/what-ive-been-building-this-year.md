@@ -357,7 +357,7 @@ In [Vibe](https://github.com/elixir-vibe/vibe), sessions, agents, subagents, com
 
 <.building_this_year_vibe_tree />
 
-OpenAI reached the same conclusion. The reference implementation of [Symphony](https://github.com/openai/symphony), its system for supervising long-running coding-agent work, is written in Elixir.
+OpenAI is exploring the same direction. The reference implementation of [Symphony](https://github.com/openai/symphony), its system for supervising long-running coding-agent work, is written in Elixir.
 
 [Vibe](https://github.com/elixir-vibe/vibe) is useful, but it is also an experiment. I do not want to force users to replace a mature harness with my half-finished one just to test each hypothesis. When an idea works in [Vibe](https://github.com/elixir-vibe/vibe), I can bring it back into [pi-elixir](https://github.com/elixir-vibe/pi-elixir) and test it inside [Pi](https://github.com/badlogic/pi-mono). The newer [pi-elixir](https://github.com/elixir-vibe/pi-elixir) combines [Pi](https://github.com/badlogic/pi-mono)’s model support, interface, and extension system with more of the BEAM-native runtime and structural tooling explored in [Vibe](https://github.com/elixir-vibe/vibe).
 
