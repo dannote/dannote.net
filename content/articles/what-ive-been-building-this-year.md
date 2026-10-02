@@ -302,8 +302,6 @@ That is why I built [Exograph](https://github.com/elixir-vibe/exograph): local [
 As I was finishing this post, José Valim published [“Evolving programming languages in the AI era”](https://dashbit.co/blog/evolving-ai-era). On what agents need from tooling, he writes:
 
 > The good news is that many language servers already build, or have access to, much of the information coding agents need: symbols, references, call graphs, type information, and sometimes data-flow information. My suggestion is to expose this information as a program database with a query language, be it SQLite, Datalog, or a custom DSL.
->
-> — José Valim
 
 [Reach](https://github.com/elixir-vibe/reach) and [Exograph](https://github.com/elixir-vibe/exograph) are my attempt at that database for Elixir: facts about calls, data flow, effects, and architecture that an agent can query.
 
