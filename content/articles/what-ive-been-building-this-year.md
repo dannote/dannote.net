@@ -487,7 +487,7 @@ Figma is a different case: it owns the editor, and with it the access to every d
 >
 > — Mario Zechner (@badlogicgames), [30 September 2026](https://x.com/badlogicgames/status/2105234146499203255)
 
-Once `.fig` is a commodity, a design no longer belongs to the editor it was drawn in.
+First Figma closed the debugging interface [`figma-use`](https://github.com/dannote/figma-use) relied on, and now it keeps an allowlist of MCP clients. These look like the last breaths of a dragon. [OpenPencil](https://github.com/open-pencil/open-pencil) opens more than the `.fig` format: it also open-sources [the building blocks](#openpencil-became-a-toolkit) for editors like it, so anyone can build their own. Figma’s moat will dissipate the way the moats around `.docx` and `.pdf` did, once any program could open and write them.
 
 ## Where this stands
 
