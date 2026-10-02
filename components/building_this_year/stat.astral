@@ -1,0 +1,7 @@
+<div class="flex flex-col gap-1">
+  <dt class="order-2 text-sm text-dim">{@label}</dt>
+  <dd class="order-1 flex items-center gap-1.5 text-section font-medium leading-none tabular-nums">
+    {render_slot(@inner_block)}
+    {@value}
+  </dd>
+</div>

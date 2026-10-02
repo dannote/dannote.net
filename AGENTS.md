@@ -45,6 +45,7 @@ Astral uses `{:astral, "~> 0.5.0"}`. Keep changes compatible with the version re
 
 - Tailwind utilities by default, on markup we write.
 - Plain CSS in `assets/styles.css` only for: markup we don't write (Markdown, plugin output, embeds); keyframes, scroll timelines, `@supports`, `@page`, pseudo-elements with real content; page-wide defaults; utilities needing 3+ stacked variants or 2+ arbitrary values. Each feature block says why in a comment.
+- Icons are `<.icon name="lucide:...">` with a literal name: Phoenix Iconify bundles only names it finds in templates at compile time.
 - Shared values are tokens in `@theme`: colours, durations, sizes. Use colour tokens whole: `border-rule-strong`, not `border-copy/25`. No colour literals outside `@theme` and print. A one-off arbitrary value or element-local measurement is fine.
 - A semantic class (`figure`, `article-toc`) exists only as a hook for CSS or scripts. Repeated utility strings become a component; never `@apply`.
 - Order in `styles.css`: fonts, tokens, base, one components block per feature, print.
