@@ -47,15 +47,49 @@
   unicode-range: U+0400-045F, U+0490-0491, U+2116;
 }
 
+/*
+ * Code is set in SF Mono, which Apple never installs system-wide: CSS reaches it only
+ * through ui-monospace, and only Safari resolves that. Every other browser, Chrome on a
+ * Mac included, used to fall through to Menlo, Consolas, or whatever the device calls
+ * monospace. Geist Mono stands in for them: Vercel drew it after SF Mono and Inter, so
+ * it matches both the font it replaces and the sans fallback above. It is free under
+ * the OFL (assets/fonts/GeistMono-OFL.txt) and split like Inter, so a page fetches the
+ * Cyrillic file only when a code block holds Cyrillic. Safari downloads nothing.
+ * The Latin file also carries arrows and box drawing, which the tree figures use.
+ */
+@font-face {
+  font-family: "Geist Mono";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("./fonts/geist-mono-latin.woff2") format("woff2");
+  unicode-range: U+0020-007E, U+00A0-017F, U+2000-206F, U+20A0-20BF, U+2100-214F,
+    U+2190-21FF, U+2212, U+2500-259F;
+}
+
+@font-face {
+  font-family: "Geist Mono";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("./fonts/geist-mono-cyrillic.woff2") format("woff2");
+  unicode-range: U+0400-045F, U+0490-0491, U+2116;
+}
+
 @theme {
-  /* Helvetica comes after Inter: some Linux systems alias the name "Helvetica" to a
-     lesser font, which would otherwise win over Inter. */
   /* Hover feedback, and anything that opens, closes, or cross-fades. */
   --duration-hover: 150ms;
   --duration-reveal: 220ms;
 
+  /* Helvetica comes after Inter: some Linux systems alias the name "Helvetica" to a
+     lesser font, which would otherwise win over Inter. */
   --font-sans: "Helvetica Neue", "Inter", Helvetica, Arial, system-ui, sans-serif;
-  --font-mono: "SFMono-Regular", "Cascadia Mono", "Roboto Mono", Consolas, monospace;
+  /* Menlo is Apple's build of DejaVu Sans Mono, so a Mac without Geist Mono yet and a
+     Linux desktop show the same design while the web font loads. Cascadia Mono ships
+     with Windows 11, Consolas with Windows 10. */
+  --font-mono:
+    ui-monospace, "Geist Mono", Menlo, "Cascadia Mono", Consolas, "DejaVu Sans Mono",
+    monospace;
 
   --color-paper: oklch(96.2% 0.012 88);
   --color-paper-raised: oklch(98.5% 0.008 88);
