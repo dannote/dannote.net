@@ -493,7 +493,7 @@ Lovable and Replit grew out of venture-capital culture, where rapid user growth 
 
 ### Figma
 
-[OpenPencil](https://github.com/open-pencil/open-pencil) will gradually cover Figma’s features and stay compatible with `.fig`, so a team can move its files and workflows over without losing work or learning a new tool. What changes is who controls the editor: it is open source, works without an account, and any agent can connect to it.
+[OpenPencil](https://github.com/open-pencil/open-pencil) will gradually cover Figma’s features and stay compatible with `.fig`, so a team can move its files and workflows over without losing work or learning a new tool. What changes is who controls the editor: it is open source, works without an account, and any agent can connect to it. And it is the way into the rest of the platform: a design started there can continue as Vue components, then a deployed product, then the data that decides what to change next.
 
 ### Everyone else
 
