@@ -18,11 +18,11 @@ assigns =
         Contents
       </summary>
       <div>
-        <ol class="space-y-1 pt-2">
+        <ol class="pt-2">
           <li :for={heading <- @headings}>
             <a
               class={[
-                "block border-l-2 border-transparent text-dim no-underline transition-colors duration-(--duration-hover) hover:text-copy current:border-accent current:text-copy",
+                "block border-l-2 border-rule py-0.5 text-dim no-underline transition-colors duration-(--duration-hover) hover:text-copy current:border-accent current:text-copy",
                 if(heading.level > 2, do: "pl-6", else: "pl-3")
               ]}
               href={"##{heading.id}"}
