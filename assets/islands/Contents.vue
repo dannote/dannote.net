@@ -38,11 +38,11 @@ watch(current, (id) => {
       Contents
     </summary>
     <div>
-      <ol class="space-y-1 pt-2">
+      <ol class="pt-2">
         <li v-for="heading in headings" :key="heading.id">
           <a
             ref="links"
-            class="block border-l-2 border-transparent text-dim no-underline transition-colors duration-(--duration-hover) hover:text-copy current:border-accent current:text-copy"
+            class="block border-l-2 border-rule py-0.5 text-dim no-underline transition-colors duration-(--duration-hover) hover:text-copy current:border-accent current:text-copy"
             :class="heading.level > 2 ? 'pl-6' : 'pl-3'"
             :href="`#${heading.id}`"
             :aria-current="heading.id === current ? 'location' : undefined"
