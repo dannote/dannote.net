@@ -282,18 +282,19 @@ $ mix reach.check --arch
 ** (Mix) Architecture policy failed
 ```
 
-Smell findings carry the label in their JSON, the form an agent reads. Reach found these two in this site while I was writing the paragraph:
+Reach found two smells in this site’s own code:
 
-```json
-{"kind": "suboptimal", "location": "lib/blog/highlight.ex:33",
- "message": "Enum.map_join/3 defaults to empty separator; remove the \"\" argument",
- "remediation_safety": "equivalent"}
-{"kind": "suboptimal", "location": "lib/blog/link_preview.ex:179",
- "message": "String.split/2 |> hd/1 splits the entire string; use String.split/3 with parts: 2",
- "remediation_safety": "review_only"}
+```sh
+$ mix reach.check --smells
+Suboptimal patterns
+───────────────────
+  lib/blog/link_preview.ex:179
+    String.split/2 |> hd/1 splits the entire string; use String.split/3 with parts: 2
+  lib/blog/highlight.ex:33
+    Enum.map_join/3 defaults to empty separator; remove the "" argument
 ```
 
-The first is a proven rewrite. The second needs a look, because `parts: 2` changes what the function returns when the string has more than one separator.
+With `--format json`, each finding also carries its label. The second is `equivalent`, a proven rewrite an agent can apply. The first is `review_only`, so an agent should propose it and leave the decision to a person.
 
 But adding more checks creates its own risk. A false positive is annoying for a human, but an agent may obey it and make the code worse just to silence the warning. A rule that looks convincing in a few hand-written examples may fail on perfectly reasonable code in a real project.
 
