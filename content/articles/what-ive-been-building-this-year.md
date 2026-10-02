@@ -495,7 +495,7 @@ First Figma closed the debugging interface [`figma-use`](https://github.com/dann
 
 ### Everyone else
 
-There are many more projects in this space, and I follow them closely: [Paper](https://x.com/paper), [Magic Patterns](https://x.com/magicpatterns), [v0](https://x.com/v0), [MagicPath](https://x.com/MagicPathAI), [Base44](https://x.com/Base44), [Wonder](https://x.com/usewonder), [Dessn](https://x.com/Dessn_ai), [pen.dev](https://x.com/pendev), [Brilliant](https://x.com/usebrilliant), [Tenor](https://x.com/tenordesign), [Omma](https://x.com/omma_ai), and [OpenDesign](https://x.com/OpenDesignHQ), among others. Most are commercial, with a subscription for the design harness itself. That makes no sense to me. Coding harnesses are mostly free or open source, and their makers charge for the models.
+There are many more projects in this space, and I follow them closely: [Paper](https://x.com/paper), [Magic Patterns](https://x.com/magicpatterns), [v0](https://x.com/v0), [MagicPath](https://x.com/MagicPathAI), [Base44](https://x.com/Base44), [Wonder](https://x.com/usewonder), [Dessn](https://x.com/Dessn_ai), [pen.dev](https://x.com/pendev), [Brilliant](https://x.com/usebrilliant), [Tenor](https://x.com/tenordesign), [Omma](https://x.com/omma_ai), and [OpenDesign](https://x.com/OpenDesignHQ), among others. Most are commercial, with a subscription for the design harness itself. That makes no sense to me. Coding harnesses are mostly free or open source, and their makers charge for the models. And as I keep repeating, anything that runs on the client should be considered open source: models are driving the cost of reverse engineering to zero.
 
 ## Where this stands
 
