@@ -371,6 +371,24 @@
     mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
   }
 
+  /* A faint fixed grain over the tint. The tint is a few percent strong, so a screen
+     has only a handful of colour steps to draw it with, and without dithering (Safari
+     doesn't) each step shows as a ring or, in the side fade, a stripe. Specks of the
+     text colour, about two steps strong, break the step edges up. The grain sits on
+     the figure, outside the frame's fade, so it is as strong where the tint thins out.
+     Over the bare page it shifts the colour by a step, which nothing reveals. */
+  .figure::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: var(--color-copy);
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='128' height='128'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 4 0 0 0 -1.5'/%3E%3C/filter%3E%3Crect width='128' height='128' filter='url(%23g)'/%3E%3C/svg%3E");
+    mask-size: 128px;
+    opacity: 0.012;
+  }
+
   /* Ellipses sized in percent of the layer keep their shape in proportion to the
      figure, so a tall, narrow figure on a phone gets tall fields, not small blobs. */
   .figure-ambient {
@@ -417,6 +435,7 @@
   }
 
   @media (prefers-contrast: more) {
+    .figure::after,
     .figure-ambient-frame {
       display: none;
     }
@@ -467,6 +486,7 @@
 }
 
 @media print {
+  .figure::after,
   .figure-ambient-frame {
     display: none;
   }
