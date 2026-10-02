@@ -467,7 +467,7 @@ I started experimenting with this in [a branch of my fork](https://github.com/da
 
 Aggregate analytics still cannot explain what happened to one particular user. For that, I built [PhoenixReplay](https://github.com/elixir-vibe/phoenix_replay).
 
-In a Phoenix LiveView application, much of the interface state lives on the backend, and the browser displays updates produced from that state. So instead of recording clicks and DOM changes in the browser, [PhoenixReplay](https://github.com/elixir-vibe/phoenix_replay) records the server’s assigns, sanitizes them, and re-renders them later. The replay shows each screen as the server produced it, next to the state behind it. Because nothing runs in the browser, client-only JavaScript state is outside the recording.
+In a Phoenix LiveView application, much of the interface state lives on the backend, and the browser displays updates produced from that state. So instead of recording clicks and DOM changes in the browser, [PhoenixReplay](https://github.com/elixir-vibe/phoenix_replay) records the server’s assigns, sanitizes them, and re-renders them later. The replay shows each screen as the server produced it, next to the state behind it. Recording client-side JavaScript state is the next step.
 
 > New package! PhoenixReplay — session recording and replay for Phoenix LiveView.
 >
