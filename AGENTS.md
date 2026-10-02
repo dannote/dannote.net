@@ -39,7 +39,7 @@ Astral uses `{:astral, "~> 0.5.0"}`. Keep changes compatible with the version re
 - Every illustration in an article is wrapped in `<.article_figure id="…" caption="…">`, which draws the rules, labels the figure by its caption, and adds the slow ambient background. Don't hand-write `<figure>` wrappers.
 - Type: pages use Helvetica Neue where the visitor has it (Apple devices) and the self-hosted Inter in `assets/fonts/` everywhere else; never preload Inter, or Apple devices download it too. Social cards and generated drawings use TeX Gyre Heros from `priv/fonts/`, a free Helvetica, with Inter for Cyrillic text. The reasons are in the comments in `assets/styles.css` and `Blog.SocialImages`.
 - Fenced code is highlighted by Lumis, one `lumis_wasm_*` package per language in `mix.exs`. A fence in a language with no package renders plain.
-- Islands are Vue files under `assets/islands/`, mounted with `<.vue component="islands/Name.vue" client={:visible} props={...}>` and static children as the pre-hydration content. The Vue runtime comes from `package.json`.
+- Islands are Vue files under `assets/islands/`, their composables under `assets/composables/`, mounted with `<.vue component="islands/Name.vue" client={:visible} props={...}>` and static children as the pre-hydration content. The Vue runtime comes from `package.json`.
 
 ## Styling
 

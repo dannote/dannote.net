@@ -3,6 +3,9 @@
 
 @source inline("prose prose-swiss prose-lg max-w-none");
 
+/* The contents entry for the section being read; assets/contents.ts sets it. */
+@custom-variant current (&[aria-current="location"]);
+
 /*
  * The site is set in Helvetica Neue, which only Apple devices have and which can't be
  * served to anyone else: it is a commercial Monotype font. Everyone without it used to
