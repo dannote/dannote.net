@@ -526,6 +526,57 @@
     }
   }
 
+  /* On wide screens the contents scroll inside the sidebar when the window is short.
+     The scrollbar is hidden. Instead an edge fades while there is more to scroll that
+     way, driven by the sidebar's own scroll position; when the list fits, there is no
+     timeline and no fade. Browsers without scroll-driven animations scroll unfaded. */
+  @property --toc-fade-top {
+    syntax: "<length>";
+    inherits: false;
+    initial-value: 0px;
+  }
+
+  @property --toc-fade-bottom {
+    syntax: "<length>";
+    inherits: false;
+    initial-value: 0px;
+  }
+
+  .article-toc {
+    @variant wide {
+      scrollbar-width: none;
+      mask-image: linear-gradient(
+        to bottom,
+        transparent,
+        black var(--toc-fade-top),
+        black calc(100% - var(--toc-fade-bottom)),
+        transparent
+      );
+
+      @supports (animation-timeline: scroll()) {
+        animation: toc-fade linear both;
+        animation-timeline: scroll(self);
+      }
+    }
+  }
+
+  @keyframes toc-fade {
+    from {
+      --toc-fade-top: 0px;
+      --toc-fade-bottom: 2.5rem;
+    }
+    8% {
+      --toc-fade-top: 2.5rem;
+    }
+    92% {
+      --toc-fade-bottom: 2.5rem;
+    }
+    to {
+      --toc-fade-top: 2.5rem;
+      --toc-fade-bottom: 0px;
+    }
+  }
+
   /* The contents slide open and shut on narrow screens. The details' content is a
      one-row grid whose row grows from 0fr to 1fr, so the list animates to its own
      height with no fixed maximum. The browser hides closed content at once with
