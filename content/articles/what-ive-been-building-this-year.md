@@ -393,7 +393,7 @@ Once the application is built, it still has to run somewhere.
 
 Even for small products, deployment nowadays often introduces another large stack: container registries, orchestration, managed databases, queues, proxies, secret stores, and several dashboards. These tools can be justified at a certain scale, but I do not want every experiment to begin with them.
 
-Elixir already has a good deployment unit: an OTP release containing the application, its dependencies, and the runtime it needs.
+Elixir already has a good deployment unit: an OTP release containing the application, its dependencies, and the runtime it needs. A product can also start as a monolith on one machine and split across several later. With Erlang distribution, processes on different nodes exchange the same messages they did on one, so the split needs no new protocol or service layer.
 
 [ReleaseKit](https://github.com/elixir-vibe/release_kit) turns a Mix release into a repeatable, deployment-neutral artifact. It produces an ordinary tarball and a small manifest describing how to run it, which environment it expects, and how to check its health. It deliberately knows nothing about servers, users, systemd, or reverse proxies.
 
