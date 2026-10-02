@@ -471,8 +471,6 @@ An agent can use the same data. A background agent could notice that conversion 
 
 ## How this differs from other tools
 
-The two closest comparisons are of different kinds: Lovable and Replit with the platform as a whole, Figma with [OpenPencil](https://github.com/open-pencil/open-pencil) and its file format.
-
 ### Lovable and Replit
 
 Lovable and Replit turn a prompt into a deployed application. I am trying to cover the rest of the founder’s work as well: operating the product, acquiring users, understanding what they do, and feeding that evidence into the next decision.
