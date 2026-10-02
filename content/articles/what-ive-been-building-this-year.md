@@ -112,6 +112,18 @@ The application itself has moved quickly this year. It opens `.fig` and its own 
 
 My goal is to make `.fig` a commodity. If independent software can parse, query, render, modify, and convert the format, it stops being something that can only be fully used inside Figma. It becomes input for other editors, IDEs, and automated pipelines.
 
+Figma keeps proving the point. This week, when Mario Zechner tried to connect [Pi](https://github.com/badlogic/pi-mono), his open-source coding agent, Figma’s remote MCP server refused it: sign-in works only for client names on its list, such as Claude Code or Codex, and [Pi](https://github.com/badlogic/pi-mono) identifies itself as `pi`.
+
+> today in MCP land ...
+>
+> thing are better compared to a year ago, but also worse.
+>
+> ![A message: I'm trying to connect to Figma's remote MCP server. Figma only accepts certain client names during sign-in, e.g., Claude Code or Codex, but Pi 0.99.1 always sends pi.](images/x/badlogicgames-2105234146499203255.png)
+>
+> — Mario Zechner (@badlogicgames), [30 September 2026](https://x.com/badlogicgames/status/2105234146499203255)
+
+A company that decides which agents may touch your designs is a threat to the design community. Closing the interface [`figma-use`](https://github.com/dannote/figma-use) relied on and keeping an allowlist of MCP clients look like the last breaths of a dragon. [OpenPencil](https://github.com/open-pencil/open-pencil) opens the `.fig` format and the building blocks for editors like it, so anyone can build their own. Figma’s moat will dissipate the way the moats around `.docx` and `.pdf` did, once any program could open and write them.
+
 This solves access to the design structure, but not the boundary between a design and the application eventually built from it.
 
 ## From designs to real components
@@ -481,17 +493,7 @@ Lovable and Replit grew out of venture-capital culture, where rapid user growth 
 
 ### Figma
 
-Figma owns the editor, and with it the access to every design inside. Its remote MCP server decides which agents may connect at all: sign-in works only for client names on its list, such as Claude Code or Codex. This week, when Mario Zechner tried to connect [Pi](https://github.com/badlogic/pi-mono), his open-source coding agent, Figma refused it because [Pi](https://github.com/badlogic/pi-mono) identifies itself as `pi`.
-
-> today in MCP land ...
->
-> thing are better compared to a year ago, but also worse.
->
-> ![A message: I'm trying to connect to Figma's remote MCP server. Figma only accepts certain client names during sign-in, e.g., Claude Code or Codex, but Pi 0.99.1 always sends pi.](images/x/badlogicgames-2105234146499203255.png)
->
-> — Mario Zechner (@badlogicgames), [30 September 2026](https://x.com/badlogicgames/status/2105234146499203255)
-
-First Figma closed the debugging interface [`figma-use`](https://github.com/dannote/figma-use) relied on, and now it keeps an allowlist of MCP clients. These look like the last breaths of a dragon. [OpenPencil](https://github.com/open-pencil/open-pencil) opens more than the `.fig` format: it also open-sources [the building blocks](#openpencil-became-a-toolkit) for editors like it, so anyone can build their own. Figma’s moat will dissipate the way the moats around `.docx` and `.pdf` did, once any program could open and write them.
+[OpenPencil](https://github.com/open-pencil/open-pencil) will gradually cover Figma’s features and stay compatible with `.fig`, so a team can move its files and workflows over without losing work or learning a new tool. What changes is who controls the editor: it is open source, works without an account, and any agent can connect to it.
 
 ### Everyone else
 
