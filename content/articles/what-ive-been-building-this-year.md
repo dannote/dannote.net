@@ -236,44 +236,22 @@ Rewrites are patterns on both sides, and the agent sees a plan of every replacem
 
 These tools mostly see local structure. A function can look reasonable in isolation while creating a bad dependency, bypassing an architectural boundary, or allowing untrusted input to reach a database, filesystem, or shell command.
 
-[Reach](https://github.com/elixir-vibe/reach) builds a program dependence graph for Elixir, Erlang, Gleam, JavaScript, and TypeScript: calls, control flow, data flow, effects, and OTP process relationships. It answers the questions that span files: what depends on this function, what a change might affect, and whether data can flow from a source to a dangerous effect. The last one is a command, here from request parameters to the database:
+[Reach](https://github.com/elixir-vibe/reach) builds a program dependence graph for Elixir, Erlang, Gleam, JavaScript, and TypeScript: calls, control flow, data flow, effects, and OTP process relationships. It answers the questions that span files: what depends on this function, what a change might affect, and whether data can flow from a source to a dangerous effect, such as request parameters reaching the database:
 
 ```sh
 mix reach.trace --from conn.params --to Repo
 ```
 
-The other questions have the same shape. Here they are asked of QuackDB:
+Asked of [QuackDB](https://github.com/elixir-vibe/quackdb), it finds a task that is never awaited:
 
 ```console
-$ mix reach.map --hotspots --top 3
-  score combines branch count with caller impact
-  QuackDB.Source.literal!/1  score=96  branches=4  callers=24
-  QuackDB.SQL.literal/1      score=77  branches=7  callers=11
-  QuackDB.SQL.literal!/1     score=31  branches=1  callers=31
-
 $ mix reach.otp --concurrency
   Tasks        async      lib/quack_db/server.ex:423   1 async without matching await
   Monitors     trap_exit  lib/quack_db/server.ex:196
   Supervisors             lib/quack_db/application.ex:12
 ```
 
-[Reach](https://github.com/elixir-vibe/reach) also turns architecture into something agents can check. A project declares its layers and forbidden dependencies, and changes that cross them are rejected. Findings are advisory by default, and every suggested fix is labeled equivalent, conditional, or review-only, so an agent can tell a proven rewrite from a lead.
-
-This site has [such a policy](https://github.com/dannote/dannote.net/blob/main/.reach.exs). Three layers, and the lower ones may not reach up:
-
-```elixir
-[
-  layers: [
-    site: "Blog.Site",
-    plugins: ["Blog.SocialImages", "Blog.Markdown.*"],
-    previews: "Blog.LinkPreview*"
-  ],
-  deps: [forbidden: [{:site, :plugins}, {:site, :previews}, {:plugins, :previews}]],
-  calls: [forbidden: [{"Blog.LinkPreview", "Req.get/2"}]]
-]
-```
-
-The last line is a trap I set for the example, and the check walks into it:
+[Reach](https://github.com/elixir-vibe/reach) also checks architecture. A project declares its layers and forbidden dependencies, as [this site does](https://github.com/dannote/dannote.net/blob/main/.reach.exs). With a rule that forbids the link previews from calling `Req.get/2`, the check fails:
 
 ```console
 $ mix reach.check --arch
@@ -282,7 +260,7 @@ $ mix reach.check --arch
 ** (Mix) Architecture policy failed
 ```
 
-Reach found two smells in this site’s own code:
+It found two smells in this site’s own code:
 
 ```console
 $ mix reach.check --smells
@@ -294,7 +272,7 @@ Suboptimal patterns
     Enum.map_join/3 defaults to empty separator; remove the "" argument
 ```
 
-With `--format json`, each finding also carries its label. The second is `equivalent`, a proven rewrite an agent can apply. The first is `review_only`, so an agent should propose it and leave the decision to a person.
+In JSON, each finding also carries a label. The second is `equivalent`, a proven rewrite an agent can apply. The first is `review_only`, a lead for a person to judge.
 
 But adding more checks creates its own risk. A false positive is annoying for a human, but an agent may obey it and make the code worse just to silence the warning. A rule that looks convincing in a few hand-written examples may fail on perfectly reasonable code in a real project.
 
@@ -467,7 +445,7 @@ I started experimenting with this in [a branch of my fork](https://github.com/da
 
 Aggregate analytics still cannot explain what happened to one particular user. For that, I built [PhoenixReplay](https://github.com/elixir-vibe/phoenix_replay).
 
-In a Phoenix LiveView application, much of the interface state lives on the backend, and the browser displays updates produced from that state. So instead of recording clicks and DOM changes in the browser, [PhoenixReplay](https://github.com/elixir-vibe/phoenix_replay) records the server’s assigns, sanitizes them, and re-renders them later. The replay shows each screen as the server produced it, next to the state behind it. Client-side JavaScript state is not recorded yet.
+In a Phoenix LiveView application, much of the interface state lives on the backend, and the browser displays updates produced from that state. So instead of recording clicks and DOM changes in the browser, [PhoenixReplay](https://github.com/elixir-vibe/phoenix_replay) records the server’s assigns, sanitizes them, and re-renders them later. The replay shows each screen as the server produced it, next to the state behind it.
 
 > New package! PhoenixReplay — session recording and replay for Phoenix LiveView.
 >
