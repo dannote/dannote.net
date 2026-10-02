@@ -5,7 +5,7 @@
 >
   <details>
     <summary id="toc-title" class="cursor-pointer font-medium">Contents</summary>
-    <ol class="mt-2 space-y-1">
+    <ol class="space-y-1 pt-2">
       <li :for={heading <- @headings} class={heading.level > 2 && "pl-3"}>
         <a class="text-dim no-underline hover:text-copy" href={"##{heading.id}"}>{heading.text}</a>
       </li>

@@ -421,6 +421,49 @@
       display: none;
     }
   }
+
+  /* The contents slide open and shut on narrow screens. The details' content is a
+     one-row grid whose row grows from 0fr to 1fr, so the list animates to its own
+     height with no fixed maximum. content-visibility is discrete, and allow-discrete
+     keeps the list visible until it has closed. Wide screens skip it: app.ts opens
+     the contents on load there, and that shouldn't animate. */
+  .article-toc details::details-content {
+    @variant max-wide {
+      @variant motion-safe {
+        display: grid;
+        grid-template-rows: 0fr;
+        opacity: 0;
+        transition:
+          grid-template-rows 220ms ease-out,
+          opacity 220ms ease-out,
+          content-visibility 220ms allow-discrete;
+      }
+    }
+  }
+
+  .article-toc details[open]::details-content {
+    @variant max-wide {
+      @variant motion-safe {
+        grid-template-rows: 1fr;
+        opacity: 1;
+      }
+    }
+  }
+
+  /* The list is the grid's only item; with no minimum height it can shrink to the row.
+     Clipping it would cut off the focus ring, so it is padded by the ring's reach and
+     pulled back sideways by as much. */
+  .article-toc details > ol {
+    @variant max-wide {
+      @variant motion-safe {
+        min-height: 0;
+        overflow: hidden;
+        margin-inline: -0.4rem;
+        padding-inline: 0.4rem;
+        padding-block-end: 0.4rem;
+      }
+    }
+  }
 }
 
 @media print {
