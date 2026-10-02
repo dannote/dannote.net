@@ -166,7 +166,7 @@ For mathematics there is [Lean](https://lean-lang.org). Every definition, theore
 
 <.building_this_year_lean_sample />
 
-I want the same for the web stack: one language in which bundling, the JavaScript runtime, storage, the backend, deployment, and operations share the same kind of API, the same runtime, and the same checks, while JavaScript, Rust, and SQL keep doing their jobs underneath. That needs a language that can grow a new API for each layer. I spent a long time looking at languages with flexible metaprogramming, such as [Metalua](https://github.com/fab13n/metalua), and Elixir is a rare one: its macros are written in Elixir itself, with no separate macro language as in Rust. I first wrote about this intuition in [“A language for humans and models”](/writing/a-language-for-humans-and-models/).
+I want the same for the web stack: [one language](/writing/a-language-for-humans-and-models/) in which bundling, the JavaScript runtime, storage, the backend, deployment, and operations share the same kind of API, the same runtime, and the same checks, while JavaScript, Rust, and SQL keep doing their jobs underneath. That needs a language that can grow a new API for each layer. I spent a long time looking at languages with flexible metaprogramming, such as [Metalua](https://github.com/fab13n/metalua), and Elixir is a rare one: its macros are written in Elixir itself, with no separate macro language as in Rust.
 
 All of it in one session, the same one an agent works in:
 
