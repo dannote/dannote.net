@@ -290,7 +290,7 @@ None of this makes blind vibe coding safe. It reduces some kinds of ambiguity, c
 
 ## Frontend tooling in Elixir
 
-Choosing Elixir did not remove the need for JavaScript. The npm ecosystem contains too much useful work, and Vue is a good abstraction for building interfaces. Rewriting all of it in Elixir would make no sense.
+Choosing Elixir did not remove the need for JavaScript. Browsers run JavaScript, whether we like it or not, and that is not going to change. The npm ecosystem also contains too much useful work, and Vue is a good abstraction for building interfaces. Rewriting all of it in Elixir would make no sense.
 
 The problem was the separate operational world around it: Node processes, package managers, framework compilers, bundlers, and CSS tools, each with its own configuration and lifecycle. Calling JavaScript from Elixir is easy; start a Node process and exchange JSON. I wanted JavaScript execution to be observable and controllable as part of the same system.
 
