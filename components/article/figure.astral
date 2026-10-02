@@ -1,8 +1,7 @@
 ---
 # A figure in an article: rules above and below, an optional caption that labels it,
-# and an ambient background drifting slowly behind the content. The drift is styled
-# by .figure-ambient in assets/styles.css; each figure starts it at its own phase,
-# derived from its id, so neighbouring figures don't move in lockstep.
+# and an ambient background that drifts as the figure scrolls through the viewport,
+# styled by .figure-ambient in assets/styles.css.
 assigns =
   assigns
   |> assign_new(:caption, fn -> nil end)
@@ -14,14 +13,13 @@ id = assigns.id || "figure-#{:erlang.phash2(key)}"
 assigns =
   assigns
   |> assign(:caption_id, assigns.caption && "#{id}-caption")
-  |> assign(:phase, :erlang.phash2(key, 90))
 ---
 <figure
   class="figure not-prose relative isolate my-10 border-y border-copy/25 py-6"
   aria-labelledby={@caption_id}
 >
   <div class="figure-ambient-frame" aria-hidden="true">
-    <div class="figure-ambient" style={"animation-delay: -#{@phase}s"}></div>
+    <div class="figure-ambient"></div>
   </div>
   <figcaption :if={@caption} id={@caption_id} class="mb-5 text-sm text-dim">
     {@caption}
