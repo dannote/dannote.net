@@ -469,9 +469,9 @@ Suppose a customer arrives through a paid campaign, begins registration, gets st
 
 An agent can use the same data. A background agent could notice that conversion from a campaign dropped, identify the affected landing page, inspect recent sessions, find where users started abandoning the funnel, and propose a change with the evidence that led to it. Each one arrives as a suggestion with its evidence attached, and the founder approves it or not.
 
-## How this differs from Figma, Lovable, and Replit
+## How this differs from other tools
 
-These are two different comparisons: Lovable and Replit with the platform as a whole, Figma with [OpenPencil](https://github.com/open-pencil/open-pencil) and its file format.
+The two closest comparisons are of different kinds: Lovable and Replit with the platform as a whole, Figma with [OpenPencil](https://github.com/open-pencil/open-pencil) and its file format.
 
 ### Lovable and Replit
 
@@ -494,6 +494,10 @@ Figma owns the editor, and with it the access to every design inside. Its remote
 > — Mario Zechner (@badlogicgames), [30 September 2026](https://x.com/badlogicgames/status/2105234146499203255)
 
 First Figma closed the debugging interface [`figma-use`](https://github.com/dannote/figma-use) relied on, and now it keeps an allowlist of MCP clients. These look like the last breaths of a dragon. [OpenPencil](https://github.com/open-pencil/open-pencil) opens more than the `.fig` format: it also open-sources [the building blocks](#openpencil-became-a-toolkit) for editors like it, so anyone can build their own. Figma’s moat will dissipate the way the moats around `.docx` and `.pdf` did, once any program could open and write them.
+
+### Everyone else
+
+There are many more projects in this space, and I follow them closely: [Paper](https://x.com/paper), [Magic Patterns](https://x.com/magicpatterns), [v0](https://x.com/v0), [MagicPath](https://x.com/MagicPathAI), [Base44](https://x.com/Base44), [Wonder](https://x.com/usewonder), [Dessn](https://x.com/Dessn_ai), [pen.dev](https://x.com/pendev), [Brilliant](https://x.com/usebrilliant), [Tenor](https://x.com/tenordesign), [Omma](https://x.com/omma_ai), and [OpenDesign](https://x.com/OpenDesignHQ), among others. Most are commercial, with a subscription for the design harness itself. That makes no sense to me. Coding harnesses are mostly free or open source, and their makers charge for the models.
 
 ## Where this stands
 
