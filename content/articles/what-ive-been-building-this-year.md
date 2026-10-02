@@ -300,7 +300,7 @@ In [QuickBEAM](https://github.com/elixir-volt/quickbeam), JavaScript runtimes an
 
 Execution can also be constrained by memory and an instruction budget per call, in the spirit of BEAM reductions, so runaway JavaScript does not have unlimited control of the host application. Large numbers of lightweight contexts can share a small pool of runtime threads. Browser APIs such as workers, timers, storage, and networking are backed by OTP primitives, and runtimes can call each other across Erlang nodes.
 
-In August it went a step further, with an interpreter that runs QuickJS bytecode as BEAM code. Each call gets a fresh heap, the scheduler can preempt it like any other process, and a failure is contained to one evaluation. I wrote about it in [“JavaScript as BEAM code”](/writing/javascript-as-beam-code/).
+In August it went a step further, with [an interpreter that runs QuickJS bytecode as BEAM code](/writing/javascript-as-beam-code/). Each call gets a fresh heap, the scheduler can preempt it like any other process, and a failure is contained to one evaluation.
 
 JavaScript remains available where the ecosystem requires it, but it no longer disappears into an opaque Node sidecar.
 
