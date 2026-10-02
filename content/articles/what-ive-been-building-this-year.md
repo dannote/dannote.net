@@ -308,7 +308,7 @@ Package management came next. [`npm_ex`](https://github.com/elixir-volt/npm_ex) 
 
 I also created Elixir bindings for the Rust tools that already do much of the real work in modern frontend toolchains: [OXC](https://oxc.rs) for JavaScript and TypeScript, [Vize](https://github.com/ubugeeei/vize) for Vue, and [Tailwind](https://tailwindcss.com)’s Oxide scanner, which finds class names in source files. These projects did not need to be rewritten; they needed APIs the BEAM could call directly.
 
-[Volt](https://github.com/elixir-volt/volt) assembles these pieces into one frontend toolchain that replaces esbuild, the Tailwind CLI, and Node.js: a development server with hot module replacement, linting, and production builds for TypeScript, Vue, React, Svelte, and Solid. JavaScript tests run inside `mix test`, and since September every error in the chain, from OXC through [QuickBEAM](https://github.com/elixir-volt/quickbeam) and Volt to [PhoenixVapor](https://github.com/elixir-volt/phoenix_vapor), has the same diagnostic shape with file, line, and column. The toolchain starts with the application and can be configured, observed, and extended from Elixir.
+[Volt](https://github.com/elixir-volt/volt) assembles these pieces into one frontend toolchain that replaces esbuild, the Tailwind CLI, and Node.js: a development server with hot module replacement, linting, and production builds for TypeScript, Vue, React, Svelte, and Solid. JavaScript tests run inside `mix test`. The toolchain starts with the application and can be configured, observed, and extended from Elixir.
 
 <.building_this_year_volt_tree />
 
