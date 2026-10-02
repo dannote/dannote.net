@@ -379,11 +379,11 @@ DuckDB is becoming the common storage layer across the platform. [Exograph](http
 
 I started [QuackDB](https://github.com/elixir-vibe/quackdb) while DuckDB’s Quack client-server protocol was still experimental. It has since reached 1.0 in [DuckDB 2.0](https://duckdb.org/2026/09/02/try-duckdb-20-alpha.html), and with DuckLabs [joining AWS](https://aws.amazon.com/blogs/big-data/aws-and-ducklabs-building-the-future-of-analytics-together/) while the project stays MIT-licensed under the independent DuckDB Foundation, I consider it a safe long-term bet.
 
-Storage was one shared service. Model access is the other: not every product needs an LLM, but most now call one, and every product eventually depends on external APIs.
+Storage was one shared service. Model access is the other, since most products now call an LLM.
 
 [LLMProxy](https://github.com/elixir-vibe/llm_proxy) is one execution path for every model call, in the spirit of [LiteLLM](https://www.litellm.ai) but Elixir-native: it runs inside the application, or standalone with OpenAI- and Anthropic-compatible endpoints. Callers ask for `fast`, `smart`, or `cheap`. Routing, fallbacks, quotas, and accounting happen behind those names, so a provider can change without touching a caller, and the founder sees where every token went.
 
-I found the same pattern repeated with non-LLM services. A startup gradually accumulates APIs for email, advertising, payments, image generation, vectorization, search, and hosting. Each integration comes with its own authentication, retries, limits, credentials, errors, and accounting.
+Every product also depends on external APIs beyond models, and they follow the same pattern. A startup gradually accumulates APIs for email, advertising, payments, image generation, vectorization, search, and hosting. Each integration comes with its own authentication, retries, limits, credentials, errors, and accounting.
 
 Egress is the next step, and it is still a design: an external service described once as a set of typed operations, such as creating a campaign or sending an email, that produce both an Elixir client and a proxy route through the same runtime path for authentication, retries, quotas, tracing, and accounting. An agent would call an operation with a contract and never see the URL or the provider’s authentication scheme. The repository stays private until the first operations run.
 
