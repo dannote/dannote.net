@@ -35,8 +35,6 @@ My ambition is an open-source platform that can eventually compete with [Figma](
 
 <.building_this_year_project_map />
 
-The rest of this post walks through the map roughly one stage at a time.
-
 ## Who I am
 
 I am a programmer, but I have never stayed in one narrow part of the stack. I have done systems programming, contributed to open source in the [Xfce](https://gitlab.xfce.org/xfce/garcon/-/commit/aec77533132eb324180ef771e15226a752573eae) and [nginx](https://github.com/dannote/socks-nginx-module) ecosystems, done white-hat security research through [Google Bug Hunters](https://bughunters.google.com/profile/62602ae8-cf92-4fb0-810c-c9e284f3427e) and [Bugcrowd](https://bugcrowd.com/h/dannote), built web applications, and occasionally worked as a designer. I tend to move to whichever layer contains the problem.
@@ -55,11 +53,9 @@ Figma’s own [MCP](https://modelcontextprotocol.io) server at the time could on
 
 Coding agents became useful when the harnesses around them, the tools that wrap a model in a loop, gave them an iterative process: inspect a repository, make a change, run the application, read the error, compare the result with what was expected, try again.
 
-I wanted to give design agents the same kind of loop.
+I wanted to give design agents the same kind of loop, because good design works the same way. A designer normally begins by collecting references, then draws several drafts, compares them, and chooses a direction. After that comes a longer loop: copy, tweak, compare, choose, and repeat. The first result is rarely the final one.
 
-Good design is iterative too. A designer normally begins by collecting references, then draws several drafts, compares them, and chooses a direction. After that comes a longer loop: copy, tweak, compare, choose, and repeat. The first result is rarely the final one.
-
-Most AI design tools ignore this process. They try to generate a finished screen in one shot. Even when the screenshot looks impressive, the structure underneath is often useless: unnamed nested frames, no components, no tokens, and no coherent system that another designer can continue working with.
+Most AI design tools ignore this process. They try to generate a finished screen in one shot. Even when the screenshot looks impressive, the structure underneath is often useless: unnamed nested frames, no components, no tokens, and no coherent system that another designer can continue working with. And even a good-looking screen is only a draft: fitting it to real-world use takes a long series of decisions and compromises, and a one-shot generator skips all of them.
 
 With [`figma-use`](https://github.com/dannote/figma-use), an agent could work on the actual structure. It could create and modify nodes, use components and variants, describe a screen in JSX and render it as Figma layers, inspect the resulting tree, and continue from there. A `.figma.tsx` file defines components; the first render creates the master, the rest create instances:
 
@@ -303,7 +299,13 @@ But adding more checks creates its own risk. A false positive is annoying for a 
 
 That is why I built [Exograph](https://github.com/elixir-vibe/exograph): local [CodeQL](https://codeql.github.com)-style code search for Elixir, backed by DuckDB through [QuackDB](https://github.com/elixir-vibe/quackdb) and [ExAST](https://github.com/elixir-vibe/ex_ast). It indexes the entire public [Hex](https://hex.pm) package ecosystem and queries it by structure, similarity, and call graph. Running a proposed rule across that corpus is how I find false positives and decide whether it is reliable enough to keep.
 
-As I was finishing this post, José Valim argued in [“Evolving programming languages in the AI era”](https://dashbit.co/blog/evolving-ai-era) that agents need stronger guarantees and a program database with a query language more than an editor protocol built for humans. [Reach](https://github.com/elixir-vibe/reach) and [Exograph](https://github.com/elixir-vibe/exograph) are my attempt at that database for Elixir: facts about calls, data flow, effects, and architecture that an agent can query.
+As I was finishing this post, José Valim published [“Evolving programming languages in the AI era”](https://dashbit.co/blog/evolving-ai-era). On what agents need from tooling, he writes:
+
+> The good news is that many language servers already build, or have access to, much of the information coding agents need: symbols, references, call graphs, type information, and sometimes data-flow information. My suggestion is to expose this information as a program database with a query language, be it SQLite, Datalog, or a custom DSL.
+>
+> — José Valim
+
+[Reach](https://github.com/elixir-vibe/reach) and [Exograph](https://github.com/elixir-vibe/exograph) are my attempt at that database for Elixir: facts about calls, data flow, effects, and architecture that an agent can query.
 
 The same tools are used to check themselves. My projects combine the compiler, tests, Dialyzer, [ExDNA](https://github.com/elixir-vibe/ex_dna), [ExSlop](https://github.com/elixir-vibe/ex_slop), [Reach](https://github.com/elixir-vibe/reach), and architecture rules. [VibeKit](https://github.com/elixir-vibe/vibe_kit) installs that setup into a new or existing project with one command.
 

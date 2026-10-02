@@ -104,7 +104,7 @@ assigns = assign(assigns, :rows, rows)
         aria-hidden="true"
       />
     </.building_this_year_stat>
-    <.building_this_year_stat value="493" label="Pull requests this year">
+    <.building_this_year_stat value="493" label="Pull requests">
       <.icon
         name="lucide:git-pull-request"
         width="14"
