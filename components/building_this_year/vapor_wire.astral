@@ -52,10 +52,10 @@ assigns =
   |> assign(:wire, wire)
   |> assign(:pane, "overflow-x-auto p-4 text-sm leading-6")
 ---
-<figure class="not-prose my-10 border-y border-copy/25 py-6" aria-labelledby="vapor-wire-caption">
-  <figcaption id="vapor-wire-caption" class="mb-5 text-sm text-dim">
-    A Vue template, what PhoenixVapor compiles it to, and what the socket sends: the first render, then one changed value.
-  </figcaption>
+<.article_figure
+  id="vapor-wire"
+  caption="A Vue template, what PhoenixVapor compiles it to, and what the socket sends: the first render, then one changed value."
+>
   <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
     <div class="min-w-0 sm:col-span-2">
       <div class="mb-2 text-xs uppercase tracking-wider text-dim">Template</div>
@@ -70,4 +70,4 @@ assigns =
       <.article_code_pane lang="json" lines={@wire} class={@pane} />
     </div>
   </div>
-</figure>
+</.article_figure>

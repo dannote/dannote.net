@@ -40,10 +40,10 @@ assigns =
   )
   |> assign(:pane, "overflow-x-auto px-3 py-2 text-xs leading-5")
 ---
-<figure class="not-prose my-10 border-y border-copy/25 py-6" aria-labelledby="design-diff-caption">
-  <figcaption id="design-diff-caption" class="mb-5 text-sm text-dim">
-    What the agent sees after a change: before, after, the pixels that differ, and the same change as a patch.
-  </figcaption>
+<.article_figure
+  id="design-diff"
+  caption="What the agent sees after a change: before, after, the pixels that differ, and the same change as a patch."
+>
   <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
     <div class="min-w-0">
       <div class="mb-2 text-xs uppercase tracking-wider text-dim">Before</div>
@@ -84,4 +84,4 @@ assigns =
       </div>
     </div>
   </div>
-</figure>
+</.article_figure>
