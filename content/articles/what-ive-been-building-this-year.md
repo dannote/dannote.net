@@ -471,9 +471,13 @@ An agent can use the same data. A background agent could notice that conversion 
 
 ## How this differs from Figma, Lovable, and Replit
 
-Figma is a different case. Once `.fig` is a commodity, a design no longer belongs to the editor it was drawn in.
+Lovable and Replit turn a prompt into a deployed application. I am trying to cover the rest of the founder’s work as well: operating the product, acquiring users, understanding what they do, and feeding that evidence into the next decision.
 
-Going through Figma’s own MCP server is no safer today. Figma’s remote MCP server decides which agents may connect at all: sign-in works only for client names on its list, such as Claude Code or Codex. This week, when Mario Zechner tried to connect [Pi](https://github.com/badlogic/pi-mono), his open-source coding agent, Figma refused it because [Pi](https://github.com/badlogic/pi-mono) identifies itself as `pi`.
+The technical foundation is different too. Skills can improve an agent on a JavaScript or Python project, but they cannot change its execution model or the conflicting conventions it learned there. Mine uses Elixir and OTP as the common environment and adds the checks, the observable JavaScript, the shared storage, and the live product data.
+
+Lovable and Replit grew out of venture-capital culture, where rapid user growth can take priority over margins and usage can be subsidized while a company searches for scale. I am building from the perspective of a technical founder spending his own money. Infrastructure cost, API usage, acquisition cost, conversion, and the work required to operate the product are part of the system from the beginning.
+
+Figma is a different case: it owns the editor, and with it the access to every design inside. Its remote MCP server decides which agents may connect at all: sign-in works only for client names on its list, such as Claude Code or Codex. This week, when Mario Zechner tried to connect [Pi](https://github.com/badlogic/pi-mono), his open-source coding agent, Figma refused it because [Pi](https://github.com/badlogic/pi-mono) identifies itself as `pi`.
 
 > today in MCP land ...
 >
@@ -483,11 +487,7 @@ Going through Figma’s own MCP server is no safer today. Figma’s remote MCP s
 >
 > — Mario Zechner (@badlogicgames), [30 September 2026](https://x.com/badlogicgames/status/2105234146499203255)
 
-Lovable and Replit turn a prompt into a deployed application. I am trying to cover the rest of the founder’s work as well: operating the product, acquiring users, understanding what they do, and feeding that evidence into the next decision.
-
-The technical foundation is different too. Skills can improve an agent on a JavaScript or Python project, but they cannot change its execution model or the conflicting conventions it learned there. Mine uses Elixir and OTP as the common environment and adds the checks, the observable JavaScript, the shared storage, and the live product data.
-
-Lovable and Replit grew out of venture-capital culture, where rapid user growth can take priority over margins and usage can be subsidized while a company searches for scale. I am building from the perspective of a technical founder spending his own money. Infrastructure cost, API usage, acquisition cost, conversion, and the work required to operate the product are part of the system from the beginning.
+Once `.fig` is a commodity, a design no longer belongs to the editor it was drawn in.
 
 ## Where this stands
 
