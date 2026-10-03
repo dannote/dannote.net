@@ -13,13 +13,6 @@ tsgolint_platform =
 config :mdex_native, syntax_highlighter: :lumis
 
 config :volt,
-  format: [
-    print_width: 100,
-    semi: true,
-    single_quote: false,
-    trailing_comma: :all,
-    arrow_parens: :always
-  ],
   lint: [
     tsgolint:
       Path.expand("../node_modules/@oxlint-tsgolint/#{tsgolint_platform}/tsgolint", __DIR__),
@@ -31,6 +24,9 @@ config :volt,
     }
   ],
   sources: ["**/*.{js,ts,jsx,tsx}"],
+  # In development, a page whose HTML changed is patched in place instead of
+  # reloaded. Mounted islands are left alone; a change to their props reloads.
+  server: [morph: [preserve: "[data-astral-island]"]],
   tailwind: [
     css: "assets/styles.css",
     sources: [
