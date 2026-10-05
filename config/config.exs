@@ -25,7 +25,7 @@ config :volt,
   ],
   sources: ["**/*.{js,ts,jsx,tsx}"],
   # In development, a page whose HTML changed is patched in place instead of
-  # reloaded. Mounted islands are left alone; a change to their props reloads.
+  # reloaded. Mounted islands are left alone, and re-render when their props change.
   server: [morph: [preserve: "[data-astral-island]"]],
   tailwind: [
     css: "assets/styles.css",

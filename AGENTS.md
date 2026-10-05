@@ -16,7 +16,7 @@ Before changing site structure, routing, layouts, content collections, Markdown 
    - Assets and browser code: <https://hexdocs.pm/astral/assets.html> and <https://hexdocs.pm/astral/ui-and-browser-code.html>
 3. Prefer the installed dependency's documentation and source when behavior depends on the exact locked version. Inspect `mix.lock`, use Elixir dependency/docs introspection when available, or read `deps/astral/`; do not assume Astro conventions apply.
 
-Astral uses `{:astral, "~> 0.6.0"}`. Keep changes compatible with the version resolved in `mix.lock`.
+Astral uses `{:astral, "~> 0.7.0"}`. Keep changes compatible with the version resolved in `mix.lock`.
 
 ## Project structure
 

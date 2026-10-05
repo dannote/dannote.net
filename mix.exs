@@ -35,7 +35,7 @@ defmodule Blog.MixProject do
       {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false},
       {:credo, "~> 1.0", only: [:dev, :test], runtime: false},
       {:vibe_kit, "~> 0.1"},
-      {:astral, "~> 0.6.0"},
+      {:astral, "~> 0.7.0"},
       {:lumis, "~> 0.10"},
       {:req, "~> 0.7"},
       {:json_codec, "~> 0.3"},
