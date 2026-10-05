@@ -8,6 +8,7 @@ alias Blog.Site
     <.nav_link href={"mailto:" <> Site.email()} icon="lucide:mail">Email</.nav_link>
     <.nav_link href="/feed.xml" icon="lucide:rss">Atom feed</.nav_link>
     <.nav_link href="/elsewhere/" icon="lucide:compass">Elsewhere</.nav_link>
+    <.nav_link href="/donate/" icon="lucide:heart">Support</.nav_link>
     <.nav_link href="https://github.com/dannote/dannote.net" icon="lucide:code">Source code</.nav_link>
   </nav>
   <p class="mt-6 text-dim">

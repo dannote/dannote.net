@@ -1,0 +1,5 @@
+---
+# The dotted rule that joins a name on the left of a row to what stands at its right end,
+# as in a table of contents. It takes the space between them in a flex row.
+---
+<span aria-hidden="true" class="min-w-6 flex-1 border-b border-dotted border-rule-strong"></span>

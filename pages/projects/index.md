@@ -48,4 +48,6 @@ Most of my current work concerns coding agents: giving them access to structured
 
 My [GitHub profile](https://github.com/dannote) also covers earlier work in Ruby, search, Russian NLP, systems programming, and security research.
 
+If any of this is useful to you, you can [support the work](/donate/).
+
 For the longer explanation of the current work, see [What I’ve Been Building This Year](/writing/what-ive-been-building-this-year/) and [Building Blocks for the Future Web](https://github.com/elixir-vibe/building-blocks).

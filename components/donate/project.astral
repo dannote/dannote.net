@@ -1,0 +1,34 @@
+---
+# One group of projects on the donate page, set like an entry of the writing index:
+# its name, a leader, and the link to its payment page where an entry has its date,
+# with the projects in the group underneath.
+---
+<div class="flex items-baseline gap-3">
+  <h2 class="m-0 text-base font-semibold tracking-normal">
+    <.image
+      src={@project.avatar}
+      alt=""
+      width={72}
+      height={72}
+      fit={:cover}
+      class="mr-2.5 inline-block size-7 rounded-md align-[-0.4em]"
+    />{@project.title}
+  </h2>
+  <.leader />
+  <a href={@project.donate} class="shrink-0 no-underline hover:underline">
+    <.icon
+      name="lucide:heart"
+      width="14"
+      height="14"
+      class="mr-1 inline align-[-0.1em] text-accent"
+      aria-hidden="true"
+    />Support
+  </a>
+</div>
+<p class="mt-1 mb-0 flex flex-wrap gap-x-4 pl-[2.375rem]">
+  <a
+    :for={{name, url} <- @project.links}
+    href={url}
+    class="whitespace-nowrap text-dim no-underline hover:text-copy hover:underline"
+  >{name}</a>
+</p>

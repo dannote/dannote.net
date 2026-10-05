@@ -526,5 +526,5 @@ Those services do not exist yet. Building them takes time, and most of the work 
 <.article_callout>
 <p>If you or your company would like to sponsor this work, or can provide model credits or infrastructure, write to me at <a href="mailto:hello@dannote.net">hello@dannote.net</a>.</p>
 <p>Sponsorship can be general or tied to a package you depend on. Grants and partnerships with service providers are welcome too.</p>
-<p>If you just want to chip in, there is <a href="https://web.tribute.tg/d/PXf">Tribute</a>.</p>
+<p>If you just want to chip in, there is a <a href="/donate/">donate page</a>.</p>
 </.article_callout>

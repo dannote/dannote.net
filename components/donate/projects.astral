@@ -1,0 +1,69 @@
+---
+# The groups of projects a donation can go to. Every group has its own Tribute page, so
+# the totals there say what the support was for. The ids are the anchors the Sponsor
+# buttons on GitHub link to, and the avatars are the GitHub organisations’ own, kept in
+# assets/images/orgs/.
+projects = [
+  %{
+    id: "openpencil",
+    avatar: "images/orgs/open-pencil.png",
+    title: "OpenPencil",
+    links: [
+      {"OpenPencil", "https://openpencil.dev"},
+      {"figma-use", "https://github.com/dannote/figma-use"}
+    ],
+    donate: "https://web.tribute.tg/d/PXf"
+  },
+  %{
+    id: "volt",
+    avatar: "images/orgs/elixir-volt.jpg",
+    title: "Volt",
+    links: [
+      {"Volt", "https://github.com/elixir-volt/volt"},
+      {"Astral", "https://github.com/elixir-volt/astral"},
+      {"QuickBEAM", "https://github.com/elixir-volt/quickbeam"},
+      {"Phoenix Vapor", "https://github.com/elixir-volt/phoenix_vapor"},
+      {"PhoenixIconify", "https://github.com/elixir-volt/phoenix_iconify"},
+      {"XM", "https://github.com/elixir-volt/xm"}
+    ],
+    donate: "https://web.tribute.tg/d/PXh"
+  },
+  %{
+    id: "vibe",
+    avatar: "images/orgs/elixir-vibe.jpg",
+    title: "Vibe",
+    links: [
+      {"Vibe", "https://github.com/elixir-vibe/vibe"},
+      {"pi-elixir", "https://github.com/elixir-vibe/pi-elixir"},
+      {"VibeKit", "https://github.com/elixir-vibe/vibe_kit"},
+      {"Reach", "https://github.com/elixir-vibe/reach"},
+      {"Exograph", "https://github.com/elixir-vibe/exograph"},
+      {"ExAST", "https://github.com/elixir-vibe/ex_ast"},
+      {"ExDNA", "https://github.com/elixir-vibe/ex_dna"},
+      {"ExSlop", "https://github.com/elixir-vibe/ex_slop"},
+      {"PhoenixReplay", "https://github.com/elixir-vibe/phoenix_replay"},
+      {"QuackDB", "https://github.com/elixir-vibe/quackdb"},
+      {"LLMProxy", "https://github.com/elixir-vibe/llm_proxy"},
+      {"HostKit", "https://github.com/elixir-vibe/host_kit"}
+    ],
+    donate: "https://web.tribute.tg/d/PXg"
+  },
+  %{
+    id: "elixir-crab",
+    avatar: "images/orgs/elixir-crab.png",
+    title: "Elixir Crab",
+    links: [
+      {"GPUI", "https://github.com/elixir-crab/gpui"},
+      {"RustQ", "https://github.com/elixir-crab/rustq"}
+    ],
+    donate: "https://web.tribute.tg/d/PXj"
+  }
+]
+
+assigns = assign(assigns, :projects, projects)
+---
+<ul class="not-prose my-8 list-none space-y-5 p-0">
+  <li :for={project <- @projects} id={project.id} class="scroll-mt-6">
+    <.donate_project project={project} />
+  </li>
+</ul>

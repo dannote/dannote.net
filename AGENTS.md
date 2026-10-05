@@ -32,7 +32,7 @@ Astral uses `{:astral, "~> 0.7.0"}`. Keep changes compatible with the version re
 ## Components
 
 - `components/` is discovered recursively; Astral names a component by its path with underscores, so `components/site/header.astral` is `<.site_header />`. Folders are prefixes.
-- `site/` is the chrome, `writing/` the index entry, `article/` what any article may use: contents, meta, callout, code pane, link card, supervision tree. Blocks that belong to one post live in a folder named after it, such as `building_this_year/`; the generic primitives stay at the top level.
+- `site/` is the chrome, `writing/` the index entry, `article/` what any article may use: contents, meta, callout, code pane, link card, supervision tree. Blocks that belong to one post or page live in a folder named after it, such as `building_this_year/` or `donate/`; the generic primitives stay at the top level. A list and its rows are two components, as in `writing/list` and `writing/entry`.
 - A component call inside Markdown stays on one line. A tag that spans lines makes MDEx treat the rest of the document as raw HTML. Data belongs in the component's preamble, not in attributes.
 - A module named more than once in a file gets an `alias`: at the top of an `.astral` preamble, which also covers its template, or of an Elixir module. A Markdown page cannot hold setup code, so repeated logic there moves into a component.
 - Code that no grammar can highlight, or that is colored by role rather than syntax, is written as data: lines of `{token, text}` segments rendered by `Blog.Highlight` through `<.article_code_pane>`. Never hand-write spans in a template; the formatter reflows them.
