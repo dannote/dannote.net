@@ -1,6 +1,6 @@
 ---
 # One group of projects on the donate page, set like an entry of the writing index:
-# its name, a leader, and the link to its payment page where an entry has its date,
+# its name, a leader, and the Support link where an entry has its date,
 # with the projects in the group underneath.
 ---
 <div class="flex items-baseline gap-3">
@@ -15,7 +15,7 @@
     />{@project.title}
   </h2>
   <.leader />
-  <a href={@project.donate} class="shrink-0 no-underline hover:underline">
+  <a href={@donate} class="shrink-0 no-underline hover:underline">
     <.icon
       name="lucide:heart"
       width="14"

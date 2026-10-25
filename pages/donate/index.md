@@ -1,21 +1,19 @@
 ---
 title: Donate
-description: How to support Danila Poyarkov’s open-source work, and what the Tribute payment page is.
+description: How to support Danila Poyarkov’s open-source work.
 ---
 
 # Donate
 
 I build open-source tools for coding agents, design automation, and the Elixir ecosystem. They are free and will stay free. Most of the work runs on agents, so besides my time the main cost is model tokens.
 
-If one of the projects is useful to you, you can chip in. Each group has its own payment page, so I can tell what the support is for.
+If one of the projects is useful to you, you can chip in.
 
 <.donate_projects />
 
 ## About the payment page
 
-The Support links open [Tribute](https://tribute.tg), a payment service that grew up around Telegram, where creators use it for donations and subscriptions. You don’t need Telegram to pay: it takes a bank card, and you can log in with an email address.
-
-The usual platforms for sponsoring open source, GitHub Sponsors among them, are temporarily unavailable to me. Tribute is the one that works.
+The Support links open [Ko-fi](https://ko-fi.com/dannote). You can pay by card, Apple Pay, or Google Pay, once or monthly, and you don’t need an account.
 
 ## Other ways to help
 

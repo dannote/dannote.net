@@ -1,8 +1,9 @@
 ---
-# The groups of projects a donation can go to. Every group has its own Tribute page, so
-# the totals there say what the support was for. The ids are the anchors the Sponsor
-# buttons on GitHub link to, and the avatars are the GitHub organisations’ own, kept in
-# assets/images/orgs/.
+# The groups of projects a donation supports, all through one Ko-fi page. The ids are
+# anchors other pages can link to, and the avatars are the GitHub organisations’ own,
+# kept in assets/images/orgs/.
+donate = "https://ko-fi.com/dannote"
+
 projects = [
   %{
     id: "openpencil",
@@ -11,8 +12,7 @@ projects = [
     links: [
       {"OpenPencil", "https://openpencil.dev"},
       {"figma-use", "https://github.com/dannote/figma-use"}
-    ],
-    donate: "https://web.tribute.tg/d/PXf"
+    ]
   },
   %{
     id: "volt",
@@ -25,8 +25,7 @@ projects = [
       {"Phoenix Vapor", "https://github.com/elixir-volt/phoenix_vapor"},
       {"PhoenixIconify", "https://github.com/elixir-volt/phoenix_iconify"},
       {"XM", "https://github.com/elixir-volt/xm"}
-    ],
-    donate: "https://web.tribute.tg/d/PXh"
+    ]
   },
   %{
     id: "vibe",
@@ -45,8 +44,7 @@ projects = [
       {"QuackDB", "https://github.com/elixir-vibe/quackdb"},
       {"LLMProxy", "https://github.com/elixir-vibe/llm_proxy"},
       {"HostKit", "https://github.com/elixir-vibe/host_kit"}
-    ],
-    donate: "https://web.tribute.tg/d/PXg"
+    ]
   },
   %{
     id: "elixir-crab",
@@ -55,15 +53,14 @@ projects = [
     links: [
       {"GPUI", "https://github.com/elixir-crab/gpui"},
       {"RustQ", "https://github.com/elixir-crab/rustq"}
-    ],
-    donate: "https://web.tribute.tg/d/PXj"
+    ]
   }
 ]
 
-assigns = assign(assigns, :projects, projects)
+assigns = assign(assigns, projects: projects, donate: donate)
 ---
 <ul class="not-prose my-8 list-none space-y-5 p-0">
   <li :for={project <- @projects} id={project.id} class="scroll-mt-6">
-    <.donate_project project={project} />
+    <.donate_project project={project} donate={@donate} />
   </li>
 </ul>
