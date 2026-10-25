@@ -1,6 +1,6 @@
 ---
 alias Astral.Collection
-alias Blog.Site
+alias Blog.Site, as: SiteInfo
 
 articles =
   @site
@@ -11,58 +11,62 @@ articles =
 
 assigns = assign(assigns, :articles, articles)
 ---
-<header class="flow-root">
-  <img
-    src="/images/danila-poyarkov.jpg"
-    width="460"
-    height="460"
-    alt={Site.author()}
-    class="not-prose float-right mb-3 ml-6 size-20 rounded-full object-cover sm:size-24"
-  />
-  <h1 class="text-display">{Site.author()}</h1>
-  <p>I build open-source tools for coding agents, design automation, and the Elixir ecosystem.</p>
-  <p>
-    I’m interested in what comes after generation: how an agent inspects its changes,
-    understands a running system, and checks that the result is actually correct.
-  </p>
-  <p><.more_link href="/about/">More about me</.more_link></p>
-</header>
+<Layouts.site {assigns}>
+  <header class="flow-root">
+    <img
+      src="/images/danila-poyarkov.jpg"
+      width="460"
+      height="460"
+      alt={SiteInfo.author()}
+      class="not-prose float-right mb-3 ml-6 size-20 rounded-full object-cover sm:size-24"
+    />
+    <h1 class="text-display">{SiteInfo.author()}</h1>
+    <p>
+      I build open-source tools for coding agents, design automation, and the Elixir ecosystem.
+    </p>
+    <p>
+      I’m interested in what comes after generation: how an agent inspects its changes,
+      understands a running system, and checks that the result is actually correct.
+    </p>
+    <p><.more_link href="/about/">More about me</.more_link></p>
+  </header>
 
-<section aria-labelledby="projects-title">
-  <h2 id="projects-title">Selected projects</h2>
-  <ul>
-    <li>
-      <a href="https://openpencil.dev">OpenPencil</a>
-      — an open-source design editor and Figma alternative, with structured documents that people and agents can inspect and edit.
-    </li>
-    <li>
-      <a href="https://github.com/dannote/figma-use">figma-use</a>
-      — a CLI for structural queries, editing, diffs, and exports in Figma.
-    </li>
-    <li>
-      <a href="https://github.com/elixir-vibe/reach">Reach</a>
-      — code and data flow, effect analysis, and architecture checks for BEAM projects.
-    </li>
-    <li>
-      <a href="https://github.com/elixir-volt/volt">Volt</a>
-      — frontend builds and a development server for Phoenix, including HMR and Tailwind.
-    </li>
-    <li>
-      <a href="https://github.com/elixir-volt/quickbeam">QuickBEAM</a>
-      — a JavaScript runtime for the BEAM, with browser-like APIs backed by OTP.
-    </li>
-  </ul>
-  <p>
-    <.more_link href="/projects/">More projects</.more_link>
-  </p>
-</section>
+  <section aria-labelledby="projects-title">
+    <h2 id="projects-title">Selected projects</h2>
+    <ul>
+      <li>
+        <a href="https://openpencil.dev">OpenPencil</a>
+        — an open-source design editor and Figma alternative, with structured documents that people and agents can inspect and edit.
+      </li>
+      <li>
+        <a href="https://github.com/dannote/figma-use">figma-use</a>
+        — a CLI for structural queries, editing, diffs, and exports in Figma.
+      </li>
+      <li>
+        <a href="https://github.com/elixir-vibe/reach">Reach</a>
+        — code and data flow, effect analysis, and architecture checks for BEAM projects.
+      </li>
+      <li>
+        <a href="https://github.com/elixir-volt/volt">Volt</a>
+        — frontend builds and a development server for Phoenix, including HMR and Tailwind.
+      </li>
+      <li>
+        <a href="https://github.com/elixir-volt/quickbeam">QuickBEAM</a>
+        — a JavaScript runtime for the BEAM, with browser-like APIs backed by OTP.
+      </li>
+    </ul>
+    <p>
+      <.more_link href="/projects/">More projects</.more_link>
+    </p>
+  </section>
 
-<section :if={@articles != []} aria-labelledby="writing-title">
-  <h2 id="writing-title">Writing</h2>
-  <ul class="not-prose my-4 list-none space-y-4 p-0">
-    <li :for={article <- @articles}>
-      <.writing_entry entry={article} />
-    </li>
-  </ul>
-  <p><.more_link href="/writing/">All writing</.more_link></p>
-</section>
+  <section :if={@articles != []} aria-labelledby="writing-title">
+    <h2 id="writing-title">Writing</h2>
+    <ul class="not-prose my-4 list-none space-y-4 p-0">
+      <li :for={article <- @articles}>
+        <Writing.entry entry={article} />
+      </li>
+    </ul>
+    <p><.more_link href="/writing/">All writing</.more_link></p>
+  </section>
+</Layouts.site>

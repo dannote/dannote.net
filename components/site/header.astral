@@ -1,5 +1,5 @@
 ---
-alias Blog.Site
+alias Blog.Site, as: SiteInfo
 
 current = assigns[:route] || "/"
 
@@ -14,7 +14,7 @@ section =
 assigns = assign(assigns, :section, section)
 ---
 <header class="mb-8 print:hidden flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3 border-b border-rule py-6">
-  <.nav_link href="/" class="hidden sm:inline" aria-label={"#{Site.author()}, home"}>{Site.domain()}</.nav_link>
+  <.nav_link href="/" class="hidden sm:inline" aria-label={"#{SiteInfo.author()}, home"}>{SiteInfo.domain()}</.nav_link>
 
   <nav
     class="flex flex-wrap gap-x-5 gap-y-2"

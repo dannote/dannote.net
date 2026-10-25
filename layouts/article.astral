@@ -10,7 +10,7 @@ assigns =
 <!doctype html>
 <html lang={@lang}>
   <head>
-    <.site_head
+    <Site.head
       title={@title}
       description={@description}
       route={@route}
@@ -22,7 +22,7 @@ assigns =
     </script>
   </head>
   <body data-route={@route} data-entry-kind="article">
-    <.site_shell route={@route} skip_target="article-content" skip_label="Skip to article">
+    <Site.shell route={@route} skip_target="article-content" skip_label="Skip to article">
       <main id="article-content">
         <article class="pb-6 wide:-ml-toc-offset wide:grid wide:grid-cols-article wide:gap-x-10">
           <header class="mb-6 wide:col-start-2">
@@ -33,13 +33,13 @@ assigns =
             >
               {@entry.data.subtitle}
             </p>
-            <.article_meta entry={@entry} />
+            <Article.meta entry={@entry} />
           </header>
 
-          <.article_contents headings={@entry.content.headings} />
-          <.prose class="wide:col-start-2">{@content}</.prose>
+          <Article.contents headings={@entry.content.headings} />
+          <.prose class="wide:col-start-2">{render_slot(@inner_block)}</.prose>
         </article>
       </main>
-    </.site_shell>
+    </Site.shell>
   </body>
 </html>

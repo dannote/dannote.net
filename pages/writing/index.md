@@ -9,10 +9,10 @@ I write about building tools that let people and agents understand what they are
 
 <section aria-labelledby="essays-title">
   <h2 id="essays-title">Essays</h2>
-  <.writing_list site={@site} kind="Essay" />
+  <Writing.list site={@site} kind="Essay" />
 </section>
 
 <section aria-labelledby="notes-title">
   <h2 id="notes-title">Notes</h2>
-  <.writing_list site={@site} kind="Note" />
+  <Writing.list site={@site} kind="Note" />
 </section>

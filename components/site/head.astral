@@ -1,17 +1,18 @@
 ---
-alias Blog.{Site, SocialImages}
+alias Blog.SocialImages
+alias Blog.Site, as: SiteInfo
 
-title = assigns[:title] || Site.author()
+title = assigns[:title] || SiteInfo.author()
 
-description = assigns[:description] || Site.description()
+description = assigns[:description] || SiteInfo.description()
 
 route = assigns[:route] || "/"
-canonical = Site.absolute_url(route)
+canonical = SiteInfo.absolute_url(route)
 locale = assigns[:locale] || "en"
 type = assigns[:type] || "website"
 image_path = SocialImages.path(if type == "article", do: route)
-image_url = Site.absolute_url(image_path)
-image_alt = if type == "article", do: title, else: "#{Site.author()} — #{Site.domain()}"
+image_url = SiteInfo.absolute_url(image_path)
+image_alt = if type == "article", do: title, else: "#{SiteInfo.author()} — #{SiteInfo.domain()}"
 
 assigns =
   assigns
@@ -43,7 +44,7 @@ assigns =
 <link
   rel="alternate"
   type="application/atom+xml"
-  title={Site.feed_title()}
+  title={SiteInfo.feed_title()}
   href="/feed.xml"
 />
 <title>{@title}</title>
@@ -53,7 +54,7 @@ assigns =
 <meta property="og:title" content={@title} />
 <meta property="og:description" content={@description} />
 <meta property="og:locale" content={@locale} />
-<meta property="og:site_name" content={Site.domain()} />
+<meta property="og:site_name" content={SiteInfo.domain()} />
 <meta property="og:image" content={@image_url} />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />

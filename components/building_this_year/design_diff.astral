@@ -40,7 +40,7 @@ assigns =
   )
   |> assign(:pane, "overflow-x-auto px-3 py-2 text-xs leading-5")
 ---
-<.article_figure
+<Article.figure
   id="design-diff"
   caption="What the agent sees after a change: before, after, the pixels that differ, and the same change as a patch."
 >
@@ -78,10 +78,10 @@ assigns =
     <div class="min-w-0 sm:col-span-3">
       <div class="mb-2 text-xs uppercase tracking-wider text-dim">Patch</div>
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <.article_code_pane lang="diff" lines={@card} class={@pane} />
-        <.article_code_pane lang="diff" lines={@title} class={@pane} />
-        <.article_code_pane lang="diff" lines={@button} class={@pane} />
+        <Article.code_pane lang="diff" lines={@card} class={@pane} />
+        <Article.code_pane lang="diff" lines={@title} class={@pane} />
+        <Article.code_pane lang="diff" lines={@button} class={@pane} />
       </div>
     </div>
   </div>
-</.article_figure>
+</Article.figure>

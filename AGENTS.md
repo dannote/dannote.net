@@ -22,7 +22,7 @@ Astral uses `{:astral, "~> 0.7.0"}`. Keep changes compatible with the version re
 
 - `astral.config.exs` — Astral configuration, layouts, collections, plugins, generated routes, and asset entries.
 - `pages/` — file-based Markdown, HTML, and `.astral` pages.
-- `layouts/` — shared page and collection layouts.
+- `layouts/` — layout components: `layouts/site.astral` is `<Layouts.site>`. Markdown pages get one from the config, frontmatter, or collection; `.astral` pages wrap themselves in `<Layouts.site {assigns}>`.
 - `assets/` — Volt-managed TypeScript, CSS, and imported browser assets.
 - `public/` — files copied unchanged to the static output.
 - `lib/` — project-specific Elixir modules.
@@ -31,12 +31,12 @@ Astral uses `{:astral, "~> 0.7.0"}`. Keep changes compatible with the version re
 
 ## Components
 
-- `components/` is discovered recursively; Astral names a component by its path with underscores, so `components/site/header.astral` is `<.site_header />`. Folders are prefixes.
-- `site/` is the chrome, `writing/` the index entry, `article/` what any article may use: contents, meta, callout, code pane, link card, supervision tree. Blocks that belong to one post or page live in a folder named after it, such as `building_this_year/` or `donate/`; the generic primitives stay at the top level. A list and its rows are two components, as in `writing/list` and `writing/entry`.
+- `components/` is discovered recursively. A top-level component is `<.name>`; a folder is a module, so `components/site/header.astral` is `<Site.header />`. An alias that shadows a folder fails the build, which is why `Blog.Site` is aliased `as: SiteInfo`.
+- `site/` is the chrome, `writing/` the index entry, `article/` what any article may use: contents, meta, callout, code pane, link card, supervision tree. Blocks that belong to one post or page live in a folder named after it, such as `building_this_year/` or `donate/`; the generic primitives stay at the top level. A list and its rows are two components, as in `<Writing.list>` and `<Writing.entry>`.
 - A component call inside Markdown stays on one line. A tag that spans lines makes MDEx treat the rest of the document as raw HTML. Data belongs in the component's preamble, not in attributes.
 - A module named more than once in a file gets an `alias`: at the top of an `.astral` preamble, which also covers its template, or of an Elixir module. A Markdown page cannot hold setup code, so repeated logic there moves into a component.
-- Code that no grammar can highlight, or that is colored by role rather than syntax, is written as data: lines of `{token, text}` segments rendered by `Blog.Highlight` through `<.article_code_pane>`. Never hand-write spans in a template; the formatter reflows them.
-- Every illustration in an article is wrapped in `<.article_figure id="…" caption="…">`, which draws the rules, labels the figure by its caption, and adds the slow ambient background. Don't hand-write `<figure>` wrappers.
+- Code that no grammar can highlight, or that is colored by role rather than syntax, is written as data: lines of `{token, text}` segments rendered by `Blog.Highlight` through `<Article.code_pane>`. Never hand-write spans in a template; the formatter reflows them.
+- Every illustration in an article is wrapped in `<Article.figure id="…" caption="…">`, which draws the rules, labels the figure by its caption, and adds the slow ambient background. Don't hand-write `<figure>` wrappers.
 - Type: pages use Helvetica Neue where the visitor has it (Apple devices) and the self-hosted Inter in `assets/fonts/` everywhere else. Code uses SF Mono where `ui-monospace` resolves (Safari) and the self-hosted Geist Mono everywhere else. Never preload either web font, or Apple devices download them too. Social cards and generated drawings use TeX Gyre Heros from `priv/fonts/`, a free Helvetica, with Inter for Cyrillic text. The reasons are in the comments in `assets/styles.css` and `Blog.SocialImages`.
 - Fenced code is highlighted by Lumis, one `lumis_wasm_*` package per language in `mix.exs`. A fence in a language with no package renders plain.
 - Islands are Vue files under `assets/islands/`, their composables under `assets/composables/`, mounted with `<.vue component="islands/Name.vue" client={:visible} props={...}>` and static children as the pre-hydration content. The Vue runtime comes from `package.json`.
@@ -54,7 +54,7 @@ Astral uses `{:astral, "~> 0.7.0"}`. Keep changes compatible with the version re
 
 - An X post is a blockquote ending in `— Name (@handle), [date](url)`; `Blog.Markdown.XPosts` marks it and `assets/x-posts.ts` swaps in the embed on load. Put the poster frame of a video in the quote as an image under `assets/images/x/`.
 - A terminal session is a ` ```console ` fence: `$ ` lines are commands, the rest output. `Blog.Markdown.Console` colors it by role; a shell grammar would color the output as code.
-- A URL posted on its own becomes `<.article_link_card href="..." />`. `Blog.LinkPreview` fetches the page once at build time; the cache in `content/link_previews.json` and the images in `assets/images/links/` are committed, so builds run offline. Delete a cache entry to refetch.
+- A URL posted on its own becomes `<Article.link_card href="..." />`. `Blog.LinkPreview` fetches the page once at build time; the cache in `content/link_previews.json` and the images in `assets/images/links/` are committed, so builds run offline. Delete a cache entry to refetch.
 - Every mention of one of the author's projects links to it; an external technology links once, on first mention.
 - `.reach.exs` is the architecture policy, checked in `mix ci`. Keep it true when adding modules.
 

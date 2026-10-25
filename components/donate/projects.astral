@@ -61,6 +61,6 @@ assigns = assign(assigns, projects: projects, donate: donate)
 ---
 <ul class="not-prose my-8 list-none space-y-5 p-0">
   <li :for={project <- @projects} id={project.id} class="scroll-mt-6">
-    <.donate_project project={project} donate={@donate} />
+    <Donate.project project={project} donate={@donate} />
   </li>
 </ul>

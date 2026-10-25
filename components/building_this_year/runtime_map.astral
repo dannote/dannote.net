@@ -18,7 +18,7 @@ rows = [
 
 assigns = assign(assigns, :rows, rows)
 ---
-<.article_figure
+<Article.figure
   id="runtime-map"
   caption="What a running BEAM application will tell an agent, and the call that answers each question."
 >
@@ -32,4 +32,4 @@ assigns = assign(assigns, :rows, rows)
       <code class="text-dim">{call}</code>
     </li>
   </ol>
-</.article_figure>
+</Article.figure>

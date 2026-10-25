@@ -34,11 +34,13 @@ articles =
 
 assigns = assign(assigns, :articles, articles)
 ---
-<ul>
-  <li :for={article <- @articles}>
-    <.writing_entry entry={article} />
-  </li>
-</ul>
+<Layouts.site {assigns}>
+  <ul>
+    <li :for={article <- @articles}>
+      <Writing.entry entry={article} />
+    </li>
+  </ul>
+</Layouts.site>
 ```
 
 Layouts and components work the same way, in [`layouts/`](layouts) and [`components/`](components).
@@ -50,7 +52,7 @@ Articles are Markdown with YAML frontmatter, checked against a schema declared i
 ```elixir
 collection :articles, "content/articles" do
   permalink("/writing/:slug/")
-  layout("article.astral")
+  layout("article")
 
   schema do
     field(:title, :string, required: true)

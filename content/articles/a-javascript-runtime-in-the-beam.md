@@ -33,4 +33,4 @@ Use cases:
 
 Still a research project in early beta. Covered with tests including Web Platform Tests ports, but expect rough edges.
 
-<.article_link_card href="https://github.com/elixir-volt/quickbeam" title="elixir-volt/quickbeam" description="JavaScript runtime for the BEAM: Web APIs backed by OTP, native DOM, no Node.js." />
+<Article.link_card href="https://github.com/elixir-volt/quickbeam" title="elixir-volt/quickbeam" description="JavaScript runtime for the BEAM: Web APIs backed by OTP, native DOM, no Node.js." />

@@ -53,4 +53,4 @@ lines = [
 
 assigns = assign(assigns, :lines, lines)
 ---
-<.article_code_pane lang="lean" lines={@lines} />
+<Article.code_pane lang="lean" lines={@lines} />

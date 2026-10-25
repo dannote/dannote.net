@@ -75,7 +75,7 @@ assigns =
   |> assign(:steps, steps)
   |> assign(:spans, spans)
 ---
-<.article_figure
+<Article.figure
   id="customer-path"
   caption="Where the funnel narrows and why: traffic splitting by campaign creative, then one abandoned session as the spans that produced it. The numbers are illustrative."
 >
@@ -100,4 +100,4 @@ assigns =
       </li>
     </ol>
   </.vue>
-</.article_figure>
+</Article.figure>

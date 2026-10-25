@@ -13,6 +13,6 @@ assigns = assign(assigns, :articles, articles)
 ---
 <ul class="not-prose my-4 list-none space-y-4 p-0">
   <li :for={article <- @articles}>
-    <.writing_entry entry={article} />
+    <Writing.entry entry={article} />
   </li>
 </ul>

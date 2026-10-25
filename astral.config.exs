@@ -38,7 +38,7 @@ plugin(Astral.Plugin.LLMs,
 )
 
 layouts do
-  default("site.astral")
+  default("site")
 end
 
 assets do
@@ -48,7 +48,7 @@ end
 
 collection :articles, "content/articles" do
   permalink("/writing/:slug/")
-  layout("article.astral")
+  layout("article")
 
   schema do
     field(:title, :string, required: true)

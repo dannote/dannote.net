@@ -1,11 +1,11 @@
 ---
-alias Blog.Site
+alias Blog.Site, as: SiteInfo
 ---
 <!doctype html>
 <html lang={@metadata["language"] || "en"}>
   <head>
-    <.site_head
-      title={if @page.title, do: "#{@page.title} — #{Site.author()}", else: Site.author()}
+    <Site.head
+      title={if @page.title, do: "#{@page.title} — #{SiteInfo.author()}", else: SiteInfo.author()}
       description={@metadata["description"]}
       route={@route}
       locale={@metadata["language"] || "en"}
@@ -15,10 +15,10 @@ alias Blog.Site
     </script>
   </head>
   <body data-route={@route}>
-    <.site_shell route={@route}>
+    <Site.shell route={@route}>
       <main id="content">
-        <.prose>{@content}</.prose>
+        <.prose>{render_slot(@inner_block)}</.prose>
       </main>
-    </.site_shell>
+    </Site.shell>
   </body>
 </html>

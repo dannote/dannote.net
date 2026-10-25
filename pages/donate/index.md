@@ -9,7 +9,7 @@ I build open-source tools for coding agents, design automation, and the Elixir e
 
 If one of the projects is useful to you, you can chip in.
 
-<.donate_projects />
+<Donate.projects />
 
 ## About the payment page
 
